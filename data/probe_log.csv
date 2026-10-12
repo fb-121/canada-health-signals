@@ -45,3 +45,14 @@ ts_utc,name,status,bytes,content_type,sha256_12,archived,data_links,error
 2026-10-12T03:14:05Z,qc_er_resource_page,200,38150,text/html,1c0d9b362d14,False,https://www.msss.gouv.qc.ca/professionnels/statistiques/documents/urgences/Releve_horaire_urgences_7jours.csv,
 2026-10-12T03:14:05Z,qc_er_hourly_7day,403,0,text/html,,False,,HTTP 403
 2026-10-12T03:14:05Z,qc_er_hourly_7day_headcount,403,0,text/html,,False,,HTTP 403
+2026-10-12T03:19:13Z,dpd_brand_advil,200,12735,application/json,05ba7e6e6538,unchanged,,
+2026-10-12T03:19:13Z,dpd_ingredient_acetaminophen,200,176741,application/json,38bd8b958eff,unchanged,,
+2026-10-12T03:19:13Z,hc_recalls_opendata,200,15770700,application/json,55f34fc3b269,unchanged,,
+2026-10-12T03:19:13Z,phac_wastewater_aggregate,200,8466557,text/csv,22918b6c884c,unchanged,,
+2026-10-12T03:19:13Z,phac_wastewater_covid_trend,200,4222,text/csv,b380e6ba4be5,unchanged,,
+2026-10-12T03:19:13Z,phac_wastewater_page,200,77040,text/html,065c9d527996,False,/src/data/covidLive/wastewater/covid19-wastewater-trend.csv;/src/data/wastewater/wastewater_aggregate.csv;/src/data/wastewater/wastewater_trend.csv;/src/data/covidLive/wastewater/covid19-wastewater-data-dictionary-en.csv,
+2026-10-12T03:19:13Z,aqhi_calgary_bbox,200,58086,application/json,87479016a16f,True,,
+2026-10-12T03:19:13Z,qc_er_dataset_meta,200,11267,application/json,d18de60bd2b2,unchanged,,
+2026-10-12T03:19:13Z,qc_er_resource_page,200,38150,text/html,8a6db27e7447,False,https://www.msss.gouv.qc.ca/professionnels/statistiques/documents/urgences/Releve_horaire_urgences_7jours.csv,
+2026-10-12T03:19:13Z,qc_er_hourly_7day,403,0,text/html,,False,,HTTP 403: <html> <head><title>403 Forbidden</title></head> <body> <center><h1>403 Forbidden</h1></center> </body> </html>
+2026-10-12T03:19:13Z,qc_er_hourly_7day_headcount,403,0,text/html,,False,,HTTP 403: <html> <head><title>403 Forbidden</title></head> <body> <center><h1>403 Forbidden</h1></center> </body> </html>
