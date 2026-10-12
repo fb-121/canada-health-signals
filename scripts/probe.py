@@ -121,7 +121,12 @@ def fetch(url):
             body = resp.read(MAX_BYTES + 1)
             return resp.status, resp.headers.get("Content-Type", ""), body, ""
     except urllib.error.HTTPError as e:
-        return e.code, e.headers.get("Content-Type", "") if e.headers else "", b"", f"HTTP {e.code}"
+        try:
+            snippet = e.read(400).decode("utf-8", errors="ignore")
+        except Exception:
+            snippet = ""
+        snippet = " ".join(snippet.split())[:200]
+        return e.code, e.headers.get("Content-Type", "") if e.headers else "", b"", f"HTTP {e.code}: {snippet}"
     except Exception as e:  # network errors, timeouts, DNS, TLS
         return 0, "", b"", f"{type(e).__name__}: {e}"[:200]
 
