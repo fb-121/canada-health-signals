@@ -94,6 +94,20 @@ SOURCES = [
         "archive": False,
         "note": "Fallback for finding the CSV link if the metadata call fails.",
     },
+    {
+        "name": "qc_er_hourly_7day",
+        "url": "https://www.msss.gouv.qc.ca/professionnels/statistiques/documents/urgences/Releve_horaire_urgences_7jours.csv",
+        "ext": "csv",
+        "archive": True,
+        "note": "Quebec ER situation by facility, hourly, rolling 7 days (CC-BY 4.0). A daily run captures every hour.",
+    },
+    {
+        "name": "qc_er_hourly_7day_headcount",
+        "url": "https://www.msss.gouv.qc.ca/professionnels/statistiques/documents/urgences/Releve_horaire_urgences_7jours_nbpers.csv",
+        "ext": "csv",
+        "archive": True,
+        "note": "Same, with the number of people present (CC-BY 4.0).",
+    },
     # AHS (Alberta) ER wait times removed: their terms of use do not allow automated collection.
 ]
 
