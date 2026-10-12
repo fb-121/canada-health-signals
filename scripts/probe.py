@@ -151,6 +151,35 @@ SOURCES = [
         "archive": False,
         "note": "PHAC respiratory virus surveillance page. Probe only, the link finder looks for data files.",
     },
+    # Exploration: evidence and regulation sources for an AI-in-medicine project.
+    {
+        "name": "pubmed_ai_rct_count",
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&retmode=json&rettype=count&term=%22artificial+intelligence%22%5BMeSH+Terms%5D+AND+randomized+controlled+trial%5BPublication+Type%5D",
+        "ext": "json",
+        "archive": True,
+        "note": "PubMed E-utilities: count of AI randomized controlled trials. Counts only.",
+    },
+    {
+        "name": "ctgov_ai_count",
+        "url": "https://clinicaltrials.gov/api/v2/studies?query.term=artificial+intelligence&pageSize=1&countTotal=true",
+        "ext": "json",
+        "archive": True,
+        "note": "ClinicalTrials.gov API v2: total studies mentioning artificial intelligence.",
+    },
+    {
+        "name": "openfda_enforcement_sample",
+        "url": "https://api.fda.gov/drug/enforcement.json?limit=1",
+        "ext": "json",
+        "archive": True,
+        "note": "openFDA drug recall enforcement reports, one sample row.",
+    },
+    {
+        "name": "fda_ai_devices_page",
+        "url": "https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-enabled-medical-devices",
+        "ext": "html",
+        "archive": False,
+        "note": "FDA AI-enabled device list page. Probe only, the link finder looks for the data file.",
+    },
     # AHS (Alberta) ER wait times removed: their terms of use do not allow automated collection.
 ]
 
