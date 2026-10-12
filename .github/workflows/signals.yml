@@ -6,7 +6,7 @@ on:
   workflow_dispatch:         # lets you run it by hand from the Actions tab
   push:
     paths:
-      - "scripts/probe.py"   # re-runs automatically when the script changes
+      - "scripts/**"         # re-runs automatically when the scripts change
 
 permissions:
   contents: write
@@ -24,11 +24,16 @@ jobs:
       - name: Probe and archive feeds
         run: python scripts/probe.py
 
-      - name: Commit data
+      - name: Build the page
+        continue-on-error: true   # a page problem must never lose the day's data
+        run: python scripts/build_site.py
+
+      - name: Commit data and page
+        if: always()
         run: |
           git config user.name "signals-bot"
           git config user.email "signals-bot@users.noreply.github.com"
-          git add data
+          git add data docs
           git diff --cached --quiet || git commit -m "data: daily snapshot $(date -u +%F)"
           git pull --rebase origin main
           git push
