@@ -108,6 +108,49 @@ SOURCES = [
         "archive": True,
         "note": "Same, with the number of people present (CC-BY 4.0).",
     },
+    # Exploration for project two: US wastewater and hospital data (public domain, CDC) and PHAC respiratory page.
+    {
+        "name": "cdc_nhsn_admissions_meta",
+        "url": "https://data.cdc.gov/api/views/vdzy-6i9v.json",
+        "ext": "json",
+        "archive": True,
+        "note": "NHSN weekly hospital respiratory admissions by jurisdiction: columns, licence, row count.",
+    },
+    {
+        "name": "cdc_nhsn_admissions_sample",
+        "url": "https://data.cdc.gov/resource/vdzy-6i9v.json?$limit=5",
+        "ext": "json",
+        "archive": True,
+        "note": "Five sample rows of the same dataset.",
+    },
+    {
+        "name": "cdc_wastewater_fluA_sample",
+        "url": "https://data.cdc.gov/resource/ymmh-divb.json?$limit=5",
+        "ext": "json",
+        "archive": True,
+        "note": "CDC wastewater influenza A, five sample rows.",
+    },
+    {
+        "name": "cdc_wastewater_covid_sample",
+        "url": "https://data.cdc.gov/resource/j9g8-acpt.json?$limit=5",
+        "ext": "json",
+        "archive": True,
+        "note": "CDC wastewater SARS-CoV-2, five sample rows.",
+    },
+    {
+        "name": "cdc_wastewater_rsv_sample",
+        "url": "https://data.cdc.gov/resource/45cq-cw4i.json?$limit=5",
+        "ext": "json",
+        "archive": True,
+        "note": "CDC wastewater RSV, five sample rows.",
+    },
+    {
+        "name": "phac_resp_surveillance_page",
+        "url": "https://health-infobase.canada.ca/respiratory-virus-surveillance/",
+        "ext": "html",
+        "archive": False,
+        "note": "PHAC respiratory virus surveillance page. Probe only, the link finder looks for data files.",
+    },
     # AHS (Alberta) ER wait times removed: their terms of use do not allow automated collection.
 ]
 
