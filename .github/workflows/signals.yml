@@ -24,6 +24,10 @@ jobs:
       - name: Probe and archive feeds
         run: python scripts/probe.py
 
+      - name: Collect AI evidence counts and FDA list
+        continue-on-error: true
+        run: python scripts/ai_evidence.py
+
       - name: Build the page
         continue-on-error: true   # a page problem must never lose the day's data
         run: python scripts/build_site.py
