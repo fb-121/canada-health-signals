@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Respiratory season in wastewater</title>
+<meta name="description" content="Weekly wastewater readings for influenza A, influenza B, COVID-19 and RSV across Canada, this season against the last two.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  color-scheme: light;
+  --surface: #fcfcfb;
+  --ink: #0b0b0b;
+  --ink2: #52514e;
+  --muted: #898781;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --cur: #2a78d6;
+  --prev: #6b6a65;
+  --old: #b4b3ab;
+  --shadow: rgba(11, 11, 11, 0.10);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --surface: #1a1a19;
+    --ink: #f0efec;
+    --ink2: #c3c2b7;
+    --muted: #898781;
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --cur: #3987e5;
+    --prev: #a3a29a;
+    --old: #5b5a55;
+    --shadow: rgba(0, 0, 0, 0.5);
+  }
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.wrap { max-width: 1040px; margin: 0 auto; padding: 36px 16px 72px; }
+@media (min-width: 700px) { .wrap { padding: 56px 32px 96px; } }
+
+.site { font-size: 15px; font-weight: 500; color: var(--ink2); margin: 0 0 20px; }
+h1 {
+  font-size: clamp(27px, 4.4vw, 44px);
+  line-height: 1.16;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  margin: 0;
+  max-width: 24em;
+}
+.pick { position: relative; display: inline-block; }
+.place {
+  font: inherit;
+  letter-spacing: inherit;
+  color: var(--cur);
+  background: none;
+  border: 0;
+  border-bottom: 2px solid var(--cur);
+  border-radius: 0;
+  margin: 0;
+  padding: 0 0.7em 0 0;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.place:focus-visible { outline: 2px solid var(--cur); outline-offset: 5px; }
+.place option, .place optgroup { color: #0b0b0b; background: #fcfcfb; font-weight: 500; }
+.caret { position: absolute; right: 0.05em; top: 50%; transform: translateY(-48%); font-size: 0.5em; color: var(--cur); pointer-events: none; }
+.measure { position: absolute; visibility: hidden; white-space: pre; font: inherit; letter-spacing: inherit; left: -9999px; }
+.dek { font-size: 17px; color: var(--ink2); margin: 18px 0 0; max-width: 40em; }
+.note { font-size: 15px; color: var(--ink2); margin: 10px 0 0; max-width: 40em; }
+
+.controls { display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; margin: 30px 0 22px; }
+.group { display: inline-flex; border: 1px solid var(--axis); border-radius: 8px; overflow: hidden; }
+.btn {
+  font: inherit; font-size: 14px; font-weight: 500; color: var(--ink2);
+  background: transparent; border: 0; padding: 8px 14px; cursor: pointer; min-height: 40px;
+}
+.group .btn + .btn { border-left: 1px solid var(--axis); }
+.btn[aria-pressed="true"] { background: var(--ink); color: var(--surface); }
+.btn:focus-visible { outline: 2px solid var(--cur); outline-offset: -2px; }
+.btn.solo { border: 1px solid var(--axis); border-radius: 8px; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 0 0 6px; padding: 0; list-style: none; font-size: 14px; color: var(--ink2); }
+.legend li { display: inline-flex; align-items: center; gap: 8px; }
+.key { display: inline-block; width: 22px; height: 0; border-top: 2px solid; border-radius: 2px; }
+
+.grid { display: grid; grid-template-columns: 1fr; gap: 34px 44px; margin-top: 18px; }
+@media (min-width: 780px) { .grid { grid-template-columns: 1fr 1fr; } }
+.panel { border-top: 1px solid var(--grid); padding-top: 16px; min-width: 0; }
+.panel h2 { font-size: 20px; line-height: 1.25; font-weight: 600; margin: 0; }
+.status { margin: 4px 0 0; font-size: 15px; color: var(--ink2); }
+.status .glyph { display: inline-block; width: 1.3em; color: var(--ink); }
+.nums { display: flex; gap: 8px 26px; flex-wrap: wrap; margin: 14px 0 0; padding: 0; list-style: none; }
+.nums li { display: flex; flex-direction: column; }
+.nums .v { font-size: 18px; font-weight: 600; line-height: 1.2; }
+.nums .l { font-size: 13px; color: var(--muted); }
+.plot { position: relative; margin-top: 10px; }
+.plot svg { display: block; max-width: 100%; overflow: visible; touch-action: pan-y; }
+.plot svg text { font-family: inherit; }
+.hit:focus-visible { outline: 2px solid var(--cur); outline-offset: 2px; }
+.tip {
+  position: absolute; z-index: 3; pointer-events: none; display: none;
+  background: var(--surface); border: 1px solid var(--axis); border-radius: 8px;
+  padding: 9px 11px; font-size: 13px; min-width: 170px; box-shadow: 0 2px 10px var(--shadow);
+}
+.tip .h { color: var(--ink2); margin-bottom: 6px; }
+.tip .r { display: flex; align-items: center; gap: 8px; line-height: 1.7; }
+.tip .r .k { width: 14px; height: 0; border-top: 2px solid; border-radius: 2px; flex: none; }
+.tip .r .n { color: var(--ink2); flex: 1; }
+.tip .r .x { font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
+
+table { border-collapse: collapse; width: 100%; font-size: 14px; margin-top: 10px; }
+caption { text-align: left; font-size: 13px; color: var(--muted); padding-bottom: 6px; }
+th, td { padding: 7px 8px 7px 0; border-bottom: 1px solid var(--grid); text-align: right; font-variant-numeric: tabular-nums; }
+th:first-child, td:first-child { text-align: left; }
+th { font-weight: 500; color: var(--ink2); }
+
+.qc { margin-top: 72px; border-top: 1px solid var(--grid); padding-top: 22px; }
+.qc h2 { font-size: 24px; line-height: 1.25; font-weight: 600; margin: 0; }
+.qc .lead { font-size: 17px; color: var(--ink2); margin: 10px 0 0; max-width: 44em; }
+.bars { margin-top: 22px; }
+.axishead, .row { display: grid; grid-template-columns: minmax(150px, 1.15fr) 3fr; gap: 4px 20px; align-items: center; }
+.row { padding: 7px 0; }
+.rname { font-size: 15px; line-height: 1.3; }
+.rdetail { font-size: 13px; color: var(--muted); }
+.track { position: relative; height: 18px; }
+.bar { position: absolute; left: 0; top: 2px; height: 14px; border-radius: 0 4px 4px 0; background: var(--cur); }
+.pct { position: absolute; top: 0; font-size: 14px; font-weight: 600; line-height: 18px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.ref { position: absolute; top: -8px; bottom: -8px; width: 1px; background: var(--ink2); }
+.reflabel { position: relative; height: 18px; font-size: 13px; color: var(--ink2); }
+.reflabel span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+@media (max-width: 600px) {
+  .axishead, .row { grid-template-columns: 1fr; }
+  .axishead > :first-child { display: none; }
+}
+.qnote { font-size: 14px; color: var(--muted); margin: 18px 0 0; max-width: 46em; }
+
+.about { margin-top: 72px; border-top: 1px solid var(--grid); padding-top: 22px; max-width: 46em; }
+.about h2 { font-size: 18px; font-weight: 600; margin: 0 0 6px; }
+.about p { font-size: 15px; color: var(--ink2); margin: 0 0 18px; }
+.about a { color: var(--cur); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="site">Canada Health Signals</p>
+  <h1 id="lede"><span>In </span><span class="pick"><select id="place" class="place" aria-label="Choose a place"></select><span class="caret" aria-hidden="true">&#9662;</span></span><span id="ledeRest"></span><span id="measure" class="measure place" aria-hidden="true"></span></h1>
+  <p class="dek" id="dek"></p>
+  <p class="note" id="note" hidden></p>
+
+  <div class="controls">
+    <div class="group" role="group" aria-label="Time range">
+      <button class="btn" type="button" id="vSofar" aria-pressed="true">Season so far</button>
+      <button class="btn" type="button" id="vFull" aria-pressed="false">Full season</button>
+    </div>
+    <button class="btn solo" type="button" id="tbl" aria-pressed="false">View as table</button>
+  </div>
+  <ul class="legend" aria-label="Chart key">
+    <li><span class="key" style="border-color: var(--cur)"></span><span id="lgCur"></span></li>
+    <li><span class="key" style="border-color: var(--prev)"></span><span id="lgPrev"></span></li>
+    <li><span class="key" style="border-color: var(--old)"></span><span id="lgOld"></span></li>
+  </ul>
+
+  <div class="grid" id="panels"></div>
+
+  <section class="qc" id="qc" aria-labelledby="qcTitle">
+    <h2 id="qcTitle">Quebec emergency rooms, one hour</h2>
+    <p class="lead" id="qcLead"></p>
+    <div class="bars" id="qcBars"></div>
+    <p class="qnote" id="qcNote"></p>
+  </section>
+
+  <section class="about">
+    <h2>How to read this</h2>
+    <p>Each line is one respiratory season, counted from September 1. The Public Health Agency of Canada publishes a weekly wastewater average for each virus. Its dashboard states no unit, so compare each virus only with its own history, never one virus with another. Some sites report a week or more late, and a single reading can spike, so the signal is stronger when the next weeks hold.</p>
+    <p>Comparisons use the same calendar week, within four days. A place needs about half a season of earlier readings to be included.</p>
+    <h2>Sources</h2>
+    <p>Wastewater: Public Health Agency of Canada, Canadian wastewater surveillance (health-infobase.canada.ca), reproduced under the Government of Canada terms for non-commercial reuse. Quebec emergency rooms: Gouvernement du Quebec, Fichier horaire des donnees de la situation a l'urgence, CC BY 4.0. This is an independent project and is not endorsed by either government. The code and the daily archive are at <a href="https://github.com/fb-121/canada-health-signals">github.com/fb-121/canada-health-signals</a>. Page rebuilt <span id="built"></span>.</p>
+  </section>
+</div>
+
+<script>
+(() => {
+const D = __DATA__;
+const NAMES = { fluA: "Influenza A", covN2: "COVID-19", rsv: "RSV", fluB: "Influenza B" };
+const LOW = { fluA: "influenza A", covN2: "COVID-19", rsv: "RSV", fluB: "influenza B" };
+const ORDER = ["fluA", "covN2", "rsv", "fluB"];
+const CUR = D.current, PREV = CUR - 1, OLD = CUR - 2;
+const sLabel = y => y + "-" + String(y + 1).slice(2);
+const SVGNS = "http://www.w3.org/2000/svg";
+const $ = (s, r = document) => r.querySelector(s);
+
+function el(tag, attrs, text) {
+  const e = document.createElement(tag);
+  for (const k in (attrs || {})) e.setAttribute(k, attrs[k]);
+  if (text !== undefined) e.textContent = text;
+  return e;
+}
+function sv(tag, attrs, text) {
+  const e = document.createElementNS(SVGNS, tag);
+  for (const k in (attrs || {})) e.setAttribute(k, attrs[k]);
+  if (text !== undefined) e.textContent = text;
+  return e;
+}
+const fmt = v => v >= 100 ? v.toFixed(0) : String(Number(v.toPrecision(2)));
+const dlabel = iso => new Date(iso + "T00:00:00Z").toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
+const dayLabel = day => new Date(Date.UTC(CUR, 8, 1) + day * 864e5).toLocaleDateString("en-US", { month: "short", day: "numeric", timeZone: "UTC" });
+const joinList = a => a.length < 2 ? a.join("") : a.slice(0, -1).join(", ") + " and " + a[a.length - 1];
+
+const state = { place: (D.places.find(p => p.name === "Calgary") || D.places[0]).name, view: "sofar", table: false };
+const place = () => D.places.find(p => p.name === state.place);
+const pts = (p, m, y) => (p.series[m] && p.series[m][String(y)]) || [];
+
+function nearest(points, day, tol) {
+  let best = null, bd = Infinity;
+  for (const q of points) {
+    const d = Math.abs(q[0] - day);
+    if (d < bd) { bd = d; best = q; }
+  }
+  return best && bd <= tol ? best : null;
+}
+
+function status(p, m) {
+  const cur = pts(p, m, CUR);
+  if (!cur.length) return { kind: "none" };
+  const last = cur[cur.length - 1];
+  const p1 = nearest(pts(p, m, PREV), last[0], 4);
+  const p2 = nearest(pts(p, m, OLD), last[0], 4);
+  const priors = [p1, p2].filter(Boolean).map(q => q[1]);
+  let kind = "nocompare";
+  if (priors.length) {
+    if (last[1] > 1.25 * Math.max(...priors)) kind = "above";
+    else if (last[1] < 0.8 * Math.min(...priors)) kind = "below";
+    else kind = "within";
+  }
+  return { kind, last, p1, p2 };
+}
+
+function statusText(s) {
+  const map = {
+    none: ["", "No readings this season yet"],
+    nocompare: ["", "No earlier seasons to compare"],
+    above: ["▲", "Above both earlier seasons"],
+    below: ["▼", "Below both earlier seasons"],
+    within: ["●", "Within the range of earlier seasons"]
+  };
+  return map[s.kind];
+}
+
+function niceScale(v) {
+  const raw = v / 4, mag = Math.pow(10, Math.floor(Math.log10(raw))), n = raw / mag;
+  const step = (n <= 1 ? 1 : n <= 2 ? 2 : n <= 2.5 ? 2.5 : n <= 5 ? 5 : 10) * mag;
+  return { step, max: Math.ceil(v / step - 1e-9) * step };
+}
+const tickFmt = t => t >= 1000 ? Number((t / 1000).toPrecision(3)) + "K" : String(Number(t.toPrecision(3)));
+
+function drawChart(host, p, m) {
+  host.replaceChildren();
+  const W = Math.max(280, Math.floor(host.clientWidth)), H = 244, ml = 42, mr = 88, mt = 14, mb = 28;
+  const cur = pts(p, m, CUR), prev = pts(p, m, PREV), old = pts(p, m, OLD);
+  const lastDay = cur.length ? cur[cur.length - 1][0] : 70;
+  const xmax = state.view === "full" ? 364 : Math.max(70, Math.ceil((lastDay + 28) / 7) * 7);
+  let vmax = 0;
+  for (const arr of [old, prev, cur]) for (const q of arr) if (q[0] <= xmax && q[1] > vmax) vmax = q[1];
+  if (vmax <= 0) vmax = 1;
+  const sc = niceScale(vmax * 1.06);
+  const pw = W - ml - mr, ph = H - mt - mb;
+  const X = d => ml + (d / xmax) * pw;
+  const Y = v => mt + ph - (v / sc.max) * ph;
+
+  const svg = sv("svg", {
+    viewBox: "0 0 " + W + " " + H, width: W, height: H, role: "img",
+    "aria-label": NAMES[m] + " weekly wastewater readings in " + p.name + ": " + sLabel(CUR) + " against " + sLabel(PREV) + " and " + sLabel(OLD) + "."
+  });
+  for (let t = 0; t <= sc.max + 1e-9; t += sc.step) {
+    const y = Y(t);
+    svg.append(sv("line", { x1: ml, x2: W - mr, y1: y, y2: y, stroke: t === 0 ? "var(--axis)" : "var(--grid)", "stroke-width": 1 }));
+    svg.append(sv("text", { x: ml - 8, y: y + 4, "text-anchor": "end", "font-size": 12, fill: "var(--muted)" }, tickFmt(t)));
+  }
+  const base = Date.UTC(CUR, 8, 1);
+  for (let i = 0; i < 12; i++) {
+    const d = (Date.UTC(CUR, 8 + i, 1) - base) / 864e5;
+    if (d > xmax - 3) break;
+    const name = new Date(Date.UTC(CUR, 8 + i, 1)).toLocaleDateString("en-US", { month: "short", timeZone: "UTC" });
+    svg.append(sv("text", { x: X(d), y: H - 8, "text-anchor": "start", "font-size": 12, fill: "var(--muted)" }, name));
+  }
+
+  const line = (arr, color) => {
+    let dstr = "", prevDay = null;
+    for (const q of arr) {
+      if (q[0] > xmax) break;
+      const cmd = (prevDay === null || q[0] - prevDay > 14) ? "M" : "L";
+      dstr += cmd + X(q[0]).toFixed(1) + " " + Y(q[1]).toFixed(1);
+      prevDay = q[0];
+    }
+    if (dstr) svg.append(sv("path", { d: dstr, fill: "none", stroke: color, "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round" }));
+  };
+  line(old, "var(--old)"); line(prev, "var(--prev)"); line(cur, "var(--cur)");
+
+  if (cur.length && lastDay <= xmax) {
+    const lx = X(lastDay), ly = Y(cur[cur.length - 1][1]);
+    svg.append(sv("circle", { cx: lx, cy: ly, r: 4.5, fill: "var(--cur)", stroke: "var(--surface)", "stroke-width": 2 }));
+    const label = "This season";
+    const halo = { "font-size": 12, "font-weight": 600, fill: "var(--ink)", stroke: "var(--surface)", "stroke-width": 4, "stroke-linejoin": "round", "paint-order": "stroke" };
+    const nearBase = ly > mt + ph - 22;
+    if (lx + 10 + 72 > W) svg.append(sv("text", Object.assign({ x: lx, y: ly - 12, "text-anchor": "end" }, halo), label));
+    else if (nearBase) svg.append(sv("text", Object.assign({ x: lx + 10, y: ly - 10 }, halo), label));
+    else svg.append(sv("text", Object.assign({ x: lx + 10, y: ly + 4 }, halo), label));
+  }
+
+  const cross = sv("g", { style: "display:none", "pointer-events": "none" });
+  const cl = sv("line", { y1: mt, y2: mt + ph, stroke: "var(--ink2)", "stroke-width": 1 });
+  cross.append(cl);
+  const dots = [["var(--old)"], ["var(--prev)"], ["var(--cur)"]].map(c => {
+    const d = sv("circle", { r: 4.5, fill: c[0], stroke: "var(--surface)", "stroke-width": 2, style: "display:none" });
+    cross.append(d); return d;
+  });
+  const hit = sv("rect", { x: ml, y: mt, width: pw, height: ph, fill: "transparent", tabindex: 0, class: "hit", style: "cursor:crosshair" });
+  svg.append(cross, hit);
+  host.append(svg);
+
+  const tip = el("div", { class: "tip", role: "status" });
+  host.append(tip);
+  const maxWk = Math.floor(xmax / 7);
+  const sets = [[CUR, cur, 2], [PREV, prev, 1], [OLD, old, 0]];
+  const colors = ["var(--cur)", "var(--prev)", "var(--old)"];
+
+  function show(wk) {
+    wk = Math.max(0, Math.min(maxWk, wk));
+    const day = wk * 7, x = X(day);
+    const rows = [];
+    sets.forEach(([y, arr, di], i) => {
+      const q = nearest(arr, day, 3.5);
+      dots[di].style.display = q ? "" : "none";
+      if (q) { dots[di].setAttribute("cx", x); dots[di].setAttribute("cy", Y(q[1])); rows.push([colors[i], sLabel(y), q[1]]); }
+    });
+    if (!rows.length) { hide(); return; }
+    cl.setAttribute("x1", x); cl.setAttribute("x2", x);
+    cross.style.display = "";
+    tip.replaceChildren();
+    const curQ = nearest(cur, day, 3.5);
+    tip.append(el("div", { class: "h" }, "Week of " + (curQ ? dlabel(curQ[2]) : dayLabel(day))));
+    for (const r of rows) {
+      const row = el("div", { class: "r" });
+      const k = el("span", { class: "k" }); k.style.borderColor = r[0];
+      row.append(k, el("span", { class: "n" }, r[1]), el("span", { class: "x" }, fmt(r[2])));
+      tip.append(row);
+    }
+    tip.style.display = "block";
+    const tw = tip.offsetWidth;
+    let left = x + 14;
+    if (left + tw > W) left = x - 14 - tw;
+    tip.style.left = Math.max(0, left) + "px";
+    tip.style.top = (mt + 4) + "px";
+    hit.dataset.wk = wk;
+  }
+  function hide() { cross.style.display = "none"; tip.style.display = "none"; dots.forEach(d => d.style.display = "none"); }
+
+  hit.addEventListener("pointermove", e => {
+    const r = hit.getBoundingClientRect();
+    show(Math.round(((e.clientX - r.left) / r.width * xmax) / 7));
+  });
+  hit.addEventListener("pointerleave", hide);
+  hit.addEventListener("focus", () => show(Math.round(lastDay / 7)));
+  hit.addEventListener("blur", hide);
+  hit.addEventListener("keydown", e => {
+    const wk = Number(hit.dataset.wk || Math.round(lastDay / 7));
+    if (e.key === "ArrowLeft") { show(wk - 1); e.preventDefault(); }
+    else if (e.key === "ArrowRight") { show(wk + 1); e.preventDefault(); }
+    else if (e.key === "Escape") hide();
+  });
+}
+
+function tableFor(p, m) {
+  const t = el("table");
+  t.append(el("caption", {}, NAMES[m] + ", " + p.name + ". Each row is a week this season with the same calendar week from earlier seasons."));
+  const head = el("tr");
+  ["Week of", sLabel(CUR), sLabel(PREV), sLabel(OLD)].forEach(h => head.append(el("th", { scope: "col" }, h)));
+  const thead = el("thead"); thead.append(head); t.append(thead);
+  const body = el("tbody");
+  const cur = pts(p, m, CUR).slice().reverse();
+  for (const q of cur) {
+    const a = nearest(pts(p, m, PREV), q[0], 4), b = nearest(pts(p, m, OLD), q[0], 4);
+    const tr = el("tr");
+    tr.append(el("td", {}, dlabel(q[2])), el("td", {}, fmt(q[1])), el("td", {}, a ? fmt(a[1]) : "no data"), el("td", {}, b ? fmt(b[1]) : "no data"));
+    body.append(tr);
+  }
+  t.append(body);
+  return t;
+}
+
+let plots = [];
+function renderPanels() {
+  const p = place();
+  const wrap = $("#panels");
+  wrap.replaceChildren();
+  plots = [];
+  ORDER.forEach(m => {
+    const s = status(p, m);
+    const sec = el("section", { class: "panel", "aria-labelledby": "h-" + m });
+    sec.append(el("h2", { id: "h-" + m }, NAMES[m]));
+    const st = statusText(s);
+    const stEl = el("p", { class: "status" });
+    if (st[0]) stEl.append(el("span", { class: "glyph", "aria-hidden": "true" }, st[0]));
+    stEl.append(document.createTextNode(st[1]));
+    sec.append(stEl);
+    if (s.last) {
+      const ul = el("ul", { class: "nums" });
+      const item = (v, l) => { const li = el("li"); li.append(el("span", { class: "v" }, v), el("span", { class: "l" }, l)); return li; };
+      ul.append(item(fmt(s.last[1]), "this season"), item(s.p1 ? fmt(s.p1[1]) : "no data", "same week last year"), item(s.p2 ? fmt(s.p2[1]) : "no data", "two years ago"));
+      sec.append(ul);
+    }
+    if (state.table) sec.append(tableFor(p, m));
+    else { const host = el("div", { class: "plot" }); sec.append(host); plots.push([host, m]); }
+    wrap.append(sec);
+  });
+  drawAll();
+}
+function drawAll() { const p = place(); plots.forEach(([h, m]) => drawChart(h, p, m)); }
+
+function fitSelect() {
+  const sel = $("#place"), ms = $("#measure");
+  ms.textContent = sel.options[sel.selectedIndex].text;
+  sel.style.width = (ms.getBoundingClientRect().width + 6) + "px";
+}
+
+function renderLede() {
+  const p = place();
+  const above = ORDER.filter(m => status(p, m).kind === "above").map(m => LOW[m]);
+  $("#ledeRest").textContent = above.length
+    ? ", " + joinList(above) + (above.length > 1 ? " are" : " is") + " running higher than at this point in both earlier seasons."
+    : ", none of the four viruses is running above both earlier seasons at this point.";
+  $("#dek").textContent = "Weekly wastewater readings, " + sLabel(CUR) + " against the last two seasons. The latest reading for " + p.name + " is the week of " + dlabel(p.latest) + ".";
+  const note = $("#note");
+  note.hidden = !above.length;
+  note.textContent = above.length ? "One week is a weak signal. It counts for more if the next readings hold." : "";
+  fitSelect();
+}
+
+function renderQC() {
+  const q = D.qc, root = $("#qc");
+  if (!q) { root.hidden = true; return; }
+  $("#qcLead").textContent = q.over100 + " of the " + q.withData + " Quebec facilities that reported had more patients on stretchers than functional stretchers at " + q.hour + " on " + q.dateLabel + ", and " + q.over24 + " patients across the province had been on a stretcher for more than 24 hours.";
+  const maxPct = Math.max(100, ...q.top.map(t => t.pct)) * 1.25;
+  const refLeft = (100 / maxPct * 100) + "%";
+  const box = $("#qcBars");
+  box.replaceChildren();
+  const head = el("div", { class: "axishead" });
+  head.append(el("div"));
+  const rl = el("div", { class: "reflabel" });
+  const rs = el("span", {}, "100% means every functional stretcher is in use"); rs.style.left = refLeft;
+  rl.append(rs); head.append(rl); box.append(head);
+  for (const t of q.top) {
+    const row = el("div", { class: "row", title: t.name + ": " + t.pct + "% (" + t.occ + " patients, " + t.fun + " functional stretchers)" });
+    const nm = el("div"); nm.append(el("div", { class: "rname" }, t.name), el("div", { class: "rdetail" }, t.occ + " patients, " + t.fun + " functional stretchers"));
+    const tr = el("div", { class: "track" });
+    const w = (t.pct / maxPct * 100);
+    const bar = el("div", { class: "bar" }); bar.style.width = w + "%";
+    const pc = el("div", { class: "pct" }, t.pct + "%"); pc.style.left = "calc(" + w + "% + 8px)";
+    const ref = el("div", { class: "ref" }); ref.style.left = refLeft;
+    tr.append(bar, ref, pc);
+    row.append(nm, tr); box.append(row);
+  }
+  $("#qcNote").textContent = "Showing the 10 facilities with the highest ratio among those with at least 10 functional stretchers. " + q.noData + " facilities reported no data that hour. This is a single hour saved by hand and it does not refresh.";
+}
+
+function init() {
+  const sel = $("#place");
+  const groups = [["Canada", "Canada"], ["Province or territory", "Provinces and territories"], ["City", "Cities"]];
+  for (const [key, label] of groups) {
+    const items = D.places.filter(p => p.group === key);
+    if (!items.length) continue;
+    const og = el("optgroup", { label });
+    items.forEach(p => { const o = el("option", { value: p.name }, p.name); if (p.name === state.place) o.selected = true; og.append(o); });
+    sel.append(og);
+  }
+  $("#lgCur").textContent = sLabel(CUR) + " (so far)";
+  $("#lgPrev").textContent = sLabel(PREV);
+  $("#lgOld").textContent = sLabel(OLD);
+  $("#built").textContent = D.built;
+  sel.addEventListener("change", () => { state.place = sel.value; renderLede(); renderPanels(); });
+  const setView = v => { state.view = v; $("#vSofar").setAttribute("aria-pressed", v === "sofar"); $("#vFull").setAttribute("aria-pressed", v === "full"); drawAll(); };
+  $("#vSofar").addEventListener("click", () => setView("sofar"));
+  $("#vFull").addEventListener("click", () => setView("full"));
+  $("#tbl").addEventListener("click", () => { state.table = !state.table; $("#tbl").setAttribute("aria-pressed", state.table); $("#tbl").textContent = state.table ? "View as charts" : "View as table"; renderPanels(); });
+  let lastW = 0;
+  new ResizeObserver(() => { const w = $("#panels").clientWidth; if (Math.abs(w - lastW) > 2) { lastW = w; if (!state.table) drawAll(); } }).observe($("#panels"));
+  renderLede(); renderPanels(); renderQC();
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitSelect);
+}
+init();
+})();
+</script>
+</body>
+</html>
