@@ -23,7 +23,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 REPO = os.environ.get("GITHUB_REPOSITORY", "your-username/canada-health-signals")
-USER_AGENT = f"CanadaHealthSignals/0.2 (open-data research project; https://github.com/{REPO})"
+USER_AGENT = f"Mozilla/5.0 (compatible; CanadaHealthSignals/0.3; open-data research; +https://github.com/{REPO})"
 TIMEOUT = 60
 MAX_BYTES = 80_000_000
 
