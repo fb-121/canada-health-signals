@@ -32,6 +32,10 @@ jobs:
         continue-on-error: true   # a page problem must never lose the day's data
         run: python scripts/build_site.py
 
+      - name: Build the AI page
+        continue-on-error: true
+        run: python scripts/build_ai.py
+
       - name: Commit data and page
         if: always()
         run: |
