@@ -81,12 +81,20 @@ SOURCES = [
         "note": "Environment Canada OGC API, air quality observations around Calgary.",
     },
     {
-        "name": "ahs_er_wait_times",
-        "url": "https://www.albertahealthservices.ca/waittimes/waittimes.aspx",
+        "name": "qc_er_dataset_meta",
+        "url": "https://www.donneesquebec.ca/recherche/api/3/action/package_show?id=fichier-horaire-des-donnees-de-la-situation-a-l-urgence",
+        "ext": "json",
+        "archive": True,
+        "note": "Donnees Quebec (CC-BY 4.0) hourly ER situation by facility. Metadata call, used to find the real CSV URLs.",
+    },
+    {
+        "name": "qc_er_resource_page",
+        "url": "https://www.donneesquebec.ca/recherche/dataset/fichier-horaire-des-donnees-de-la-situation-a-l-urgence/resource/a9272cc9-8234-40d1-9806-9f6b4c75c20d",
         "ext": "html",
         "archive": False,
-        "note": "Probe only. Review AHS terms of use before archiving. This is the signal with no public history.",
+        "note": "Fallback for finding the CSV link if the metadata call fails.",
     },
+    # AHS (Alberta) ER wait times removed: their terms of use do not allow automated collection.
 ]
 
 LINK_RE = re.compile(r"""href=["']([^"']+\.(?:csv|json|xlsx|zip))["']""", re.IGNORECASE)
