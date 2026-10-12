@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" dir="ltr">
+
+    <head>
+        <meta content="width=device-width,initial-scale=1" name="viewport" charset="utf-8">
+        <link rel="schema.dcterms" href="http://purl.org/dc/terms/">
+        <meta name="description" content="This dashboard provides data about COVID-19, flu, RSV and mpox virus levels in wastewater.">
+        <meta name="keywords" content="mpox, monkeypox, coronavirus, covid-19, pandemic, Canada, covid vaccine, vaccines canada, vaccines covid, coronavirus vaccines, vaccine tracker">
+        <meta name="author" content="Public Health Agency of Canada">
+        <meta name="dcterms.title" content="National Wastewater Monitoring of Pathogens (NWMP) – Canada.ca">
+        <meta name="dcterms.description" content="This dashboard provides data about COVID-19, flu, RSV and mpox virus levels in wastewater.">
+        <meta name="dcterms.creator" content="Public Health Agency of Canada">
+        <meta name="dcterms.language" title="ISO639-2/T" content="eng">
+        <meta name="dcterms.issued" title="W3CDTF" content="2022-04-29">
+        <meta name="dcterms.modified" title="W3CDTF" content="2025-06-06">
+        <meta name="dcterms.spatial" content="Canada">
+        <meta name="dcterms.type" content="datasets;statistics;education and awareness">
+        <meta name="dcterms.source" content="aem">
+        <meta name="dcterms.identifier" content="Public_Health_Agency_of_Canada">
+        <meta name="twitter:card" content="summary">
+        <meta name="twitter:site" content="@GovCanHealth">
+        <meta name="twitter:title" content="National Wastewater Monitoring of Pathogens (NWMP) – Canada.ca">
+        <meta name="twitter:description" content="This dashboard provides data about COVID-19, flu, RSV and mpox virus levels in wastewater.">
+        <meta name="twitter:image:src" content="https://health-infobase.canada.ca/src/img/wastewater-twitter-thumb.png">
+
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "FAQPage",
+                "mainEntity": [{
+                        "@type": "Question",
+                        "name": "What is the respiratory virus wastewater dashboard?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "The respiratory viruses wastewater dashboard is a tool that provides trend data about the levels of SARS-CoV-2 (COVID-19), influenza (flu) and respiratory syncytial virus (RSV) in the wastewater (sewage) of different communities and settings across Canada. This data can reflect the levels of these viruses in those communities."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "How to interpret wastewater data?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "The respiratory viruses wastewater dashboard shows the concentration of SARS-CoV-2 (COVID-19), influenza (flu) and respiratory syncytial virus (RSV) in wastewater samples from different sites. You can see the 7-day rolling average of the viral load for each site, which is calculated by averaging the viral loads from each day with the previous 6 days. If the wastewater signals are high or increasing, this may indicate a high level of these viruses in your community. It’s important to pay attention to public health alerts and follow public health advice."
+                        }
+                    },
+                    {
+                        "@type": "Question",
+                        "name": "Where is the data from?",
+                        "acceptedAnswer": {
+                            "@type": "Answer",
+                            "text": "The data for the respiratory viruses wastewater dashboard is collected from different communities and settings across Canada. It is updated on Wednesdays at 12:00 noon Eastern Time, or on the next business day if there is a holiday. The data may lag slightly due to the time it takes to transport and analyze samples."
+                        }
+                    }
+                ]
+            }
+        </script>
+
+        <link href="/src/GCWeb/assets/favicon.ico" rel="icon" type="image/x-icon">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css" crossorigin="anonymous">
+        <link rel="stylesheet" href="/src/GCWeb2/css/theme.min.css">
+        <link rel="stylesheet" href="/src/js/noUiSlider-15.5.1/dist/nouislider.css">
+        <link rel="stylesheet" href="/src/css/selectpicker/bootstrap-select.css">
+        <link rel="stylesheet" href="/src/css/global.css">
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" href="/src/css/modular/main.css">
+        <link rel="stylesheet" href="/src/css/covid-19/wastewater/main2.css">
+        
+        <style>
+        
+            .anchor, .innerBox2 {
+                cursor: pointer;
+            }
+            
+            .active-pip {
+                font-weight: bold;
+                font-size: 1.5rem;
+                color: #4285F4;
+            }
+            
+            .dropdown-grid{
+                display: grid;
+                grid-template-columns: auto auto auto auto;
+                justify-content: space-between;
+            }
+            
+            @media ( max-width: 750px ) {
+                .dropdown-grid{
+                    display: grid;
+                    grid-template-columns: auto;
+                    justify-content: space-between;
+                }
+            }
+            
+            @media only screen and (max-width: 1200px) {
+                #slider {
+                    display: inline-block;
+                    margin-left: 20px;
+                    margin-right: 20px;
+                    margin-bottom: 70px;
+                    width: 80.6% !important;
+                }
+            }
+            
+            
+            #slider {
+                display: inline-block;
+                /*margin-left: 40px;*/
+                /*margin-right: 40px;*/
+                /*width: 80.6%;*/
+                margin-top: 5px;
+                margin-bottom: 25px;
+            }
+            
+            .noUi-connect {
+                background: #4285F4;
+            }
+            
+            .noUi-pips {
+                color: #000;
+            }
+            
+            .noUi-marker {
+                background: #ccc;
+            }
+            
+            .noUi-value-large {
+                font-size: 15px;
+            }
+            
+            .legend-flexBox{
+                display: flex;
+                justify-content: space-around;
+            }
+            
+            .legend-flexBox > div{
+                min-width: 158px;
+            }
+            
+        </style>
+        
+        <noscript>
+            <link rel="stylesheet" href="/src/wet-boew/css/noscript.min.css" />
+        </noscript>
+
+        <title>National Wastewater Monitoring of Pathogens (NWMP) – Canada.ca</title>
+    </head>
+
+    <body vocab="http://schema.org/" typeof="WebPage">
+        <!-- Google Tag Manager DO NOT REMOVE OR MODIFY - NE PAS SUPPRIMER OU MODIFIER -->
+        <script>
+            dataLayer1 = [];
+        </script>
+        <script>
+            dataLayer = [];
+        </script>
+        <!-- End Google Tag Manager -->
+        <!-- Google Tag Manager -->
+        <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-TN3RPZ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <script>
+            (function(w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    'gtm.start': new Date().getTime(),
+                    event: 'gtm.js'
+                });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s),
+                    dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src =
+                    '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-TN3RPZ');
+        </script>
+        <!-- End Google Tag Manager -->
+        <!-- Google Tag Manager DO NOT REMOVE OR MODIFY - NE PAS SUPPRIMER OU MODIFIER -->
+        <noscript><iframe title="Google Tag Manager" src="//www.googletagmanager.com/ns.html?id=GTM-TLGQ9K" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <script>
+            (function(w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s),
+                    dl = l != 'dataLayer1' ? '&l=' + l : '';
+                j.async = true;
+                j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer1', 'GTM-TLGQ9K');
+        </script>
+        <!-- End Google Tag Manager -->
+
+        <ul id="wb-tphp">
+            <li class="wb-slc">
+                <a class="wb-sl" href="#wb-cont">Skip to main content</a>
+            </li>
+            <li class="wb-slc">
+                <a class="wb-sl" href="#wb-info">Skip to "About government"</a>
+            </li>
+        </ul>
+        <header class="navbar navbar-default" id="navbar" style="background-color: white !important; margin-bottom: 0px;">
+            <div id="wb-bnr" class="container">
+                <section id="wb-lng" class="text-right">
+                    <h2 class="wb-inv">Language selection</h2>
+                    <ul class="list-inline margin-bottom-none">
+                        <li><a lang="fr" href="https://sante-infobase.canada.ca/eaux-usees/">Français</a></li>
+                    </ul>
+                </section>
+                <div class="row">
+                    <div class="brand col-xs-5 col-md-4">
+                        <a href="https://www.canada.ca/en.html"><img src="/src/GCWeb/assets/sig-blk-en.svg" alt=""><span class="wb-inv"> Government of Canada / <span lang="fr">Gouvernement du Canada</span></span></a>
+                    </div>
+                    <section id="wb-srch" class="col-lg-8 text-right">
+                        <h2>Search</h2>
+                        <form action="https://www.canada.ca/en/sr/srb.html" method="get" name="cse-search-box" role="search" class="form-inline">
+                            <div class="form-group">
+                                <label for="wb-srch-q" class="wb-inv">Search Canada.ca</label>
+                                <input id="wb-srch-q" list="wb-srch-q-ac" class="wb-srch-q form-control" name="q" type="search" value="" size="34" maxlength="170" placeholder="Search Canada.ca">
+                                <datalist id="wb-srch-q-ac">
+                                </datalist>
+                            </div>
+                            <div class="form-group submit">
+                                <button type="submit" id="wb-srch-sub" class="btn btn-primary btn-small" name="wb-srch-sub"><span class="glyphicon-search glyphicon"></span><span class="wb-inv">Search</span></button>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </div>
+            <nav id="wb-bc" property="breadcrumb" aria-labelledby="breadcrumbTitle">
+                <h2 id="breadcrumbTitle">You are here:</h2>
+                <div class="container">
+                    <ol class="breadcrumb">
+						<li><a href="https://www.canada.ca/en.html">Canada.ca</a></li>
+						<li><a href="https://www.canada.ca/en/services/health.html">Health</a></li>
+						<li><a href="https://www.canada.ca/en/services/health/science-research-data.html">Health science, research and data</a></li>
+						<li><a href="https://health-infobase.canada.ca/">Health Infobase</a></li>
+					</ol>
+                </div>
+            </nav>
+			</header>
+            <main property="mainContentOfPage" id="main">
+                <section class="blue-header well well-sm brdr-0 mrgn-bttm-0 mrgn-tp-0">
+                    <div class="container mrgn-tp-sm">
+                        <h1 id="wb-cont" class="mrgn-tp-md" property="name" id="wb-cont" dir="ltr"><span class="stacked"><span>National Wastewater Monitoring of Pathogens (NWMP)</span>: <span>Respiratory virus activity</span></span></h1>
+                        <p>This dashboard provides data about COVID-19, flu, RSV and mpox virus levels in wastewater. </p>						
+                        <ul class="list-inline small mrgn-bttm-sm" style="line-height:1.65em" id="list-inline-desktop-only">
+                            <li class="mrgn-rght-lg"> Last updated: <span class="dateModified">2024-11-12</span></li>
+                            <!--<li> <a class="pdf" href="https://health-infobase.canada.ca/src/data/covidLive/wastewater/covid19-wastewater-dashboard.pdf"><i class="fa fa-download" aria-hidden="true"></i> <span class="wb-invisible">Download page in </span>PDF<span class="wb-invisible"> format</span></a></li>-->
+                            <!--<li> <a class="pdf" href="#"><i class="fa fa-download" aria-hidden="true"></i> <span class="wb-invisible">Download data in </span>CSV<span class="wb-invisible"> format</span></a></li>-->
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="well well-sm brdr-0 mrgn-bttm-25 mrgn-tp-0 tabNav" style="padding:0px;">
+                    <div class="container">
+                        <nav>
+                            <ul class="list-inline hidden-xs hidden-sm mrgn-bttm-0">
+                                <li><a class="btn btn-tabs" id="tab" role="button" href="about.html">About the dashboard</a></li>
+                                <li><a class="active btn btn-tabs" id="active-tab" role="button" href="#">Respiratory virus activity</a></li>
+                                <li><a class="btn btn-tabs" id="tab" role="button" href="variants.html">COVID-19 variants</a></li>
+								<li><a class="btn btn-tabs" id="tab" role="button" href="modelling.html">Modelling</a></li>
+                                <li><a class="btn btn-tabs" id="tab" role="button" href="mpox-activity.html">Mpox activity</a></li>
+                                <li><a class="btn btn-tabs" id="tab" role="button" href="technical-notes.html">Technical notes</a></li>
+                            </ul>
+
+                            <ul class="list-unstyled hidden-md hidden-lg">
+                                <li><a class="btn btn-tabs-mobile" style="padding:10px 0px;" id="tab" role="button" href="about.html">About the dashboard</a></li>
+                                <li><a class="active btn btn-tabs-mobile" id="active-tab" role="button" href="#">Respiratory virus activity</a></li>
+                                <li><a class="btn btn-tabs-mobile" id="tab" role="button" href="variants.html">COVID-19 variants</a></li>
+								<li><a class="btn btn-tabs-mobile" id="tab" role="button" href="modelling.html">Modelling</a></li>
+                                <li><a class="btn btn-tabs-mobile" id="tab" role="button" href="mpox-activity.html">Mpox activity</a></li>
+                                <li><a class="btn btn-tabs-mobile" id="tab" role="button" href="technical-notes.html">Technical notes</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </section>
+
+                <div class="container">
+                    <div class="clearfix"></div>
+
+                    <!--<h2 class="mrgn-tp-sm">Wastewater dashboard</h2>-->
+                    <p>We update this information on Wednesdays at 12:00 noon Eastern Time. In the event of a holiday, we update on the next business day. Data at some sites may lag for a week or more, due to the time it takes to transport and analyze samples. As new data becomes available, we may update the signals of the latest reported EpiWeek. This report was <strong>last updated on <span class="reportUpdateDate nowrap">August 19, 2026</span></strong> with data up to and including <!-- updateDate --> <strong><span class="nowrap updateDate">August 16, 2026</span></strong>.</p>
+
+                    <!-- 			<section id="updateBanner" class="alert alert-info">
+            <h2>Delay in the update schedule</h2>
+            <p>The data dashboard update is delayed while we resolve a technical issue.</p>
+			</section> -->
+
+                    <h2>On this page</h2>
+                    <ul>
+                        <li><a href="#a1">National wastewater viral levels</a></li>
+                        <li><a href="#a2">National overview</a></li>
+                        <li><a href="#dashboard">Interpreting wastewater data</a></li>
+                        <li><a href="#links">Canadian wastewater monitoring dashboards and websites for respiratory viruses</a></li>
+                        <li><a href="#download">Download the data</a></li>
+                    </ul>
+
+                    <div class="clearfix pagebreak"></div>
+
+                    <h2 id="a1">National wastewater viral levels</h2>
+                    <p>These tiles summarize recent overall wastewater viral levels of COVID-19, flu and RSV based on data from participating wastewater sites across Canada, compared to data over the past year.</p>
+                    <!--<small>updated <span class="reportUpdateDate nowrap">January 22, 2021</span> with data up to and including <span class="updateDate nowrap">MMM DD, YYYY</span></small>-->
+
+                    <div class='boxes wb-eqht'>
+                        <!--<a href="#a3" data-figure="1" class="anchor col-md-3">-->
+                        <!--style="cursor:pointer;"-->
+                        <div class="anchor anchorCOV col-xs-12 col-sm-6 col-md-3" tabindex="0" data-value="covN2">
+                            <div class="boxHeader eqht-trgt">
+                                <!--<i class="fa-solid fa-arrow-circle-up" style="font-size:35px;"></i><br />-->
+                                <div class="boxHeaderTxt boxHeaderTxt-covN2">The wastewater viral level <br/> of <strong>COVID-19</strong> is <span class="badge badgeNoColor canadaValBadge canadaValBadge-covN2 col-xs-12"><strong>{{}}</strong></span></div><!--<span class="canadaValText canadaValText-covN2">{{}}</span>-->
+                                <!--<div class="boxHeaderTxt boxHeaderTxtND-covN2" style="display: none;">No viral activity level <br/> of <strong>COVID-19</strong> detected <span class="wb-inv">due to</span> <span class="badge badgeNoColor canadaValBadge canadaValBadge-covN2"><strong>{{}}</strong></span></div>-->
+                            </div>
+                        </div>
+                        <div class="anchor anchorCOV col-xs-12 col-sm-6 col-md-3" tabindex="0" data-value="fluA">
+                            <div class="boxHeader eqht-trgt">
+                                <!--<i class="fa-solid fa-arrow-circle-up" style="font-size:35px;"></i><br />-->
+                                <div class="boxHeaderTxt boxHeaderTxt-fluA">The wastewater viral level <br/> of <strong>Flu A</strong> is <span class="badge badgeNoColor canadaValBadge canadaValBadge-fluA col-xs-12"><strong>{{}}</strong></span></div><!--<span class="canadaValText canadaValText-fluA">{{}}</span>-->
+                                <!--<div class="boxHeaderTxt boxHeaderTxtND-fluA" style="display: none;">No viral activity level <br/> of <strong>Flu A</strong> detected <span class="wb-inv">due to</span> <span class="badge badgeNoColor canadaValBadge canadaValBadge-fluA"><strong>{{}}</strong></span></div>-->
+                            </div>
+                        </div>
+                        <div class="anchor anchorCOV col-xs-12 col-sm-6 col-md-3" tabindex="0" data-value="fluB">
+                            <div class="boxHeader eqht-trgt">
+                                <!--<i class="fa-solid fa-arrow-circle-up" style="font-size:35px;"></i><br />-->
+                                <div class="boxHeaderTxt boxHeaderTxt-fluB">The wastewater viral level <br/> of <strong>Flu B</strong> is <span class="badge badgeNoColor canadaValBadge canadaValBadge-fluB col-xs-12"><strong>{{}}</strong></span></div><!--<span class="canadaValText canadaValText-fluB">{{}}</span>-->
+                                <!--<div class="boxHeaderTxt boxHeaderTxtND-fluB" style="display: none;">No viral activity level <br/> of <strong>Flu B</strong> detected <span class="wb-inv">due to</span> <span class="badge badgeNoColor canadaValBadge canadaValBadge-fluB"><strong>{{}}</strong></span></div>-->
+                            </div>
+                        </div>
+                        <!--style="cursor:pointer;"-->
+                        
+                        <div class="anchor anchorCOV col-xs-12 col-sm-6 col-md-3" tabindex="0" data-value="rsv">
+                            <div class="boxHeader eqht-trgt">
+                                <!--<i class="fa-solid fa-arrow-circle-down" style="font-size:35px;"></i><br />-->
+                                <div class="boxHeaderTxt boxHeaderTxt-rsv">The wastewater 
+								viral level <br/> of <strong>RSV</strong> is <span class="badge badgeNoColor canadaValBadge canadaValBadge-rsv col-xs-12"><strong>{{}}</strong></span></div> <!--<span class="canadaValText canadaValText-rsv">{{}}</span>-->
+                                <!--<div class="boxHeaderTxt boxHeaderTxtND-rsv" style="display: none;">No viral activity level <br/> of <strong>RSV</strong> detected <span class="wb-inv">due to</span> <span class="badge badgeNoColor canadaValBadge canadaValBadge-rsv"><strong>{{}}</strong></span></div>-->
+                            </div>
+                        </div>
+                    </div>
+
+                    <details>
+                        <summary>About these data tiles</summary>
+                        <p>The activity levels of COVID-19, flu and RSV at the collection site level are determined using an activity level index. We use a population-weighted average to calculate activity levels at the city, province, territory and national level. For more details, please refer to the <a href="technical-notes.html">technical notes</a>.</p>
+                        <!-- <img src="/src/img/wastewater_heatmap_EN.jpg" height="450px" width="525px" alt="Visual representation of viral activity level broken down by signal level and signal trend. See definitions below for the full definitions.">
+                        <ul>
+                            <li><strong>High</strong> activity level means:
+                                <ul>
+                                    <li>viral signals are high compared to values over the past year, or</li>
+                                    <li>viral signals are moderate compared to values over the past year, and the recent trend is increasing</li>
+                                </ul>
+                            </li>
+                            <li><strong>Moderate</strong> activity level means:
+                                <ul>
+                                    <li>viral signals are moderate compared to values over the past year, and the recent trend is decreasing or stable, or</li>
+                                    <li>viral signals are low compared to values over the past year and the recent trend is increasing</li>
+                                </ul>
+                            </li>
+                            <li><strong>Low</strong> activity level means:
+                                <ul>
+                                    <li>viral signals are low compared to values over the past year, and the recent trend is decreasing or stable, or</li>
+                                    <li>viral signals are below the threshold for detection, and the recent trend is increasing</li>
+                                </ul>
+                            </li>
+                            <li><strong>No detection</strong> activity level means:
+                                <ul>
+                                    <li>viral signals are below the threshold for detection and the recent trend is decreasing or stable</li>
+                                </ul>
+                            </li>
+                        </ul> -->
+                    </details>
+
+                    <h2 id="a2">National overview</h2>
+                    <h3 id="mapTitle">Figure 1. Current wastewater 
+                    <select id="map_dropdown">
+                        <option value="covN2">COVID-19</option>
+                        <!--<option value="flu">Influenza</option>-->
+                        <option value="fluA">Flu A</option>
+                        <option value="fluB">Flu B</option>
+                        <option value="rsv">RSV</option>
+                        <!--<option value="rsvA">RSV A</option>-->
+                        <!--<option value="rsvB">RSV B</option>-->
+                    </select>
+                    viral levels in Canada</h3>
+                    <p id="mapInstruct"><i class="fa fa-info-circle" aria-hidden="true"></i> Zoom or tap <span class="pthr">regions</span> to see wastewater respiratory virus levels in Canada. Map data is available in <a class="downloadData anopadding" href="/src/data/covidLive/wastewater/covid19-wastewater-trend.csv">.csv</a> format.</p>
+
+                    <div class="row">
+                    <div id="map" class="col-md-7">
+                        <svg id="mapSVG"></svg>
+                        <div id="mapDescript">
+                            <p class="signalTableHS">
+                                Data from <strong><span class="txtnumSites">{}</span> sites</strong> are included on this dashboard.
+                            </p>
+                            <!--<p class="signalTableHS">-->
+                            <!--    For those sites, current trends in COVID - 19 signal-->
+                            <!--    as of <span class="updateDate">{{update-date}}</span>.-->
+                            <!--</p>-->
+							<p class="nbNoteMap alert alert-info hide">As PHAC and VitaliteNB continue to work in collaboration to further refine the data reported on this page, there may be a delay in data updates for New Brunswick. Thank you for your patience and understanding. </p>
+                            <p class="trendTableHS" style="display: none;">The <span class="txtvirus"></span> level in <strong><span class="txtptName">Canada</span></strong> is currently <strong><span class="currentLevelPT"></span></strong>. 
+                                <span class="txtnumSites">40</span> site<span class="txtnumSitesMod1">s</span> <span class="txtnumSitesMod0">currently</span> submit<span class="txtnumSitesMod2"></span> wastewater samples for processing<span class="popCoverageSetence">, representing <strong><span class="txtCanadaFragmentVal">49.58%</span></strong> of the population in <span class="txtptName">Canada</span></span></span>. 
+                                <span class="txtnumSitesMod3"><span class="fragStart">Of those sites, </span><span class="fragHigh"><strong><span class="fragNumber txtnumHigh">6</span></strong> showed a high viral level</span><span id="fragComma1" class="fragComma">,</span><span class="fragModerate"><strong><span class="fragNumber txtnumModerate">16</span></strong> showed a moderate viral level</span><span id="fragComma2" class="fragComma">,</span><span class="fragLow"><strong><span class="fragNumber txtnumLow">18</span></strong> showed a low viral level</span><span id="fragComma3" class="fragComma">,</span><span class="fragNonDetect"><strong><span class="fragNumber txtnumNonDetect">18</span></strong> had no detection</span><span id="fragComma4" class="fragComma">, </span><span class="fragNotAvailable"><strong><span class="fragNumber txtnumNotAvailable">18</span></strong> were not available</span>, as of <span class="updateDate">{{update-date}}</span>.</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div id="mapGraph" class="col-md-5" style="margin-top:35px;">
+                        
+                        <!--<div id="signalTrendTableDiv" class="signalTableHS"></div>-->
+                        
+                        <!--<p class="signalTableHS">-->
+                        <!--    Compared to historical data collected since <span>December 1, 2021</span>,-->
+                        <!--    the current COVID-19 signal level as of <span class="updateDate">{{update-date}}</span>.-->
+                        <!--</p>-->
+                        <!--<div id="signalLevelTableDiv" class="signalTableHS"></div>-->
+        
+                        <div id="trendTableDiv" class="trendTableHS" style="display:none;"></div>
+
+                        <!--<div id="trendChart"></div>-->
+                    </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <br/>
+                    <details>
+                        <summary>Figure 1: Text description</summary>
+                        <div id="trendTableDivTextDesc" class="trendTableData table-responsive"></div>
+                    </details>
+                    
+                    <details>
+                        <summary>Notes</summary>
+                        <ul>
+                            <li>This information is based on wastewater samples submitted for testing to the National Microbiology Laboratory or a participating partner laboratory.</li>
+                            <li>The National Wastewater Monitoring Program was a time-limited project established during the COVID-19 pandemic. As we transition to a more sustainable program, the number of testing sites has decreased. We will continue to monitor disease trends through a variety of other national surveillance systems.</li>
+                            <li>The National Microbiology Laboratory conducts testing for over 30 sites across Canada, with partner laboratories conducting testing for other sites. Data from <span class="txtnumSitesAll">{}</span> sites is included on this dashboard. Site selection and the decision to publish results on the dashboard is always at the discretion of provinces, territories and municipalities.</li>
+                            <li>Newly onboarded sites need approximately 12 months of wastewater data before an accurate activity level metric can be determined. Sites with less than 12 months of data, excluding non-detects, are marked with an asterisk (*). Non-detects are when the virus wasn’t detected during testing of the sample.</li>
+                            
+                            <li>Sites with no available data are marked as NA (not available):
+                                <ul>
+                                    <li>NA<sup>1</sup> indicates a newly onboarded site with less than 12 months of data available and currently awaiting baseline data.</li>
+                                    <li>
+                                        NA<sup>2</sup> indicates a site that stopped sampling and has no recent data available or a site that has no data available because it’s not being sampled.
+                                        <ul>
+                                            <li>The specific cut-off is when the site hasn’t submitted a minimum of 3 samples in the past 5 weeks.</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </details>
+
+                    <div class="clearfix"></div>
+
+                    <h2 id="dashboard">Interpreting wastewater data</h2>
+                    <p>The wastewater dashboard shows the concentration of COVID-19, flu and RSV in wastewater samples from different sites. The solid line of the graphs shows the population-weighted EpiWeek average of the viral load for Canada and for each city and province or territory. We calculate this by averaging the viral loads within a week and adjusting for population served by each site. </p>
+                    <p>The grey shaded area of each graph shows the minimum and maximum COVID-19, flu and RSV signals in wastewater of each EpiWeek since the beginning of surveillance based on available data.</p>
+					<ul>
+						<li>Use the hover option of each graph to see the daily value, as well as historical minimum and maximum values. Due to the potential for changes in viral shedding over time, caution should be used when comparing wastewater monitoring data to historic trends in clinical cases.</li>
+						<li>Any breaks in trend lines of graphs are due to limited data for that particular time period. Use caution when interpreting short-term changes in viral load. An ongoing increase or decrease in the viral load is more reliable for indicating trends. </li>
+					</ul> 
+					<p>Wastewater data should be considered in combination with clinical sources for respiratory viral data.</p>
+					<p>Virus gene copies in wastewater represents how much a particular virus is present within the community captured by a sewer system. It can provide insights into the presence and extent to which a virus is being shed into a sewer system but it cannot tell us how many people are sick and/or hospitalized.</p>
+                    <p>For detailed epidemiological data (such as clinical testing data, severity indicators, hospitalizations) and trends on influenza, COVID-19, and RSV in Canada, refer to <a href="https://health-infobase.canada.ca/respiratory-virus-surveillance/">Canadian respiratory virus surveillance report</a>.</p>
+					<!-- <p>For more information on flu, COVID-19, and RSV in Canada, refer to:</p>
+					<ul>
+						<li><a href="https://health-infobase.canada.ca/respiratory-virus-surveillance/">Canadian respiratory virus surveillance report</a></li>
+					</ul>
+					<div class="alert alert-info">
+                        <p>The statement above the graphs summarizes the current wastewater activity level based on COVID-19, flu and RSV wastewater signals at the regional level. If the wastewater activity levels are high, this may indicate a high level of COVID-19, flu or RSV in your community. It's important to pay attention to public health alerts and to follow public health advice. </p>
+                    </div> -->
+                    <!--<p>If the wastewater activity levels are high, this may indicate a high level of COVID-19, flu or RSV in your community. It's important to pay attention to public health alerts and to follow public health advice. Personal protective measures can help reduce the spread of COVID-19, flu and RSV.</p>-->
+                    <!--<p>For more information on these measures, please refer to:</p>-->
+                    <!--<ul>-->
+                    <!--    <li><a href="https://www.canada.ca/en/public-health/services/diseases/respiratory-infectious-diseases-reduce-spread-personal-protective-measures.html?utm_campaign=hc-sc-phm-23-24&utm_medium=sem&utm_source=ggl&utm_content=ad-text-en&utm_term=respiratory%20illness&adv=2324-492723&id_campaign=20765786536&id_source=155894687976&id_content=680198796474&gclid=EAIaIQobChMI6LDn1aPYgwMVPDetBh3fpgC-EAAYASAAEgLapfD_BwE&gclsrc=aw.ds">Respiratory infectious diseases: How to reduce the spread with personal protective measures</a></li>-->
+                    <!--</ul>-->
+                    <hr />
+
+                    <div class="hidePrint">
+                        <h3>Instructions</h3>
+                        <p><i class="fa fa-info-circle" aria-hidden="true"></i> The data throughout the page changes to reflect the date range and respiratory virus selected below. To select a date range,  use the drop-down menu, the slider, or select the dates directly using the From and To boxes. Use the drop-down menu to select the specific respiratory virus to display. Use the drop-down menu to select the province or territory and municipalities to display.</p>
+
+                    <!-- <div class="alert alert-warning mrgn-tp-sm">
+                        <h3>New respiratory season</h3>
+                        <p>This week marks the start of a new respiratory season and as such, some provinces may not yet have data available. For these provinces, the latest results are available by selecting the 2023-2024 respiratory season in the dropdown below.</p>
+                    </div> -->
+                        <div class="col-md-12 sliderDiv" style="margin-top: 20px;margin-bottom: 20px;border: 1px solid black; padding: 30px 20px 40px 20px; border: 3px solid #ccc; border-radius: 10px;">
+                            <div>
+                                <span style="font-size:30px;font-weight:bold;">
+                                    <span class="badge hidden-xs" style="font-size: 30px;padding: 10px 10px;background:#4285F4;"><i class="far fa-calendar-alt"></i></span>
+                                    <label for="dateSelection">Show data <span class="hidden-xs">reported</span> for
+                                    <select id="epiSeason"></select>
+                                    <!--respiratory season(s)-->
+                                </span>
+                                <div class='row' id='dateSelection-dropdowns'></div>                                
+                                <div class="row" style="margin: 0 auto; margin-top: 15px;">
+                                    <div id="slider" class="col-xs-12"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    
+                    <h3 class="figTitle">Figure 2. Graph of average weekly 
+                    <select id="virusDropDown">
+                        <option value="covN2">COVID-19</option>
+                        <option value="fluA">Flu A</option>
+                        <option value="fluB">Flu B</option>
+                        <option value="rsv">RSV</option>
+                    </select> viral load in wastewater, <span class="updateDateTitle" style="text-wrap:nowrap;"></span>
+                    </h3>
+
+                    <!--<div class="hidePrint">-->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="graph-dropdown-pt">Select a province/territory:</label>
+                            <select name="graph-dropdown-pt" id="graph-dropdown-pt" class="form-control" style="width:100%;"></select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="graph-dropdown-muni">Select a municipality:</label>
+                            <select name="graph-dropdown-muni" id="graph-dropdown-muni" class="form-control" style="width:100%;"></select>
+                        </div>
+                    </div>
+
+                    <hr>
+					
+					<div class="nbNoteSM alert alert-info hide">
+					<p>As PHAC and VitaliteNB continue to work in collaboration to further refine the data reported on this page, there may be a delay in data updates for New Brunswick. Thank you for your patience and understanding.</p>
+					</div>
+                    <div id='main-graph-container'></div>
+                    <hr>
+
+                    <p class="hide"><small>Selected regions: <span id="selectedRegions"></span></small></p>
+					
+                    <div class='row' id='smallmultiples-container'></div>
+
+                    <div id="trendGraph-wrapper"></div>
+                    
+                    <details id="fig2-table-details">
+                        <h4>Table 2. Average weekly <span class='measureId'>COVID-19</span> viral load in wastewater, in <span class='epiSeason-table'> epidemiological season</span> <span class="updateDateTitle">as of July 23, 2024</span></h4>
+                        <summary>Figure 2: Text description</summary> 
+                        <div id="aggregateTableDivTextDesc" class="aggregateTableData"></div>
+                    </details>
+                    <details>
+                        <summary>Notes</summary>
+                        <ul>
+                            <li>The date corresponding to an epidemiological week varies by year and may not align across respiratory seasons. The dates from the current respiratory season are used as reference for graphs comparing all respiratory seasons.</li>
+                            <li>Sites with no available data on wastewater signal trends and levels are marked as NA (not available).
+                                <ul>
+                                    <li>NA<sup>1</sup> indicates newly onboarded sites with less than 12 months of data available and are currently awaiting baseline data. Newly onboarded sites need approximately 12 months of wastewater data before an accurate wastewater activity level metric can be determined.</li>
+                                    <li>NA<sup>2</sup> indicates sites that have stopped sampling with and have no recent data available or sites that have no data available because they're not being sampled. The specific cut-off is when the site hasn’t submitted a minimum of 3 samples in the past 5 weeks.</li>
+                                </ul>
+                            </li>
+                            <!--<li>Please note that the data from the Toronto North wastewater site for EpiWeek 34 has been removed from the weekly updates.  The data from this week was unusual and is unlikely to be linked to an epidemiological event but we are further investigating this signal.</li>-->
+                        </ul>
+                    </details>
+
+                    <hr />
+
+                    <h2 id="links">Canadian wastewater monitoring dashboards and websites for respiratory viruses</h2>
+                    <p>These dashboards and websites are led by provincial, territorial and academic partners across Canada.</p>
+                    <p>For corrections or additions, please contact us by email: <a href="mailto:nmlwastewater@phac-aspc.gc.ca">nmlwastewater@phac-aspc.gc.ca</a>.</p>
+                    <table class="wb-tables table table-striped table-hover" id="linkTable">
+                        <thead>
+                            <tr>
+                                <th>Region</th>
+                                <th>Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="1">Alberta</td>
+                                <td><a href="https://www.alberta.ca/stats/dashboard/respiratory-virus-dashboard.htm?data=wastewater-surveillance#wastewater-surveillance">Alberta Health Respiratory Dashboard</a></td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1">Alberta</td>
+                                <td><a href="https://covid-tracker.chi-csm.ca/">Centre for Health Informatics</a></td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1">British Columbia</td>
+                                <td><a href="https://metrovancouver.org/services/liquid-waste/testing-for-viruses-in-wastewater">Metro Vancouver</a></td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1">British Columbia</td>
+                                <td><a href="http://www.bccdc.ca/our-services/programs/wastewater-surveillance">BC Center for Disease Control</a></td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1">Newfoundland and Labrador</td>
+                                <td><a href="https://www.gov.nl.ca/ecc/waterres/wastewater-surveillance-for-covid-19-virus/">Ministry of Environment and Climate Change </a></td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1">Northwest Territories </td>
+                                <td><a href="https://www.hss.gov.nt.ca/en/services/wastewater-monitoring">Department of Health and Social Services</a></td>
+                            </tr>
+                            <!--<tr>-->
+                            <!--    <td rowspan="1">Ontario</td>-->
+                            <!--    <td><a href="https://www.publichealthontario.ca/en/Data-and-Analysis/Infectious-Disease/COVID-19-Data-Surveillance/Wastewater">Public Health Ontario</a></td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                            <!--    <td rowspan="1">Ontario</td>-->
+                            <!--    <td><a href="https://www.algomapublichealth.com/disease-and-illness/infectious-diseases/covid-19/local-covid-19-data/">Algoma Public Health Unit</a></td>-->
+                            <!--</tr>-->
+      <!--                       <tr>
+                                <td rowspan="1">Ontario</td>
+                                <td><a href="https://bchu.org/statistics-and-reports/integrated-respiratory-surveillance/">Brant County Health Unit</a></td>
+                            </tr> -->
+                            <!--<tr>-->
+                            <!--    <td rowspan="1">Ontario</td>-->
+                            <!--    <td><a href="https://www.greatersudbury.ca/live/water-and-wastewater-services/measuring-sars-cov-2-in-wastewater-covid-19/">City of Greater Sudbury</a></td>-->
+                            <!--</tr>-->
+<!--                             <tr>
+                                <td rowspan="1">Ontario</td>
+                                <td><a href="https://www.hamilton.ca/coronavirus/status-cases-in-hamilton">City of Hamilton Public Health Services</a></td>
+                            </tr> -->
+                            <!--<tr>-->
+                            <!--    <td rowspan="1">Ontario</td>-->
+                            <!--    <td><a href="https://www.durham.ca/en/shared-content/covid-19-durham-region-case-status.aspx">Durham Region Health Unit</a></td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                            <!--    <td rowspan="1">Ontario</td>-->
+                            <!--    <td><a href="https://eohu.ca/en/covid/covid-19-status-update-for-eohu-region">Eastern Ontario Health Unit</a></td>-->
+                            <!--</tr>-->
+                            <!-- <tr> -->
+                                <!-- <td rowspan="1">Ontario</td> -->
+                                <!-- <td><a href="https://hnhu.org/additional-daily-statistics/">Haldimand-Norfolk Health Unit</a></td> -->
+                            <!-- </tr> -->
+        <!--                     <tr>
+                                <td rowspan="1">Ontario</td>
+                                <td><a href="https://www.halton.ca/For-Residents/New-Coronavirus/Status-of-COVID-19-Cases-in-Halton">Halton Region Health Department</a></td>
+                            </tr> -->
+                            <!--<tr>-->
+                            <!--    <td rowspan="1">Ontario</td>-->
+                            <!--    <td><a href="https://www.hkpr.on.ca/inspections-data-and-reports/public-health-data/respiratory-infection-dashboard/">Haliburton, Kawartha, Pine Ridge District Health Unit</a></td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                            <!--    <td rowspan="1">Ontario</td>-->
+                            <!--    <td><a href="https://www.kflaph.ca/en/health-topics/respiratory-illness-surveillance-in-kfl-a.aspx">Kingston, Frontenac and Lennox & Addington Public Health</a></td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                            <!--    <td rowspan="1">Ontario</td>-->
+                            <!--    <td><a href="https://healthunit.org/health-information/covid-19/local-cases-and-statistics/dashboard/">Leeds, Grenville and Lanark District Health Unit</a></td>-->
+                            <!--</tr>-->
+<!--                             <tr>
+                                <td rowspan="1">Ontario</td>
+                                <td><a href="https://app.powerbi.com/view?r=eyJrIjoiODg3ZDIwOTctNzFmOS00MDczLWEwMDAtMDU1ZDk4OGZlMzgzIiwidCI6ImRjNTYxMjk1LTdjYTktNDFhOS04M2JmLTUwODM0ZDZhOWQwZiJ9">Middlesex-London Health Unit</a></td>
+                            </tr> -->
+                            <!--<tr>-->
+                            <!--    <td rowspan="1">Ontario</td>-->
+                            <!--    <td><a href="https://www.nwhu.on.ca/covid-19/data/">Northwestern Health Unit</a></td>-->
+                            <!--</tr>-->
+							
+							                            <tr>			
+							
+                                <td rowspan="1">Ontario</td>
+                                <td><a href="https://peelregion.ca/health/diseases-infections/respiratory-virus-report">Peel Public Health</a></td>
+                            </tr>
+                            <tr>			
+							
+                                <td rowspan="1">Ontario</td>
+                                <td><a href="https://613covid.ca/wastewater/">Ottawa Public Health</a></td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1">Ontario</td>
+                                <td><a href="https://www.lakelandsph.ca/inspections-data-and-reports/public-health-data/respiratory-infections-dashboard/">Lakelands Public Health</a></td>
+                            </tr>
+                            <!--<tr>-->
+                            <!--    <td rowspan="1">Ontario</td>-->
+                            <!--    <td><a href="https://www.peelregion.ca/health/diseases/respiratory-illness-reporting/">Peel Public Health</a></td>-->
+                            <!--</tr>-->
+                            <!--<tr>-->
+                            <!--    <td rowspan="1">Ontario</td>-->
+                            <!--    <td><a href="https://www.regionofwaterloo.ca/en/regional-government/wastewater-surveillance.aspx">Region of Waterloo, Public Health</a></td>-->
+                            <!--</tr>-->
+                            <tr>
+                                <td rowspan="1">Ontario</td>
+                                <td><a href="https://www.swpublichealth.ca/reports-statistics/surveillance-and-dashboards/">Southwestern Public Health</a></td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1">Ontario</td>
+                                <td><a href="https://www.tbdhu.com/coviddata#weekly">Thunder Bay District Health Unit</a></td>
+                            </tr>
+<!--                             <tr>
+                                <td rowspan="1">Ontario</td>
+                                <td><a href="https://www.timiskaminghu.com/90529/What-is-the-current-COVID-19-situation-in-Timiskaming">Timiskaming Health Unit</a></td>
+                            </tr> -->
+                            <tr>
+                                <td rowspan="1">Ontario</td>
+                                <td><a href="https://www.toronto.ca/community-people/health-wellness-care/health-inspections-monitoring/communicable-disease-surveillance-reports/integrated-respiratory-diseases-dashboard/">Toronto Public Health</a></td>
+                            </tr>
+                            <tr>
+                               <td rowspan="1">Ontario</td>
+                               <td><a href="https://bi.wdgpublichealth.ca/respiratory-dashboard/">Wellington-Dufferin-Guelph Public Health</a></td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1">Ontario</td>
+                                <td><a href="https://www.wechu.org/reports/infectious_diseases?utm_source=Media&utm_campaign=7c432daea4-EMAIL_CAMPAIGN_2025_01_29_01_45&utm_medium=email&utm_term=0_-7c432daea4-416341561&mc_cid=7c432daea4&mc_eid=ac5c6569fe">Windsor-Essex County Health Unit</a></td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1">Ontario</td>
+                                <td><a href="https://app.powerbi.com/view?r=eyJrIjoiYWExNzBkZjMtZGQ4Zi00MWZiLTkxMmEtY2Y5YTEzZmUxOGU1IiwidCI6ImU1YzFlOTZiLTNjMGItNDQ5YS05MzBiLThmNWE4ZjZlZjU2MiIsImMiOjN9">York Region Public Health</a></td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1">Yukon</td>
+                                <td><a href="https://oneyukon.ca/can-wip/">One Yukon Wastewater Monitoring Dashboard</a></td>
+                            </tr>
+        <!--                     <tr>
+                                <td rowspan="1">Quebec</td>
+                                <td><a href="https://www.inspq.qc.ca/covid-19/donnees/eaux-usees">Institut national de santé publique du Québec</a></td>
+                            </tr> -->
+  <!--                           <tr>
+                                <td rowspan="1">Saskatchewan</td>
+                                <td><a href="https://www.saskatchewan.ca/government/health-care-administration-and-provider-resources/treatment-procedures-and-guidelines/emerging-public-health-issues/2019-novel-coronavirus/cases-and-risk-of-covid-19-in-saskatchewan">Government of Saskatchewan</a></td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+
+                    <div class="pagebreak"> </div>
+
+                    <div id="download">
+                        <h2>Download the data</h2>
+                        <div class="MainCon wb-eqht wb-init">
+                            <div class="pair hght-eqht wb-init" style="min-height: 193px; min-width: 320px;">
+                                <div class="learn-more dataBox hght-inhrt wb-init" style="vertical-align: top; min-height: 193px; min-width: 160px; margin:5px 5px;">
+                                    <a href="/src/data/wastewater/wastewater_aggregate.csv" target="_blank" class="downloadData" style=" width: 100%; height: 100%;">
+                                        <div class="dataBoxInner text-center" style=" width: 100%; height: 100%;">
+                                            <p style="padding-top: 20px; padding-right: 20px; padding-left: 20px;"><i style="font-size:80px;" class="fas fa-file-download"></i></p>
+                                            <p style="padding-bottom: 20px; padding-right: 20px; padding-left: 20px;">Download viral load data (.csv)</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="learn-more dataBox hght-inhrt wb-init" style="vertical-align: top; min-height: 193px; min-width: 160px; margin:5px 5px;">
+                                    <a href="/src/data/wastewater/wastewater_trend.csv" target="_blank" class="downloadData" style=" width: 100%; height: 100%;">
+                                        <div class="dataBoxInner text-center" style=" width: 100%; height: 100%;">
+                                            <p style="padding-top: 20px; padding-right: 20px; padding-left: 20px;"><i style="font-size:80px;" class="fas fa-file-download"></i></p>
+                                            <p style="padding-bottom: 20px; padding-right: 20px; padding-left: 20px;">Download viral load trend data (.csv)</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="pair hght-eqht wb-init" style="min-height: 193px; min-width: 320px;">
+                                <div class="learn-more dataBox hght-inhrt wb-init" style="vertical-align: top; min-height: 193px; min-width: 160px; margin:5px 5px;">
+                                    <a href="/src/data/covidLive/wastewater/covid19-wastewater-data-dictionary-en.csv" target="_blank" class="downloadData" style="width: 100%; height: 100%;">
+                                        <div class="dataBoxInner text-center" style=" width: 100%; height: 100%;">
+                                            <p style="padding-top: 20px; padding-right: 20px; padding-left: 20px;"><i style="font-size:80px;" class="fas fa-book"></i></p>
+                                            <p style="padding-bottom: 20px; padding-right: 20px; padding-left: 20px;">Download the data dictionary (.csv)</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <!--<div class="learn-more dataBox hght-inhrt wb-init" style="vertical-align: top; min-height: 193px; min-width: 160px; margin:5px 5px;">-->
+                                <!--    <a href="/src/data/covidLive/wastewater/covid19-wastewater-dashboard.pdf" target="_blank" class="downloadReport" style=" width: 100%; height: 100%;">-->
+                                <!--        <div class="dataBoxInner text-center" style=" width: 100%; height: 100%;">-->
+                                <!--            <p style="padding-top: 20px; padding-right: 20px; padding-left: 20px;" style="margin: 0px;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" height="81px">-->
+                                <!--                    <path d="M88 304H80V256H88C101.3 256 112 266.7 112 280C112 293.3 101.3 304 88 304zM192 256H200C208.8 256 216 263.2 216 272V336C216 344.8 208.8 352 200 352H192V256zM224 0V128C224 145.7 238.3 160 256 160H384V448C384 483.3 355.3 512 320 512H64C28.65 512 0 483.3 0 448V64C0 28.65 28.65 0 64 0H224zM64 224C55.16 224 48 231.2 48 240V368C48 376.8 55.16 384 64 384C72.84 384 80 376.8 80 368V336H88C118.9 336 144 310.9 144 280C144 249.1 118.9 224 88 224H64zM160 368C160 376.8 167.2 384 176 384H200C226.5 384 248 362.5 248 336V272C248 245.5 226.5 224 200 224H176C167.2 224 160 231.2 160 240V368zM288 224C279.2 224 272 231.2 272 240V368C272 376.8 279.2 384 288 384C296.8 384 304 376.8 304 368V320H336C344.8 320 352 312.8 352 304C352 295.2 344.8 288 336 288H304V256H336C344.8 256 352 248.8 352 240C352 231.2 344.8 224 336 224H288zM256 0L384 128H256V0z" />-->
+                                <!--                </svg></p>-->
+                                <!--            <p style="padding-bottom: 20px; padding-right: 20px; padding-left: 20px;">Download this page (.pdf)</p>-->
+                                <!--        </div>-->
+                                <!--    </a>-->
+                                <!--</div>-->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <br />
+
+
+                    <div class="containerTopPage">
+                        <a href="#wb-cont" class="btn btn-default" role="button">Top of page</a>
+                    </div>
+
+                    <div class="row row-no-gutters mrgn-tp-xl feedbackWidget">
+                        <div class="col-sm-7 col-lg-6">
+                            <section class="gc-pg-hlpfl provisional">
+                                <div class="well mrgn-bttm-0">
+                                    <form id="gc-pg-hlpfl-frm" action="#" method="post" autocomplete="off">
+                                        <input type="hidden" name="institutionopt" value="Public Health Agency of Canada">
+                                        <input type="hidden" name="themeopt" value="Health">
+                                        <input type="hidden" name="sectionopt" value="COVID-19">
+                                        <input type="hidden" name="language" value="en">
+                                        <input type="hidden" name="pageTitle" value="COVID-19 wastewater dashboard">
+                                        <input type="hidden" name="submissionPage" value="https://health-infobase.canada.ca/wastewater/">
+                                        <input type="hidden" id="helpful" name="helpful" value="Yes">
+
+                                        <div class="gc-pg-hlpfl-btn">
+                                            <div class="row row-no-gutters">
+                                                <div class="col-xs-12 col-sm-7 mrgn-tp-sm">
+                                                    <h2 class="mrgn-tp-sm h5">Did you find what you were looking for?</h2>
+                                                </div>
+                                                <div class="col-xs-8 col-sm-5 text-right">
+                                                    <button id="btnyes" type="submit" value="Yes" class="btn btn-primary">Yes</button>
+                                                    <button id="btnno" type="button" class="btn btn-primary mrgn-lft-sm nojs-hide">No</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="h3 hidden nojs-show">If not, tell us why:</p>
+                                        <div class="gc-pg-hlpfl-no nojs-show">
+                                            <fieldset>
+                                                <legend class="h4 mrgn-tp-0 mrgn-bttm-md">What was wrong?</legend>
+                                                <p>Answers to frequently asked questions can be found in the <a href="/wastewater/technical-notes.html">technical notes</a>.</p>
+                                                <div class="radio">
+                                                    <label for="problem1">
+                                                        <input name="problem" id="problem1" type="radio" value="The answer I need is missing" data-gc-analytics-wtph-value="The answer I need is missing-La réponse dont j’ai besoin n’est pas là" data-gc-analytics-collect="notPrivate">
+                                                        The answer I need is missing
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label for="problem2">
+                                                        <input name="problem" id="problem2" type="radio" value="The information isn’t clear" data-gc-analytics-wtph-value="The information isn’t clear-L'information n'est pas claire" data-gc-analytics-collect="notPrivate">
+                                                        The information isn’t clear
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label for="problem3">
+                                                        <input name="problem" id="problem3" type="radio" value="I’m not in the right place" data-gc-analytics-wtph-value="I’m not in the right place-Je ne suis pas au bon endroit" data-gc-analytics-collect="notPrivate">
+                                                        I’m not in the right place
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label for="problem4">
+                                                        <input name="problem" id="problem4" type="radio" value="Something is broken or incorrect" data-gc-analytics-wtph-value="Something is broken or incorrect-Quelque chose est brisé ou incorrect" data-gc-analytics-collect="notPrivate">
+                                                        Something is broken or incorrect
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label for="problem5">
+                                                        <input name="problem" id="problem5" type="radio" value="Other reason" data-gc-analytics-wtph-value="Other reason-Autre raison" data-gc-analytics-collect="notPrivate">
+                                                        Other reason
+                                                    </label>
+                                                </div>
+                                            </fieldset>
+                                            <label for="problem6" class="mrgn-bttm-0">Please provide more details</label>
+                                            <p class="small">
+                                                <strong>(Don’t include any personal information. Note that you will not receive a reply.)</strong>
+                                                <br>
+                                                <span class="small">Maximum 300 characters</span>
+                                            </p>
+                                            <textarea id="problem6" name="details" class="full-width" maxlength="300"></textarea>
+                                            <button type="submit" value="No" class="btn btn-primary mrgn-tp-md mrgn-bttm-sm">Submit</button>
+                                        </div>
+                                    </form>
+                                    <div class="gc-pg-hlpfl-thnk hide">
+                                        <p class="h6 mrgn-tp-sm mrgn-bttm-sm"><span class="far fa-check-circle text-success mrgn-rght-sm" aria-hidden="true"></span> Thank you for your feedback</p>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                        <div class="col-sm-3 col-sm-offset-1 col-lg-offset-3">
+                            <div class="wb-share" data-wb-share="{&quot;pnlId&quot;:&quot;pnlShrPg&quot;, &quot;lnkClass&quot;: &quot;btn btn-default btn-block mrgn-tp-md&quot;}"></div>
+                        </div>
+                    </div>
+
+                    <div class="row pagedetails">
+                        <div class="datemod col-xs-12 mrgn-tp-lg">
+                            <dl id="wb-dtmd">
+                                <dt>Date modified: </dt>
+                                <dd><time class="dateModified" property="dateModified">2024-11-12</time></dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <footer id="wb-info">
+                <h2 class="wb-inv">About this site</h2>
+                <div class="gc-contextual">
+                    <div class="container">
+                        <nav>
+                            <h3>Health Infobase</h3>
+                            <ul class="list-col-xs-1 list-col-sm-2 list-col-md-3">
+                                <li><a href="mailto:infobase@phac-aspc.gc.ca">Contact us by email</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+                <div class="gc-main-footer">
+                    <div class="container">
+                        <nav>
+                            <h3>Government of Canada</h3>
+                            <ul class="list-col-xs-1 list-col-sm-2 list-col-md-3">
+                                <li><a href="https://www.canada.ca/en/contact.html">All Contacts</a></li>
+                                <li><a href="https://www.canada.ca/en/government/dept.html">Departments and agencies</a></li>
+                                <li><a href="https://www.canada.ca/en/government/system.html">About government</a></li>
+                            </ul>
+                            <h4><span class="wb-inv">Themes and topics</span></h4>
+                            <ul class="list-unstyled colcount-sm-2 colcount-md-3">
+                                <li><a href="https://www.canada.ca/en/services/jobs.html">Jobs</a></li>
+                                <li><a href="https://www.canada.ca/en/services/immigration-citizenship.html">Immigration and citizenship</a></li>
+                                <li><a href="https://travel.gc.ca/">Travel and tourism</a></li>
+                                <li><a href="https://www.canada.ca/en/services/business.html">Business</a></li>
+                                <li><a href="https://www.canada.ca/en/services/benefits.html">Benefits</a></li>
+                                <li><a href="https://www.canada.ca/en/services/health.html">Health</a></li>
+                                <li><a href="https://www.canada.ca/en/services/taxes.html">Taxes</a></li>
+                                <li><a href="https://www.canada.ca/en/services/environment.html">Environment and natural resources</a></li>
+                                <li><a href="https://www.canada.ca/en/services/defence.html">National security and defence</a></li>
+                                <li><a href="https://www.canada.ca/en/services/culture.html">Culture, history and sport</a></li>
+                                <li><a href="https://www.canada.ca/en/services/policing.html">Policing, justice and emergencies</a></li>
+                                <li><a href="https://www.canada.ca/en/services/transport.html">Transport and infrastructure</a></li>
+                                <li><a href="https://international.gc.ca/world-monde/index.aspx?lang=eng">Canada and the world</a></li>
+                                <li><a href="https://www.canada.ca/en/services/finance.html">Money and finance</a></li>
+                                <li><a href="https://www.canada.ca/en/services/science.html">Science and innovation</a></li>
+                                <li><a href="https://www.canada.ca/en/services/indigenous-peoples.html">Indigenous peoples</a></li>
+                                <li><a href="https://www.canada.ca/en/services/veterans.html">Veterans and military</a></li>
+                                <li><a href="https://www.canada.ca/en/services/youth.html">Youth</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+                <div class="gc-sub-footer">
+                    <div class="container d-flex align-items-center">
+                        <nav>
+                            <h3 class="wb-inv">Government of Canada Corporate</h3>
+                            <ul>
+                                <li><a href="https://www.canada.ca/en/social.html">Social media</a></li>
+                                <li><a href="https://www.canada.ca/en/mobile.html">Mobile applications</a></li>
+                                <li><a href="https://www.canada.ca/en/government/about.html">About Canada.ca</a></li>
+                                <li><a href="https://www.canada.ca/en/transparency/terms.html">Terms and conditions</a></li>
+                                <li><a href="https://www.canada.ca/en/transparency/privacy.html">Privacy</a></li>
+                            </ul>
+                        </nav>
+                        <div class="wtrmrk align-self-end">
+                            <img src="/src/assets/wmms-blk.svg" alt="Symbol of the Government of Canada" />
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.js"></script>
+            <script src="/src/wet-boew/js/wet-boew.min.js"></script>
+            <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+            <script src="/src/GCWeb/js/theme.min.js"></script><script src="/src/js/maintenance-banner.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+            <script src="https://d3js.org/d3.v5.min.js"></script>
+            <script src="https://d3js.org/d3.v7.min.js"></script>
+            <script type="text/javascript" src="/src/js/polyfill.js"></script>
+            <script src="/src/js/topojson.v2.min.js"></script>
+            <script src="/src/js/polylabel.js"></script>
+            <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+            <script src="/src/js/noUiSlider-15.5.1/dist/nouislider.js"></script>
+            <script src="/src/js/bootstrap-select/bootstrap-select.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/d3-interpolate-path@2.0.0/build/d3-interpolate-path.min.js"></script>
+            <script src="/src/js/d3-array.v2.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=fetch%2CPromise%2CArray.prototype.sort%2Cdetails%2CArray.from"></script>
+            <script src="/src/js/textures.d3v4.js"></script>
+            <script src="/src/js/wastewater/v3/wastewater.js" type="module"></script>
+            <!--<script src="/src/js/wastewater/v3/wastewater-smallMultiples.js" type="module"></script>-->
+            <script src="/src/js/wastewater/v3/wastewater-smallMultiples-rolling52.js" type="module"></script>
+            <script>
+                $(document).on("wb-ready.wb", function() {
+                    $("#btnno").click(function(e) {
+                        $(".gc-pg-hlpfl-no").removeClass("nojs-show");
+                        $(".gc-pg-hlpfl-btn").addClass("hide");
+                        $("#helpful").val("No");
+                    });
+                    $("#gc-pg-hlpfl-frm").submit(function(e) {
+                        e.preventDefault();
+                        $(".gc-pg-hlpfl-thnk").removeClass("hide");
+                        $("#gc-pg-hlpfl-frm").addClass("hide nojs-show");
+                        $.ajax({
+                            url: 'https://pagesuccessemailqueue.azurewebsites.net/api/QueueProblemForm',
+                            type: 'POST',
+                            dataType: 'text',
+                            data: $('form#gc-pg-hlpfl-frm').serialize(),
+                            success: function(data) {},
+                            error: function(xhr, status, err) {
+                                console.log(xhr.responseText);
+                            }
+                        });
+                    });
+                });
+
+                // Set up before/after print handlers
+                var beforePrint = function() {
+                    $("details").attr('open', '');
+                    //d3.select(".printChart").style("display","");
+                    //d3.selectAll("#keybox2,#keybox3,#keybox4,#keybox6,#keybox8").attr("href","#dataTable");	
+                    // d3.selectAll(".keyboxA, .keyboxB, .keyboxC").attr("href","#newCases");
+                };
+                var afterPrint = function() {
+                    $("details").removeAttr('open');
+                    //d3.selectAll("#keybox2,#keybox3,#keybox4,#keybox6,#keybox8").attr("href","#a2");
+                    //d3.selectAll(".keyboxA, .keyboxB, .keyboxC").attr("href","#a3");
+                    //d3.selectAll(".keyboxA").attr("href","#a3");
+                };
+
+                // Webkit
+                if (window.matchMedia) {
+                    var mediaQueryList = window.matchMedia('print');
+                    mediaQueryList.addListener(function(mql) {
+                        if (mql.matches) {
+                            beforePrint();
+                        }
+                        else {
+                            afterPrint();
+                        }
+                    });
+                }
+                // IE, Firefox
+                window.onbeforeprint = beforePrint;
+                window.onafterprint = afterPrint;
+            </script>
+    </body>
+</html>
