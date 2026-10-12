@@ -4,12 +4,14 @@
 Standard library only. Each run does three things:
   1. Requests every source once, politely, with a descriptive User-Agent.
   2. Appends one row per source to data/probe_log.csv (status, size, hash, links found).
-  3. Saves the raw response under data/raw/YYYY-MM-DD/ for sources marked archive=True.
+  3. Saves the raw response (gzipped) under data/raw/YYYY-MM-DD/ for sources marked
+     archive=True, but only when the content changed since the last saved copy.
 
 Sources marked archive=False are probed only (status logged, nothing stored). Flip a
 source to True once you have read its terms of use and confirmed archiving is allowed.
 """
 import csv
+import gzip
 import hashlib
 import os
 import re
@@ -21,50 +23,59 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 REPO = os.environ.get("GITHUB_REPOSITORY", "your-username/canada-health-signals")
-USER_AGENT = f"CanadaHealthSignals/0.1 (open-data research project; https://github.com/{REPO})"
-TIMEOUT = 30
-MAX_BYTES = 5_000_000
+USER_AGENT = f"CanadaHealthSignals/0.2 (open-data research project; https://github.com/{REPO})"
+TIMEOUT = 60
+MAX_BYTES = 80_000_000
 
-# name, url, ext, archive, note
+WW = "https://health-infobase.canada.ca/src/data"
+AQHI_BBOX = "bbox=-114.5,50.8,-113.8,51.3"
+
 SOURCES = [
     {
-        "name": "dpd_drugproduct_sample",
-        "url": "https://health-products.canada.ca/api/drug/drugproduct/?lang=en&type=json&din=02242963",
+        "name": "dpd_brand_advil",
+        "url": "https://health-products.canada.ca/api/drug/drugproduct/?lang=en&type=json&brandname=advil",
         "ext": "json",
         "archive": True,
-        "note": "Drug Product Database API, documented, no key. Sample DIN to confirm it responds.",
+        "note": "Drug Product Database API (documented, no key). Brand name search to confirm real results.",
+    },
+    {
+        "name": "dpd_ingredient_acetaminophen",
+        "url": "https://health-products.canada.ca/api/drug/activeingredient/?lang=en&type=json&ingredientname=acetaminophen",
+        "ext": "json",
+        "archive": True,
+        "note": "Second DPD check, by active ingredient.",
     },
     {
         "name": "hc_recalls_opendata",
         "url": "https://recalls-rappels.canada.ca/sites/default/files/opendata-donneesouvertes/HCRSAMOpenData.json",
         "ext": "json",
         "archive": True,
-        "note": "Candidate URL for the recalls open data file. Unverified, a 404 here is useful information.",
+        "note": "All Health Canada recalls and safety alerts. Has an Organization field for filtering to health products.",
     },
     {
-        "name": "hc_recalls_api_page",
-        "url": "https://recalls-rappels.canada.ca/en/api",
-        "ext": "html",
+        "name": "phac_wastewater_aggregate",
+        "url": f"{WW}/wastewater/wastewater_aggregate.csv",
+        "ext": "csv",
         "archive": True,
-        "note": "Documentation page, to find the real feed address if the candidate above fails.",
+        "note": "PHAC wastewater surveillance, aggregate. Link found on the dashboard page. Updates Tue and Fri.",
     },
     {
-        "name": "drug_shortages_home",
-        "url": "https://www.drugshortagescanada.ca/",
-        "ext": "html",
-        "archive": False,
-        "note": "No API or bulk download found. Probe only until terms of use are reviewed.",
+        "name": "phac_wastewater_covid_trend",
+        "url": f"{WW}/covidLive/wastewater/covid19-wastewater-trend.csv",
+        "ext": "csv",
+        "archive": True,
+        "note": "PHAC COVID wastewater trend. Link found on the dashboard page.",
     },
     {
         "name": "phac_wastewater_page",
         "url": "https://health-infobase.canada.ca/covid-19/wastewater/",
         "ext": "html",
-        "archive": True,
-        "note": "PHAC dashboard page. Updates Tuesdays and Fridays. Script lists any csv/json links it finds.",
+        "archive": False,
+        "note": "Dashboard page. Probe only, used to notice if the CSV links change.",
     },
     {
         "name": "aqhi_calgary_bbox",
-        "url": "https://api.weather.gc.ca/collections/aqhi-observations-realtime/items?f=json&limit=20&bbox=-114.5,50.8,-113.8,51.3",
+        "url": f"https://api.weather.gc.ca/collections/aqhi-observations-realtime/items?f=json&limit=100&{AQHI_BBOX}",
         "ext": "json",
         "archive": True,
         "note": "Environment Canada OGC API, air quality observations around Calgary.",
@@ -85,12 +96,24 @@ def fetch(url):
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept": "*/*"})
     try:
         with urllib.request.urlopen(req, timeout=TIMEOUT) as resp:
-            body = resp.read(MAX_BYTES)
+            body = resp.read(MAX_BYTES + 1)
             return resp.status, resp.headers.get("Content-Type", ""), body, ""
     except urllib.error.HTTPError as e:
         return e.code, e.headers.get("Content-Type", "") if e.headers else "", b"", f"HTTP {e.code}"
     except Exception as e:  # network errors, timeouts, DNS, TLS
         return 0, "", b"", f"{type(e).__name__}: {e}"[:200]
+
+
+def last_saved_hashes(log_path):
+    """Map source name to the hash of its most recently saved snapshot."""
+    hashes = {}
+    if not log_path.exists():
+        return hashes
+    with log_path.open(newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            if row.get("archived") in ("True", "unchanged") and row.get("sha256_12"):
+                hashes[row["name"]] = row["sha256_12"]
+    return hashes
 
 
 def main():
@@ -101,10 +124,14 @@ def main():
     raw_dir.mkdir(parents=True, exist_ok=True)
     log_path = data_dir / "probe_log.csv"
     new_log = not log_path.exists()
+    previous = last_saved_hashes(log_path)
 
     rows = []
     for src in SOURCES:
         status, ctype, body, error = fetch(src["url"])
+        too_big = len(body) > MAX_BYTES
+        if too_big:
+            body, error = b"", f"over {MAX_BYTES} byte cap"
         digest = hashlib.sha256(body).hexdigest()[:12] if body else ""
         links = ""
         if body and src["ext"] == "html":
@@ -113,11 +140,16 @@ def main():
             for link in LINK_RE.findall(text):
                 if link not in found:
                     found.append(link)
-            links = "|".join(found[:5])
-        archived = False
+            links = ";".join(found[:5])
+        archived = "False"
         if status == 200 and body and src["archive"]:
-            (raw_dir / f"{src['name']}.{src['ext']}").write_bytes(body)
-            archived = True
+            if previous.get(src["name"]) == digest:
+                archived = "unchanged"
+            else:
+                path = raw_dir / f"{src['name']}.{src['ext']}.gz"
+                with gzip.open(path, "wb") as f:
+                    f.write(body)
+                archived = "True"
         rows.append({
             "ts_utc": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
             "name": src["name"],
@@ -137,10 +169,13 @@ def main():
             writer.writeheader()
         writer.writerows(rows)
 
-    lines = ["| source | status | bytes | archived | data links | error |", "|---|---|---|---|---|---|"]
+    def cell(value):
+        return str(value).replace("|", "/") if str(value) else "-"
+
+    lines = ["| source | status | bytes | saved | links found | error |", "|---|---|---|---|---|---|"]
     for r in rows:
         lines.append(
-            f"| {r['name']} | {r['status']} | {r['bytes']} | {r['archived']} | {r['data_links'] or '-'} | {r['error'] or '-'} |"
+            f"| {r['name']} | {r['status']} | {r['bytes']} | {r['archived']} | {cell(r['data_links'])} | {cell(r['error'])} |"
         )
     summary = "\n".join(lines)
     print(summary)
