@@ -374,3 +374,24 @@ ts_utc,name,status,bytes,content_type,sha256_12,archived,data_links,error
 2026-10-21T15:57:14Z,ctgov_ai_count,200,10165,application/json,890195785f0b,True,,
 2026-10-21T15:57:14Z,openfda_enforcement_sample,200,1840,application/json,7291a2304ed4,True,,
 2026-10-21T15:57:14Z,fda_ai_devices_page,200,415821,text/html,1dbf5ca14873,False,,
+2026-10-22T15:52:42Z,dpd_brand_advil,0,0,,,False,,URLError: <urlopen error timed out>
+2026-10-22T15:52:42Z,dpd_ingredient_acetaminophen,0,0,,,False,,URLError: <urlopen error timed out>
+2026-10-22T15:52:42Z,hc_recalls_opendata,200,15804530,application/json,920fe70f5a46,True,,
+2026-10-22T15:52:42Z,phac_wastewater_aggregate,0,0,,,False,,URLError: <urlopen error timed out>
+2026-10-22T15:52:42Z,phac_wastewater_covid_trend,0,0,,,False,,URLError: <urlopen error timed out>
+2026-10-22T15:52:42Z,phac_wastewater_page,0,0,,,False,,URLError: <urlopen error timed out>
+2026-10-22T15:52:42Z,aqhi_calgary_bbox,0,0,,,False,,URLError: <urlopen error timed out>
+2026-10-22T15:52:42Z,qc_er_dataset_meta,200,11267,application/json,6814b111731a,True,,
+2026-10-22T15:52:42Z,qc_er_resource_page,200,38150,text/html,6db24d164934,False,https://www.msss.gouv.qc.ca/professionnels/statistiques/documents/urgences/Releve_horaire_urgences_7jours.csv,
+2026-10-22T15:52:42Z,qc_er_hourly_7day,403,0,text/html,,False,,HTTP 403: <html> <head><title>403 Forbidden</title></head> <body> <center><h1>403 Forbidden</h1></center> </body> </html>
+2026-10-22T15:52:42Z,qc_er_hourly_7day_headcount,403,0,text/html,,False,,HTTP 403: <html> <head><title>403 Forbidden</title></head> <body> <center><h1>403 Forbidden</h1></center> </body> </html>
+2026-10-22T15:52:42Z,cdc_nhsn_admissions_meta,200,42448,application/json,6f812737927b,True,,
+2026-10-22T15:52:42Z,cdc_nhsn_admissions_sample,200,2948,application/json,196a0f97c075,unchanged,,
+2026-10-22T15:52:42Z,cdc_wastewater_fluA_sample,200,5658,application/json,daaadbda2cb3,unchanged,,
+2026-10-22T15:52:42Z,cdc_wastewater_covid_sample,200,5900,application/json,9e6fea18c64d,unchanged,,
+2026-10-22T15:52:42Z,cdc_wastewater_rsv_sample,200,5878,application/json,7b6e0cdfa3b8,unchanged,,
+2026-10-22T15:52:42Z,phac_resp_surveillance_page,0,0,,,False,,URLError: <urlopen error timed out>
+2026-10-22T15:52:42Z,pubmed_ai_rct_count,200,79,application/json,53e919c0bdfd,unchanged,,
+2026-10-22T15:52:42Z,ctgov_ai_count,200,12817,application/json,5754e545bc6c,True,,
+2026-10-22T15:52:42Z,openfda_enforcement_sample,200,1840,application/json,7291a2304ed4,unchanged,,
+2026-10-22T15:52:42Z,fda_ai_devices_page,200,415834,text/html,fae631ae6561,False,,
