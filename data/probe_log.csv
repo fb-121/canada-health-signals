@@ -437,3 +437,24 @@ ts_utc,name,status,bytes,content_type,sha256_12,archived,data_links,error
 2026-10-24T14:31:20Z,ctgov_ai_count,200,8843,application/json,e1e9e0b814f8,unchanged,,
 2026-10-24T14:31:20Z,openfda_enforcement_sample,200,1840,application/json,7291a2304ed4,unchanged,,
 2026-10-24T14:31:20Z,fda_ai_devices_page,200,415835,text/html,b4be964e0632,False,,
+2026-10-25T14:56:53Z,dpd_brand_advil,503,0,text/html,,False,,"HTTP 503: <!DOCTYPE HTML PUBLIC ""-//W3C//DTD HTML 4.01//EN""""http://www.w3.org/TR/html4/strict.dtd""> <HTML><HEAD><TITLE>Service Unavailable</TITLE> <META HTTP-EQUIV=""Content-Type"" Content=""text/html; charset=us-"
+2026-10-25T14:56:53Z,dpd_ingredient_acetaminophen,503,0,text/html,,False,,"HTTP 503: <!DOCTYPE HTML PUBLIC ""-//W3C//DTD HTML 4.01//EN""""http://www.w3.org/TR/html4/strict.dtd""> <HTML><HEAD><TITLE>Service Unavailable</TITLE> <META HTTP-EQUIV=""Content-Type"" Content=""text/html; charset=us-"
+2026-10-25T14:56:53Z,hc_recalls_opendata,200,15810231,application/json,8541c2bbab02,True,,
+2026-10-25T14:56:53Z,phac_wastewater_aggregate,200,8535472,text/csv,6ec6b9afc659,unchanged,,
+2026-10-25T14:56:53Z,phac_wastewater_covid_trend,200,4222,text/csv,b380e6ba4be5,unchanged,,
+2026-10-25T14:56:53Z,phac_wastewater_page,200,77022,text/html,5e4c3497141a,False,/src/data/covidLive/wastewater/covid19-wastewater-trend.csv;/src/data/wastewater/wastewater_aggregate.csv;/src/data/wastewater/wastewater_trend.csv;/src/data/covidLive/wastewater/covid19-wastewater-data-dictionary-en.csv,
+2026-10-25T14:56:53Z,aqhi_calgary_bbox,200,58108,application/json,d5c3b15666e0,True,,
+2026-10-25T14:56:53Z,qc_er_dataset_meta,200,11267,application/json,c58bf15622c4,True,,
+2026-10-25T14:56:53Z,qc_er_resource_page,200,38150,text/html,20c1048b6f3f,False,https://www.msss.gouv.qc.ca/professionnels/statistiques/documents/urgences/Releve_horaire_urgences_7jours.csv,
+2026-10-25T14:56:53Z,qc_er_hourly_7day,403,0,text/html,,False,,HTTP 403: <html> <head><title>403 Forbidden</title></head> <body> <center><h1>403 Forbidden</h1></center> </body> </html>
+2026-10-25T14:56:53Z,qc_er_hourly_7day_headcount,403,0,text/html,,False,,HTTP 403: <html> <head><title>403 Forbidden</title></head> <body> <center><h1>403 Forbidden</h1></center> </body> </html>
+2026-10-25T14:56:53Z,cdc_nhsn_admissions_meta,200,42743,application/json,9c54d3e6393c,True,,
+2026-10-25T14:56:53Z,cdc_nhsn_admissions_sample,200,2948,application/json,196a0f97c075,unchanged,,
+2026-10-25T14:56:53Z,cdc_wastewater_fluA_sample,200,5920,application/json,18132534de01,unchanged,,
+2026-10-25T14:56:53Z,cdc_wastewater_covid_sample,200,5641,application/json,49860da1ec52,unchanged,,
+2026-10-25T14:56:53Z,cdc_wastewater_rsv_sample,200,5583,application/json,1d7e5bcb9f2f,unchanged,,
+2026-10-25T14:56:53Z,phac_resp_surveillance_page,200,67991,text/html,4e8064320bd3,False,,
+2026-10-25T14:56:53Z,pubmed_ai_rct_count,200,79,application/json,e69ea1315443,True,,
+2026-10-25T14:56:53Z,ctgov_ai_count,200,8843,application/json,e1e9e0b814f8,unchanged,,
+2026-10-25T14:56:53Z,openfda_enforcement_sample,200,1840,application/json,7291a2304ed4,unchanged,,
+2026-10-25T14:56:53Z,fda_ai_devices_page,200,415866,text/html,18ede0179a9a,False,,
