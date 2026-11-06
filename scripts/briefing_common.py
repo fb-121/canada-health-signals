@@ -62,6 +62,7 @@ def write_items(section, items, notes):
     merged = existing + [i for i in items if i["key"] not in keys]
     if merged:
         path.write_text(json.dumps(merged, indent=1, ensure_ascii=False) + "\n")
+    notes = notes + [f"NEW: {i['headline']} | {i['detail']}" for i in items if i["key"] not in keys]
     text = "\n".join(f"- {n}" for n in notes)
     print(text)
     summary = os.environ.get("GITHUB_STEP_SUMMARY")
