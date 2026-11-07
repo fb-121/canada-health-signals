@@ -28,6 +28,16 @@ jobs:
         continue-on-error: true
         run: python scripts/ai_evidence.py
 
+      - name: "Briefing: Rules (FDA AI clearances)"
+        continue-on-error: true
+        run: python scripts/briefing_rules.py
+
+      - name: "Briefing: Money (SEC Form D health raises)"
+        continue-on-error: true
+        env:
+          SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
+        run: python scripts/briefing_money.py
+
       - name: Build the page
         continue-on-error: true   # a page problem must never lose the day's data
         run: python scripts/build_site.py
