@@ -16,5 +16,57 @@
   "event_date": "2026-11-13",
   "key": "formd:0001940981-26-000003",
   "why": null
+ },
+ {
+  "section": "money",
+  "headline": "Transformer TX Holdings, LLC raised $4.1M (Hospitals and Physicians)",
+  "detail": "Form D filed 2026-11-09. Sold $4.1M of a $319.1M offering to 53 investors, first sale 2026-11-02. Based in TEXAS.",
+  "source_url": "https://www.sec.gov/Archives/edgar/data/1926580/000112329226001498/0001123292-26-001498-index.htm",
+  "event_date": "2026-11-09",
+  "key": "formd:0001123292-26-001498",
+  "why": null,
+  "amount": 4146514.0,
+  "industry": "Hospitals and Physicians",
+  "equity": true,
+  "source": "SEC Form D"
+ },
+ {
+  "section": "money",
+  "headline": "Zai Lab Ltd raised $249.9M (Biotechnology)",
+  "detail": "Form D filed 2026-11-09. Sold $249.9M of a $249.9M offering to 25 investors, first sale 2026-10-27. Based in MASSACHUSETTS.",
+  "source_url": "https://www.sec.gov/Archives/edgar/data/1704292/000170429226000038/0001704292-26-000038-index.htm",
+  "event_date": "2026-11-09",
+  "key": "formd:0001704292-26-000038",
+  "why": null,
+  "amount": 249933600.0,
+  "industry": "Biotechnology",
+  "equity": true,
+  "source": "SEC Form D"
+ },
+ {
+  "section": "money",
+  "headline": "ABVC BIOPHARMA, INC. raised $3.4M (Biotechnology)",
+  "detail": "Form D filed 2026-11-10. Sold $3.4M of a $3.4M offering to 9 investors, first sale 2026-10-30. Based in CALIFORNIA. Not an equity raise (debt or other securities).",
+  "source_url": "https://www.sec.gov/Archives/edgar/data/1173313/000121390026118072/0001213900-26-118072-index.htm",
+  "event_date": "2026-11-10",
+  "key": "formd:0001213900-26-118072",
+  "why": null,
+  "amount": 3387500.0,
+  "industry": "Biotechnology",
+  "equity": false,
+  "source": "SEC Form D"
+ },
+ {
+  "section": "money",
+  "headline": "AngioInsight, Inc. raised $16.3M (Other Health Care)",
+  "detail": "Form D filed 2026-11-10. Sold $16.3M of a $20.0M offering to 94 investors, first sale 2025-10-09. Based in MINNESOTA. Not an equity raise (debt or other securities).",
+  "source_url": "https://www.sec.gov/Archives/edgar/data/2164579/000216457926000001/0002164579-26-000001-index.htm",
+  "event_date": "2026-11-10",
+  "key": "formd:0002164579-26-000001",
+  "why": null,
+  "amount": 16314000.0,
+  "industry": "Other Health Care",
+  "equity": false,
+  "source": "SEC Form D"
  }
 ]
