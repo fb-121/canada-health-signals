@@ -1,0 +1,26 @@
+{
+ "fda_510k_summaries": {
+  "checked_at": "2026-11-15T20:12Z",
+  "evidence_changed": 0,
+  "failed": 7,
+  "read": 0
+ },
+ "fda_ai_device_list": {
+  "checked_at": "2026-11-15T20:12Z",
+  "devices": 1614,
+  "latest_decision_date": "2026-06-29"
+ },
+ "openfda_510k": {
+  "checked_at": "2026-11-15T20:12Z",
+  "errors": 0,
+  "fetched": 25,
+  "latest_decision_date": "2026-10-30"
+ },
+ "sec_form_d": {
+  "checked_at": "2026-11-15T20:16Z",
+  "filings_read": 1122,
+  "items": 8,
+  "latest_index_date": "2026-11-13",
+  "unreadable": 1
+ }
+}

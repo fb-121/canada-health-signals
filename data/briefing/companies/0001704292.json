@@ -1,0 +1,15 @@
+{
+ "cik": "0001704292",
+ "exchanges": [
+  "Nasdaq"
+ ],
+ "fetched": "2026-11-15",
+ "files_periodic_reports": true,
+ "name": "Zai Lab Ltd",
+ "sic": "2834",
+ "sic_description": "Pharmaceutical Preparations",
+ "state_of_incorporation": "E9",
+ "tickers": [
+  "ZLAB"
+ ]
+}

@@ -5,11 +5,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
-/* Layout: one narrow reading column, a docket of ranked items, the week below as a ledger. */
+/* Layout: one narrow reading column, a docket of ranked stories, the week below as a ledger. */
 :root{
   --bg:#f5f7f9; --surface:#ffffff; --ink:#15202b; --muted:#5b6876; --line:#dbe2e9;
   --accent:#1f5f8b; --fda:#1f5f8b; --fda-bg:#e3eef7; --money:#7a5a12; --money-bg:#f6eedb;
-  --conf:#1d6b46; --conf-bg:#ddf1e6; --inf:#6b5a8e; --inf-bg:#ece7f6;
+  --conf:#1d6b46; --conf-bg:#ddf1e6; --inf:#6b5a8e; --inf-bg:#ece7f6; --warn:#9a4a12; --warn-bg:#fbe9d8;
+  --analysis-bg:#eef2f7;
   --display:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
   --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
@@ -17,11 +18,13 @@
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#0f151b; --surface:#161e26; --ink:#e4eaf0; --muted:#97a5b3; --line:#26323d;
   --accent:#7fb6dd; --fda:#9cc7e6; --fda-bg:#18324a; --money:#e3c27a; --money-bg:#3a2f15;
-  --conf:#8fd3ad; --conf-bg:#173528; --inf:#c2b3e6; --inf-bg:#2b2440; color-scheme:dark}}
+  --conf:#8fd3ad; --conf-bg:#173528; --inf:#c2b3e6; --inf-bg:#2b2440; --warn:#f0b585; --warn-bg:#40291a;
+  --analysis-bg:#1b2530; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0f151b; --surface:#161e26; --ink:#e4eaf0; --muted:#97a5b3; --line:#26323d;
   --accent:#7fb6dd; --fda:#9cc7e6; --fda-bg:#18324a; --money:#e3c27a; --money-bg:#3a2f15;
-  --conf:#8fd3ad; --conf-bg:#173528; --inf:#c2b3e6; --inf-bg:#2b2440; color-scheme:dark}
+  --conf:#8fd3ad; --conf-bg:#173528; --inf:#c2b3e6; --inf-bg:#2b2440; --warn:#f0b585; --warn-bg:#40291a;
+  --analysis-bg:#1b2530; color-scheme:dark}
 body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
 .wrap{max-width:720px;margin:0 auto;padding-block:28px 56px;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
@@ -36,34 +39,54 @@ section{display:flex;flex-direction:column;gap:12px}
 ol,ul{list-style:none;margin:0;padding:0}
 .items{display:flex;flex-direction:column;gap:12px}
 .item{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px 18px;
-  display:flex;flex-direction:column;gap:6px;min-width:0}
+  display:flex;flex-direction:column;gap:10px;min-width:0}
 .item h3{font-size:16px;font-weight:600;line-height:1.35;margin:0;overflow-wrap:anywhere}
+.record{display:flex;flex-direction:column;gap:6px;min-width:0}
+.record+.record{border-top:1px solid var(--line);padding-top:10px}
+.record h4{font-size:14.5px;font-weight:600;margin:0;overflow-wrap:anywhere}
 .detail{margin:0;color:var(--muted);overflow-wrap:anywhere}
-.why{margin:4px 0 0;padding-top:8px;border-top:1px dashed var(--line);display:flex;flex-direction:column;gap:2px}
-.why-label{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
-.meta{margin:2px 0 0;display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted)}
+.label{font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.docfacts{display:flex;flex-direction:column;gap:4px;font-size:13.5px}
+.docfacts ul{display:flex;flex-direction:column;gap:3px;color:var(--muted)}
+.docfacts b{color:var(--ink);font-weight:500}
+.analysis{background:var(--analysis-bg);border-radius:6px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;font-size:14px}
+.analysis p{margin:0}
+.analysis details{border-top:0;padding-top:0}
+.analysis ul{display:flex;flex-direction:column;gap:3px;margin-top:6px;color:var(--muted);font-size:13px;list-style:disc;padding-left:18px}
+.meta{margin:2px 0 0;display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--muted)}
+.meta .dl{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.03em}
 .id{font-family:var(--mono);font-size:12.5px;font-variant-numeric:tabular-nums}
 a{color:var(--accent);text-underline-offset:2px}
 a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{font-family:var(--mono);font-size:11.5px;font-weight:500;padding:2px 8px;border-radius:4px;letter-spacing:.02em;white-space:nowrap}
+.chip{font-family:var(--mono);font-size:11.5px;font-weight:500;padding:2px 8px;border-radius:4px;letter-spacing:.02em}
 .sec-rules{color:var(--fda);background:var(--fda-bg)}
 .sec-money{color:var(--money);background:var(--money-bg)}
 .conf,.named{color:var(--conf);background:var(--conf-bg)}
 .inf{color:var(--inf);background:transparent;border:1px dashed var(--inf)}
-.amt{color:var(--ink);background:transparent;border:1px solid var(--line);font-variant-numeric:tabular-nums}
+.unk{color:var(--muted);background:transparent;border:1px dashed var(--line)}
+.rec-new{color:var(--conf);border:1px solid var(--conf)}
+.rec-recent,.rec-historical,.amt,.cat,.upd,.lst{color:var(--muted);border:1px solid var(--line)}
+.late{color:var(--warn);background:var(--warn-bg)}
+.amt{font-variant-numeric:tabular-nums}
 details{border-top:1px solid var(--line);padding-top:12px}
 summary{cursor:pointer;color:var(--accent);font-weight:500}
 .rows{display:flex;flex-direction:column;gap:8px;margin-top:12px}
-.rows li{display:flex;gap:10px;align-items:baseline;min-width:0}
+.rows li{display:flex;gap:10px;align-items:baseline;min-width:0;flex-wrap:wrap}
 .rows a{overflow-wrap:anywhere}
+.corr li{display:block;font-size:13px;color:var(--muted)}
 .day{display:grid;grid-template-columns:72px 1fr;gap:12px;padding-block:10px;border-top:1px solid var(--line)}
 .day:first-child{border-top:0}
 .day-date{font-family:var(--mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
 .day .rows{margin:0}
 .empty{background:var(--surface);border:1px dashed var(--line);border-radius:8px;padding:18px;color:var(--muted);margin:0}
-.notes{font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:6px}
+.notes{font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:8px}
 .notes p{margin:0;max-width:65ch}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;font-size:13px;min-width:480px;width:100%}
+th,td{text-align:left;padding:6px 10px 6px 0;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:500}
+td.ok{color:var(--conf)} td.stale{color:var(--warn);font-weight:600}
 @media (max-width:480px){.day{grid-template-columns:1fr;gap:6px}.item{padding:14px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -72,62 +95,77 @@ summary{cursor:pointer;color:var(--accent);font-weight:500}
   <header>
     <span class="kicker">Sunday, November 15, 2026</span>
     <h1>Health Tech Morning Brief</h1>
-    <p class="summary"><b>13</b> new items passed the filter today: <b>7</b> FDA, <b>6</b> private raises. Showing the top 7.</p>
+    <p class="summary"><b>15</b> records in <b>14</b> stories: <b>7</b> FDA, <b>8</b> financing filings. <b>1</b> are new (event within 14 days of detection); the rest are recent or historical. Analysis written for <b>4</b> stories.</p>
   </header>
   <section aria-labelledby="t-today">
     <h2 id="t-today">Today</h2>
-    <ol class="items"><li class="item">
-  <div class="chips"><span class="chip sec-rules">FDA</span><span class="chip named">AI named</span></div>
-  <h3>FDA clears STAR Apollo Mapping System (Rhythm AI, Ltd.)</h3>
-  <p class="detail">Product code DQK. AI named in the device or company.</p>
+    <ol class="items"><li class="item"><h3>FDA clears EFAI NEUROSUITE CTA LVO ASSESSMENT SYSTEM (LVO-CTA-100) (Ever Fortune.Ai, Co., Ltd.)</h3><div class="record">
+  <div class="chips"><span class="chip sec-rules">FDA</span><span class="chip rec-recent">Recent</span><span class="chip named">Manufacturer-reported</span></div>
   
-  <p class="meta"><span class="id">K263380</span><span>Cleared Oct 23</span><a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K263380" target="_blank" rel="noopener">Official record</a></p>
-</li><li class="item">
-  <div class="chips"><span class="chip sec-rules">FDA</span><span class="chip named">AI named</span></div>
-  <h3>FDA clears CINA-Aneurysm (Avicenna.Ai)</h3>
-  <p class="detail">Product code QBS. AI named in the device or company.</p>
+  <p class="detail">Product code QAS. The device or company name says AI. Not yet checked against FDA documents.</p>
   
-  <p class="meta"><span class="id">K262062</span><span>Cleared Oct 20</span><a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K262062" target="_blank" rel="noopener">Official record</a></p>
-</li><li class="item">
-  <div class="chips"><span class="chip sec-rules">FDA</span><span class="chip named">AI named</span></div>
-  <h3>FDA clears CINA-Aneurysm+ (Avicenna.Ai)</h3>
-  <p class="detail">Product code QIH. AI named in the device or company.</p>
+  <p class="meta"><span class="id">K263109</span><span><span class="dl">Cleared</span> Oct 30, 2026</span><span><span class="dl">Received by FDA</span> Sep 4, 2026</span><span><span class="dl">Detected</span> Nov 15, 2026</span><a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K263109" target="_blank" rel="noopener">Official record</a></p>
+</div></li><li class="item"><h3>Avicenna.Ai: 2 FDA clearances</h3><div class="record">
+  <div class="chips"><span class="chip sec-rules">FDA</span><span class="chip rec-recent">Recent</span><span class="chip named">Manufacturer-reported</span></div>
+  <h4>FDA clears CINA-Aneurysm+ (Avicenna.Ai)</h4>
+  <p class="detail">Product code QIH. The device or company name says AI. Not yet checked against FDA documents.</p>
   
-  <p class="meta"><span class="id">K262147</span><span>Cleared Oct 19</span><a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K262147" target="_blank" rel="noopener">Official record</a></p>
-</li><li class="item">
-  <div class="chips"><span class="chip sec-rules">FDA</span><span class="chip named">AI named</span></div>
-  <h3>FDA clears EFAI NEUROSUITE CTA LVO ASSESSMENT SYSTEM (LVO-CTA-100) (Ever Fortune.Ai, Co., Ltd.)</h3>
-  <p class="detail">Product code QAS. AI named in the device or company.</p>
+  <p class="meta"><span class="id">K262147</span><span><span class="dl">Cleared</span> Oct 19, 2026</span><span><span class="dl">Received by FDA</span> Jun 25, 2026</span><span><span class="dl">Detected</span> Nov 15, 2026</span><a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K262147" target="_blank" rel="noopener">Official record</a></p>
+</div><div class="record">
+  <div class="chips"><span class="chip sec-rules">FDA</span><span class="chip rec-recent">Recent</span><span class="chip named">Manufacturer-reported</span></div>
+  <h4>FDA clears CINA-Aneurysm (Avicenna.Ai)</h4>
+  <p class="detail">Product code QBS. The device or company name says AI. Not yet checked against FDA documents.</p>
   
-  <p class="meta"><span class="id">K263109</span><span>Cleared Oct 30</span><a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K263109" target="_blank" rel="noopener">Official record</a></p>
-</li><li class="item">
-  <div class="chips"><span class="chip sec-money">Raise</span><span class="chip amt">$249.9M</span></div>
-  <h3>Zai Lab Ltd raised $249.9M (Biotechnology)</h3>
-  <p class="detail">Sold $249.9M of a $249.9M offering to 25 investors, first sale 2026-10-27. Based in Massachusetts.</p>
+  <p class="meta"><span class="id">K262062</span><span><span class="dl">Cleared</span> Oct 20, 2026</span><span><span class="dl">Received by FDA</span> Jun 18, 2026</span><span><span class="dl">Detected</span> Nov 15, 2026</span><a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K262062" target="_blank" rel="noopener">Official record</a></p>
+</div></li><li class="item"><h3>FDA clears STAR Apollo Mapping System (Rhythm AI, Ltd.)</h3><div class="record">
+  <div class="chips"><span class="chip sec-rules">FDA</span><span class="chip rec-recent">Recent</span><span class="chip named">Manufacturer-reported</span></div>
   
-  <p class="meta"><span class="id">Form D 0001704292-26-000038</span><span>Filed Nov 9</span><a href="https://www.sec.gov/Archives/edgar/data/1704292/000170429226000038/0001704292-26-000038-index.htm" target="_blank" rel="noopener">Official record</a></p>
-</li><li class="item">
-  <div class="chips"><span class="chip sec-money">Raise</span><span class="chip amt">$29.9M</span></div>
-  <h3>Nanopath Inc raised $29.9M (Biotechnology)</h3>
-  <p class="detail">Sold $29.9M of a $36.8M offering to 21 investors, first sale 2026-10-22. Based in Massachusetts.</p>
+  <p class="detail">Product code DQK. The device or company name says AI. Not yet checked against FDA documents.</p>
   
-  <p class="meta"><span class="id">Form D 0001940981-26-000003</span><span>Filed Nov 13</span><a href="https://www.sec.gov/Archives/edgar/data/1940981/000194098126000003/0001940981-26-000003-index.htm" target="_blank" rel="noopener">Official record</a></p>
-</li><li class="item">
-  <div class="chips"><span class="chip sec-money">Raise</span><span class="chip amt">$16.3M</span></div>
-  <h3>AngioInsight, Inc. raised $16.3M (Other Health Care)</h3>
-  <p class="detail">Sold $16.3M of a $20.0M offering to 94 investors, first sale 2025-10-09. Based in Minnesota. Not an equity raise (debt or other securities).</p>
+  <p class="meta"><span class="id">K263380</span><span><span class="dl">Cleared</span> Oct 23, 2026</span><span><span class="dl">Received by FDA</span> Sep 24, 2026</span><span><span class="dl">Detected</span> Nov 15, 2026</span><a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K263380" target="_blank" rel="noopener">Official record</a></p>
+</div></li><li class="item"><h3>FDA clears DS Core Detect (Dentsply Sirona, Inc.)</h3><div class="record">
+  <div class="chips"><span class="chip sec-rules">FDA</span><span class="chip rec-recent">Recent</span><span class="chip inf">Inferred</span></div>
   
-  <p class="meta"><span class="id">Form D 0002164579-26-000001</span><span>Filed Nov 10</span><a href="https://www.sec.gov/Archives/edgar/data/2164579/000216457926000001/0002164579-26-000001-index.htm" target="_blank" rel="noopener">Official record</a></p>
-</li></ol><details><summary>6 more from today</summary><ul class="rows"><li><span class="chip sec-money">Raise</span><a href="https://www.sec.gov/Archives/edgar/data/1852165/000095015726001237/0000950157-26-001237-index.htm" target="_blank" rel="noopener">Orcosa Inc. raised $6.0M (Biotechnology)</a></li><li><span class="chip sec-money">Raise</span><a href="https://www.sec.gov/Archives/edgar/data/1926580/000112329226001498/0001123292-26-001498-index.htm" target="_blank" rel="noopener">Transformer TX Holdings, LLC raised $4.1M (Hospitals and Physicians)</a></li><li><span class="chip sec-money">Raise</span><a href="https://www.sec.gov/Archives/edgar/data/1173313/000121390026118072/0001213900-26-118072-index.htm" target="_blank" rel="noopener">ABVC BIOPHARMA, INC. raised $3.4M (Biotechnology)</a></li><li><span class="chip sec-rules">FDA</span><a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K261072" target="_blank" rel="noopener">FDA clears DS Core Detect (Dentsply Sirona, Inc.)</a></li><li><span class="chip sec-rules">FDA</span><a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K261679" target="_blank" rel="noopener">FDA clears BlineSlide (Deep Breathe, Inc.)</a></li><li><span class="chip sec-rules">FDA</span><a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K260391" target="_blank" rel="noopener">FDA clears AVIEW Aorta Metrics (Coreline Soft Co., Ltd.)</a></li></ul></details>
+  <p class="detail">Product code MYN. Not on FDA&#x27;s AI list. Guess from product code MYN, where 95% of clearances since 2016 are AI.</p>
+  
+  <p class="meta"><span class="id">K261072</span><span><span class="dl">Cleared</span> Oct 30, 2026</span><span><span class="dl">Received by FDA</span> Apr 1, 2026</span><span><span class="dl">Detected</span> Nov 15, 2026</span><a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K261072" target="_blank" rel="noopener">Official record</a></p>
+</div></li><li class="item"><h3>Transformer TX Holdings, LLC reports $4.1M sold in a equity round</h3><div class="record">
+  <div class="chips"><span class="chip sec-money">Financing</span><span class="chip rec-new">New</span><span class="chip cat">equity round</span><span class="chip amt">$4.1M sold</span></div>
+  
+  <p class="detail">First sale 2026-11-02, filed 2026-11-09. Sold $4.1M of $319.1M offering to 53 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).</p>
+  
+  <p class="meta"><span class="id">Form D 0001123292-26-001498</span><span><span class="dl">First sale</span> Nov 2, 2026</span><span><span class="dl">Filed</span> Nov 9, 2026</span><span><span class="dl">Detected</span> Nov 15, 2026</span><a href="https://www.sec.gov/Archives/edgar/data/1926580/000112329226001498/0001123292-26-001498-index.htm" target="_blank" rel="noopener">Official record</a></p>
+</div></li><li class="item"><h3>Nanopath Inc reports $29.9M sold in a mixed equity and debt</h3><div class="record">
+  <div class="chips"><span class="chip sec-money">Financing</span><span class="chip rec-recent">Recent</span><span class="chip cat">mixed equity and debt</span><span class="chip late">Filed 7 days late</span><span class="chip amt">$29.9M sold</span></div>
+  
+  <p class="detail">First sale 2026-10-22, filed 2026-11-13, 7 days after the 2026-11-06 deadline. Sold $29.9M of $36.8M offering to 21 investors. Securities: equity, debt. Ownership: no listing or SEC reporting found (not verified private).</p>
+  
+  <p class="meta"><span class="id">Form D 0001940981-26-000003</span><span><span class="dl">First sale</span> Oct 22, 2026</span><span><span class="dl">Filed</span> Nov 13, 2026</span><span><span class="dl">Detected</span> Nov 15, 2026</span><a href="https://www.sec.gov/Archives/edgar/data/1940981/000194098126000003/0001940981-26-000003-index.htm" target="_blank" rel="noopener">Official record</a></p>
+</div><div class="analysis"><span class="label">Analysis by Claude, 2026-11-15. Interpretation, not verified fact. Not yet reviewed.</span><p><b>Why it matters.</b> The filing reports $29.9M sold of a $36.8M offering, tagged as both equity and debt, and it does not say how much was which. Calling it an equity raise would overstate what is known. It was filed 7 days after the 15-day deadline, which is a fact to note and not evidence of a problem. For a founder benchmarking round sizes, treat the number as total capital in a mixed offering, not as an equity valuation signal.</p><p><b>Watch next.</b> Whether Nanopath announces the round with investors and the instrument split. A Form D names no investors; the four related persons listed are the company&#x27;s own officers and directors.</p><details><summary>Evidence it rests on</summary><ul><li>Form D 0001940981-26-000003: securities offered flagged as equity and debt; offering $36,760,740; sold $29,891,706; remaining $6,869,034; 21 investors.</li><li>First sale 2026-10-22 gives a 2026-11-06 deadline; the filing date from EDGAR&#x27;s index is 2026-11-13; signature date 2026-11-10.</li></ul></details></div></li><li class="item"><h3>AngioInsight, Inc. reports $16.3M sold in a SAFE (per filer note)</h3><div class="record">
+  <div class="chips"><span class="chip sec-money">Financing</span><span class="chip rec-historical">Historical</span><span class="chip cat">SAFE (per filer note)</span><span class="chip late">Filed 382 days late</span><span class="chip amt">$16.3M sold</span></div>
+  
+  <p class="detail">First sale 2025-10-09, filed 2026-11-10, 382 days after the 2025-10-24 deadline. Sold $16.3M of $20.0M offering to 94 investors. Securities: option to acquire. Sales commissions $760,900 to Cedar Point Capital, LLC. Ownership: no listing or SEC reporting found (not verified private).</p>
+  
+  <p class="meta"><span class="id">Form D 0002164579-26-000001</span><span><span class="dl">First sale</span> Oct 9, 2025</span><span><span class="dl">Filed</span> Nov 10, 2026</span><span><span class="dl">Detected</span> Nov 15, 2026</span><a href="https://www.sec.gov/Archives/edgar/data/2164579/000216457926000001/0002164579-26-000001-index.htm" target="_blank" rel="noopener">Official record</a></p>
+</div><div class="analysis"><span class="label">Analysis by Claude, 2026-11-15. Interpretation, not verified fact. Not yet reviewed.</span><p><b>Why it matters.</b> This is a startup financing, not debt: the filing tags it as an option to acquire and the broker note describes the securities as SAFEs. It reports $16.3M sold to 94 investors, and the company says a placement agent (Cedar Point Capital) earned a 10% fee on the SAFEs it sold, which implies roughly $7.6M came through that broker (derived: $760,900 divided by 10%). The first sale was 2025-10-09 and the form was signed 2026-11-10, 382 days past the 15-day deadline, so this is a year of cumulative SAFE sales reported at once, not a new raise this week. Whether the lateness has any legal consequence is a question for counsel.</p><p><b>Watch next.</b> Whether an amended Form D or a priced equity round follows, since SAFEs convert at the next priced round. The company&#x27;s own announcements are the place to look; this pipeline does not track them.</p><details><summary>Evidence it rests on</summary><ul><li>Form D 0002164579-26-000001: securities offered flagged only as option to acquire; offering $20,000,000; sold $16,314,000; 94 investors; commission $760,900 to Cedar Point Capital, LLC.</li><li>Filer note on the commission: &#x27;10% of the proceeds received from the sale of SAFEs by the Broker&#x27;.</li><li>First sale 2025-10-09 gives a 2025-10-24 deadline; signed and filed 2026-11-10.</li></ul></details></div></li></ol><details><summary>7 more stories from today</summary><ul class="rows"><li><span class="chip sec-money">Financing</span><a href="https://www.sec.gov/Archives/edgar/data/1852165/000095015726001237/0000950157-26-001237-index.htm" target="_blank" rel="noopener">Orcosa Inc. reports $6.0M sold in a equity round</a></li><li><span class="chip sec-money">Financing</span><a href="https://www.sec.gov/Archives/edgar/data/1704292/000170429226000038/0001704292-26-000038-index.htm" target="_blank" rel="noopener">Zai Lab Ltd reports $249.9M sold in a public-company private placement</a></li><li><span class="chip sec-money">Financing</span><a href="https://www.sec.gov/Archives/edgar/data/1173313/000121390026118072/0001213900-26-118072-index.htm" target="_blank" rel="noopener">ABVC BIOPHARMA, INC. reports $3.4M sold in a public-company private placement</a></li><li><span class="chip sec-money">Financing</span><a href="https://www.sec.gov/Archives/edgar/data/1723443/000172344326000008/0001723443-26-000008-index.htm" target="_blank" rel="noopener">InSitu Biologics, Inc. amended its offering: $15.0M sold (other securities)</a></li><li><span class="chip sec-money">Financing</span><a href="https://www.sec.gov/Archives/edgar/data/2061065/000206106526000006/0002061065-26-000006-index.htm" target="_blank" rel="noopener">Palomar Labs Holdings LLC amended its offering: $4.4M sold (equity round)</a></li><li><span class="chip sec-rules">FDA</span><a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K261679" target="_blank" rel="noopener">FDA clears BlineSlide (Deep Breathe, Inc.)</a></li><li><span class="chip sec-rules">FDA</span><a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K260391" target="_blank" rel="noopener">FDA clears AVIEW Aorta Metrics (Coreline Soft Co., Ltd.)</a></li></ul></details>
   </section>
   <section aria-labelledby="t-week">
     <h2 id="t-week">Past week</h2>
-    <p class="empty">The past week fills in as the daily runs build up history.</p>
+    <p class="empty">The past week fills in as the daily runs build up history. Everything above was first detected today, so it includes the initial lookback.</p>
+  </section>
+  <section aria-labelledby="t-fresh">
+    <h2 id="t-fresh">Source freshness</h2>
+    <div class="scroll"><table><thead><tr><th>Source</th><th>Newest data</th><th>Age</th><th>Normal cadence</th></tr></thead><tbody><tr><td>SEC Form D daily index</td><td>Nov 13, 2026</td><td class="ok">2 days old</td><td>posted each business day</td></tr><tr><td>openFDA 510(k) clearances</td><td>Oct 30, 2026</td><td class="ok">16 days old</td><td>refreshed weekly, lags the FDA decision</td></tr><tr><td>FDA AI-enabled device list</td><td>Jun 29, 2026</td><td class="ok">139 days old</td><td>FDA updates it every few months</td></tr><tr><td>FDA 510(k) summaries</td><td>n/a</td><td class=""></td><td>read on demand</td></tr></tbody></table></div>
+  </section>
+  <section aria-labelledby="t-corr">
+    <h2 id="t-corr">Corrections and changes</h2>
+    <ul class="rows corr"><li><span class='id'>2026-11-15</span> formd:0001940981-26-000003: headline changed from Nanopath Inc raised $29.9M (Biotechnology) to Nanopath Inc reports $29.9M sold in a mixed equity and debt. schema upgrade, re-derived from the official record.</li><li><span class='id'>2026-11-15</span> formd:0000950157-26-001237: headline changed from Orcosa Inc. raised $6.0M (Biotechnology) to Orcosa Inc. reports $6.0M sold in a equity round. schema upgrade, re-derived from the official record.</li><li><span class='id'>2026-11-15</span> formd:0002164579-26-000001: headline changed from AngioInsight, Inc. raised $16.3M (Other Health Care) to AngioInsight, Inc. reports $16.3M sold in a SAFE (per filer note). schema upgrade, re-derived from the official record.</li><li><span class='id'>2026-11-15</span> formd:0001213900-26-118072: headline changed from ABVC BIOPHARMA, INC. raised $3.4M (Biotechnology) to ABVC BIOPHARMA, INC. reports $3.4M sold in a public-company private placement. schema upgrade, re-derived from the official record.</li><li><span class='id'>2026-11-15</span> formd:0001704292-26-000038: headline changed from Zai Lab Ltd raised $249.9M (Biotechnology) to Zai Lab Ltd reports $249.9M sold in a public-company private placement. schema upgrade, re-derived from the official record.</li><li><span class='id'>2026-11-15</span> formd:0001123292-26-001498: headline changed from Transformer TX Holdings, LLC raised $4.1M (Hospitals and Physicians) to Transformer TX Holdings, LLC reports $4.1M sold in a equity round. schema upgrade, re-derived from the official record.</li><li><span class='id'>2026-11-15</span> 510k:K263109: headline changed from FDA clears EFAI NEUROSUITE CTA LVO ASSESSMENT SYSTEM (LVO-CTA-100) (Ever Fortune.Ai, Co., … to FDA clears EFAI NEUROSUITE CTA LVO ASSESSMENT SYSTEM (LVO-CTA-100) (Ever Fortune.Ai, Co., …. schema upgrade, re-derived from the official record.</li><li><span class='id'>2026-11-15</span> 510k:K262147: headline changed from FDA clears CINA-Aneurysm+ (Avicenna.Ai), possible AI device to FDA clears CINA-Aneurysm+ (Avicenna.Ai). schema upgrade, re-derived from the official record.</li><li><span class='id'>2026-11-15</span> 510k:K261679: headline changed from FDA clears BlineSlide (Deep Breathe, Inc.), possible AI device to FDA clears BlineSlide (Deep Breathe, Inc.). schema upgrade, re-derived from the official record.</li><li><span class='id'>2026-11-15</span> 510k:K262062: headline changed from FDA clears CINA-Aneurysm (Avicenna.Ai), possible AI device to FDA clears CINA-Aneurysm (Avicenna.Ai). schema upgrade, re-derived from the official record.</li><li><span class='id'>2026-11-15</span> 510k:K263380: headline changed from FDA clears STAR Apollo Mapping System (Rhythm AI, Ltd.), possible AI device to FDA clears STAR Apollo Mapping System (Rhythm AI, Ltd.). schema upgrade, re-derived from the official record.</li><li><span class='id'>2026-11-15</span> 510k:K260391: headline changed from FDA clears AVIEW Aorta Metrics (Coreline Soft Co., Ltd.), possible AI device to FDA clears AVIEW Aorta Metrics (Coreline Soft Co., Ltd.). schema upgrade, re-derived from the official record.</li></ul>
   </section>
   <section class="notes" aria-label="How this is built">
-    <p><b>FDA</b> items come from openFDA 510(k) clearances and FDA's AI device list. Confirmed AI means the device is on FDA's list. AI named means the device or company name says AI. Possible AI means it sits in a product category where a quarter or more of clearances since 2016 are AI, so check the record.</p>
-    <p><b>Raise</b> items come from SEC Form D filings in health industry groups with at least $2M sold, excluding funds and amendments. Startups that file under Other Technology are missed.</p>
-    <p>Built 2026-11-15 19:52 UTC from public records. Each item appears once, on the day it was first seen.</p>
+    <p><b>Facts versus analysis.</b> Everything outside the shaded analysis boxes comes from an official record. Analysis boxes are interpretation, written by a reviewer, labelled with who wrote them and whether they were reviewed.</p>
+    <p><b>FDA labels.</b> FDA-listed: on FDA's AI-enabled device list. Document-verified: the FDA 510(k) summary describes AI or machine learning (the summary may name a method such as computer vision). Manufacturer-reported: the device or company name claims AI, unchecked. Inferred: a guess from an AI-heavy product code. AI unknown: no evidence either way.</p>
+    <p><b>Financing labels.</b> Derived from the Form D's own security-type flags and an EDGAR lookup. A listed company's private placement is not a startup round. An amendment updates an existing offering and is not a new raise. Late means more than 15 days after the first sale, adjusted for weekends only. Startups that file under Other Technology are missed.</p>
+    <p>76 of 76 data checks passed. Built 2026-11-15 20:16 UTC from public records. Each record appears once, on the day it was first detected.</p>
   </section>
 </main>
 </body></html>
