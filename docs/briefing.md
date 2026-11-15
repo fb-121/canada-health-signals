@@ -47,4 +47,4 @@ A daily, source-linked briefing of two kinds of public health-tech signals: FDA 
 
 History builds as daily runs accumulate.
 
-Generated 2026-11-15T19:50Z from public records. Machine-readable version: briefing.json.
+Generated 2026-11-15T19:52Z from public records. Machine-readable version: briefing.json.
