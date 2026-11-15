@@ -281,6 +281,74 @@ def build(now=None):
     return body
 
 
+METHOD = {
+    "what_this_is": "A daily, source-linked briefing of two kinds of public health-tech signals: FDA clearances of AI-enabled medical devices, and private fundraising by health companies. Built for one reader (a non-technical founder tracking US health tech). Every item links to an official record. Nothing here is investment advice.",
+    "sections": {
+        "rules": "FDA 510(k) clearances from openFDA, plus new entries on FDA's AI-enabled device list. confidence=confirmed means the device is on FDA's AI list. named means the device or company name says AI. inferred means FDA's own data puts it in a product code where 25%+ of clearances since 2016 are AI, so AI use is a guess to verify at the record.",
+        "money": "SEC Form D filings in health industry groups with at least $2M sold. Pooled investment funds and amendments are excluded. Some are debt, not equity (equity=false).",
+    },
+    "known_gaps": [
+        "Many digital health startups file Form D under Other Technology, so they are missed.",
+        "FDA's AI device list updates only every few months, so recent AI devices usually appear as inferred.",
+        "No news, stock prices or hiring data yet. Only the two official feeds above.",
+        "Why-it-matters lines are not written yet, so the why field is empty.",
+    ],
+    "source_systems": ["openFDA device 510(k) API", "FDA AI-enabled medical devices list", "SEC EDGAR Form D"],
+}
+
+
+def public(i, rank=None, shown=None):
+    out = {"rank": rank, "shown_on_page": shown, "section": i["section"],
+           "headline": clean_headline(i), "detail": clean_detail(i),
+           "event_date": i.get("event_date"), "record_id": ident(i),
+           "source_url": i.get("source_url"), "why": i.get("why")}
+    for k in ("confidence", "share", "product_code", "amount", "industry", "equity"):
+        if i.get(k) is not None:
+            out[k] = i[k]
+    return out
+
+
+def export(now):
+    today = now.date()
+    items = load_day(today)
+    top, rest = pick(items)
+    ranked = [public(i, n + 1, True) for n, i in enumerate(top)] + \
+             [public(i, len(top) + n + 1, False) for n, i in enumerate(rest)]
+    week = []
+    for n in range(1, WEEK + 1):
+        d = today - timedelta(days=n)
+        its = load_day(d)
+        if its:
+            its.sort(key=lambda i: (i["section"] != "money", rank_key(i)))
+            week.append({"date": d.isoformat(), "items": [public(i) for i in its]})
+    data = {"title": "Health Tech Morning Brief", "generated_utc": now.strftime("%Y-%m-%dT%H:%MZ"),
+            "date": today.isoformat(), "method": METHOD,
+            "today": {"count": len(items), "items": ranked}, "past_week": week}
+    (ROOT / "docs" / "briefing.json").write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+
+    md = [f"# Health Tech Morning Brief, {today:%B} {today.day}, {today.year}", "",
+          METHOD["what_this_is"], "", "## How to read the labels", ""]
+    md += [f"- **{k}**: {v}" for k, v in METHOD["sections"].items()]
+    md += ["", "## Known gaps", ""] + [f"- {g}" for g in METHOD["known_gaps"]]
+    md += ["", f"## Today ({len(items)} items)", ""]
+    for r in ranked:
+        extra = " | ".join(x for x in (r.get("confidence"), money_fmt(r.get("amount")) or None, r.get("industry")) if x)
+        md += [f"{r['rank']}. **{r['headline']}** ({r['section']}{', ' + extra if extra else ''})",
+               f"   {r['detail']} Date: {r['event_date']}. Record {r['record_id']}: {r['source_url']}"]
+    if not ranked:
+        md.append("No new items today.")
+    md += ["", "## Past week", ""]
+    for day in week:
+        md.append(f"### {day['date']}")
+        md += [f"- {r['headline']} ({r['section']}): {r['source_url']}" for r in day["items"]]
+        md.append("")
+    if not week:
+        md.append("History builds as daily runs accumulate.")
+    md += ["", f"Generated {data['generated_utc']} from public records. Machine-readable version: briefing.json."]
+    (ROOT / "docs" / "briefing.md").write_text("\n".join(md) + "\n", encoding="utf-8")
+    print("- wrote docs/briefing.json and docs/briefing.md")
+
+
 def main():
     body = build()
     page = body.split(STYLE, 1)[1]   # title, fonts and styles belong in the head of the full page
@@ -290,6 +358,7 @@ def main():
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(full, encoding="utf-8")
     print(f"- wrote {OUT.relative_to(ROOT)} ({len(full):,} bytes)")
+    export(datetime.now(timezone.utc))
     if "--fragment" in sys.argv:
         Path(sys.argv[sys.argv.index("--fragment") + 1]).write_text(body, encoding="utf-8")
     return 0
