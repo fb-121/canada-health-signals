@@ -1,0 +1,65 @@
+[
+ {
+  "section": "rules",
+  "headline": "FDA clears DS Core Detect (Dentsply Sirona, Inc.), possible AI device",
+  "detail": "510(k) K261072, decided 2026-10-30. Product code MYN. Not yet on FDA's AI list; inferred from product code MYN, where 95% of its clearances since 2016 are AI.",
+  "source_url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K261072",
+  "event_date": "2026-10-30",
+  "key": "510k:K261072",
+  "why": null
+ },
+ {
+  "section": "rules",
+  "headline": "FDA clears AVIEW Aorta Metrics (Coreline Soft Co., Ltd.), possible AI device",
+  "detail": "510(k) K260391, decided 2026-10-16. Product code JAK. Not yet on FDA's AI list; inferred from product code JAK, where 35% of its clearances since 2016 are AI.",
+  "source_url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K260391",
+  "event_date": "2026-10-16",
+  "key": "510k:K260391",
+  "why": null
+ },
+ {
+  "section": "rules",
+  "headline": "FDA clears STAR Apollo Mapping System (Rhythm AI, Ltd.), possible AI device",
+  "detail": "510(k) K263380, decided 2026-10-23. Product code DQK. AI named in the device or company.",
+  "source_url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K263380",
+  "event_date": "2026-10-23",
+  "key": "510k:K263380",
+  "why": null
+ },
+ {
+  "section": "rules",
+  "headline": "FDA clears CINA-Aneurysm (Avicenna.Ai), possible AI device",
+  "detail": "510(k) K262062, decided 2026-10-20. Product code QBS. AI named in the device or company.",
+  "source_url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K262062",
+  "event_date": "2026-10-20",
+  "key": "510k:K262062",
+  "why": null
+ },
+ {
+  "section": "rules",
+  "headline": "FDA clears BlineSlide (Deep Breathe, Inc.), possible AI device",
+  "detail": "510(k) K261679, decided 2026-10-23. Product code POK. Not yet on FDA's AI list; inferred from product code POK, where 92% of its clearances since 2016 are AI.",
+  "source_url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K261679",
+  "event_date": "2026-10-23",
+  "key": "510k:K261679",
+  "why": null
+ },
+ {
+  "section": "rules",
+  "headline": "FDA clears CINA-Aneurysm+ (Avicenna.Ai), possible AI device",
+  "detail": "510(k) K262147, decided 2026-10-19. Product code QIH. AI named in the device or company.",
+  "source_url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K262147",
+  "event_date": "2026-10-19",
+  "key": "510k:K262147",
+  "why": null
+ },
+ {
+  "section": "rules",
+  "headline": "FDA clears EFAI NEUROSUITE CTA LVO ASSESSMENT SYSTEM (LVO-CTA-100) (Ever Fortune.Ai, Co., Ltd.), possible AI device",
+  "detail": "510(k) K263109, decided 2026-10-30. Product code QAS. AI named in the device or company.",
+  "source_url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K263109",
+  "event_date": "2026-10-30",
+  "key": "510k:K263109",
+  "why": null
+ }
+]
