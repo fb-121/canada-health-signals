@@ -1,0 +1,133 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Health Tech Morning Brief</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: one narrow reading column, a docket of ranked items, the week below as a ledger. */
+:root{
+  --bg:#f5f7f9; --surface:#ffffff; --ink:#15202b; --muted:#5b6876; --line:#dbe2e9;
+  --accent:#1f5f8b; --fda:#1f5f8b; --fda-bg:#e3eef7; --money:#7a5a12; --money-bg:#f6eedb;
+  --conf:#1d6b46; --conf-bg:#ddf1e6; --inf:#6b5a8e; --inf-bg:#ece7f6;
+  --display:"IBM Plex Sans Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f151b; --surface:#161e26; --ink:#e4eaf0; --muted:#97a5b3; --line:#26323d;
+  --accent:#7fb6dd; --fda:#9cc7e6; --fda-bg:#18324a; --money:#e3c27a; --money-bg:#3a2f15;
+  --conf:#8fd3ad; --conf-bg:#173528; --inf:#c2b3e6; --inf-bg:#2b2440; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f151b; --surface:#161e26; --ink:#e4eaf0; --muted:#97a5b3; --line:#26323d;
+  --accent:#7fb6dd; --fda:#9cc7e6; --fda-bg:#18324a; --money:#e3c27a; --money-bg:#3a2f15;
+  --conf:#8fd3ad; --conf-bg:#173528; --inf:#c2b3e6; --inf-bg:#2b2440; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+.wrap{max-width:720px;margin:0 auto;padding-block:28px 56px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;gap:28px}
+header{display:flex;flex-direction:column;gap:6px}
+.kicker{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(28px,6vw,38px);line-height:1.1;margin:0;text-wrap:balance}
+.summary{color:var(--muted);margin:0}
+.summary b{color:var(--ink);font-weight:600}
+h2{font-family:var(--display);font-weight:600;font-size:20px;margin:0}
+section{display:flex;flex-direction:column;gap:12px}
+ol,ul{list-style:none;margin:0;padding:0}
+.items{display:flex;flex-direction:column;gap:12px}
+.item{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px 18px;
+  display:flex;flex-direction:column;gap:6px;min-width:0}
+.item h3{font-size:16px;font-weight:600;line-height:1.35;margin:0;overflow-wrap:anywhere}
+.detail{margin:0;color:var(--muted);overflow-wrap:anywhere}
+.why{margin:4px 0 0;padding-top:8px;border-top:1px dashed var(--line);display:flex;flex-direction:column;gap:2px}
+.why-label{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.meta{margin:2px 0 0;display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted)}
+.id{font-family:var(--mono);font-size:12.5px;font-variant-numeric:tabular-nums}
+a{color:var(--accent);text-underline-offset:2px}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-family:var(--mono);font-size:11.5px;font-weight:500;padding:2px 8px;border-radius:4px;letter-spacing:.02em;white-space:nowrap}
+.sec-rules{color:var(--fda);background:var(--fda-bg)}
+.sec-money{color:var(--money);background:var(--money-bg)}
+.conf,.named{color:var(--conf);background:var(--conf-bg)}
+.inf{color:var(--inf);background:transparent;border:1px dashed var(--inf)}
+.amt{color:var(--ink);background:transparent;border:1px solid var(--line);font-variant-numeric:tabular-nums}
+details{border-top:1px solid var(--line);padding-top:12px}
+summary{cursor:pointer;color:var(--accent);font-weight:500}
+.rows{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.rows li{display:flex;gap:10px;align-items:baseline;min-width:0}
+.rows a{overflow-wrap:anywhere}
+.day{display:grid;grid-template-columns:72px 1fr;gap:12px;padding-block:10px;border-top:1px solid var(--line)}
+.day:first-child{border-top:0}
+.day-date{font-family:var(--mono);font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.day .rows{margin:0}
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:8px;padding:18px;color:var(--muted);margin:0}
+.notes{font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:6px}
+.notes p{margin:0;max-width:65ch}
+@media (max-width:480px){.day{grid-template-columns:1fr;gap:6px}.item{padding:14px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head><body style="margin:0">
+<main class="wrap">
+  <header>
+    <span class="kicker">Sunday, November 15, 2026</span>
+    <h1>Health Tech Morning Brief</h1>
+    <p class="summary"><b>9</b> new items passed the filter today: <b>7</b> FDA, <b>2</b> private raises. Showing the top 7.</p>
+  </header>
+  <section aria-labelledby="t-today">
+    <h2 id="t-today">Today</h2>
+    <ol class="items"><li class="item">
+  <div class="chips"><span class="chip sec-rules">FDA</span><span class="chip named">AI named</span></div>
+  <h3>FDA clears STAR Apollo Mapping System (Rhythm AI, Ltd.)</h3>
+  <p class="detail">Product code DQK. AI named in the device or company.</p>
+  
+  <p class="meta"><span class="id">K263380</span><span>Cleared Oct 23</span><a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K263380" target="_blank" rel="noopener">Official record</a></p>
+</li><li class="item">
+  <div class="chips"><span class="chip sec-rules">FDA</span><span class="chip named">AI named</span></div>
+  <h3>FDA clears CINA-Aneurysm (Avicenna.Ai)</h3>
+  <p class="detail">Product code QBS. AI named in the device or company.</p>
+  
+  <p class="meta"><span class="id">K262062</span><span>Cleared Oct 20</span><a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K262062" target="_blank" rel="noopener">Official record</a></p>
+</li><li class="item">
+  <div class="chips"><span class="chip sec-rules">FDA</span><span class="chip named">AI named</span></div>
+  <h3>FDA clears CINA-Aneurysm+ (Avicenna.Ai)</h3>
+  <p class="detail">Product code QIH. AI named in the device or company.</p>
+  
+  <p class="meta"><span class="id">K262147</span><span>Cleared Oct 19</span><a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K262147" target="_blank" rel="noopener">Official record</a></p>
+</li><li class="item">
+  <div class="chips"><span class="chip sec-rules">FDA</span><span class="chip named">AI named</span></div>
+  <h3>FDA clears EFAI NEUROSUITE CTA LVO ASSESSMENT SYSTEM (LVO-CTA-100) (Ever Fortune.Ai, Co., Ltd.)</h3>
+  <p class="detail">Product code QAS. AI named in the device or company.</p>
+  
+  <p class="meta"><span class="id">K263109</span><span>Cleared Oct 30</span><a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K263109" target="_blank" rel="noopener">Official record</a></p>
+</li><li class="item">
+  <div class="chips"><span class="chip sec-rules">FDA</span><span class="chip inf">Possible AI</span></div>
+  <h3>FDA clears DS Core Detect (Dentsply Sirona, Inc.)</h3>
+  <p class="detail">Product code MYN. Not yet on FDA&#x27;s AI list; inferred from product code MYN, where 95% of its clearances since 2016 are AI.</p>
+  
+  <p class="meta"><span class="id">K261072</span><span>Cleared Oct 30</span><a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K261072" target="_blank" rel="noopener">Official record</a></p>
+</li><li class="item">
+  <div class="chips"><span class="chip sec-money">Raise</span><span class="chip amt">$29.9M</span></div>
+  <h3>Nanopath Inc raised $29.9M (Biotechnology)</h3>
+  <p class="detail">Sold $29.9M of a $36.8M offering to 21 investors, first sale 2026-10-22. Based in Massachusetts.</p>
+  
+  <p class="meta"><span class="id">Form D 0001940981-26-000003</span><span>Filed Nov 13</span><a href="https://www.sec.gov/Archives/edgar/data/1940981/000194098126000003/0001940981-26-000003-index.htm" target="_blank" rel="noopener">Official record</a></p>
+</li><li class="item">
+  <div class="chips"><span class="chip sec-money">Raise</span><span class="chip amt">$6.0M</span></div>
+  <h3>Orcosa Inc. raised $6.0M (Biotechnology)</h3>
+  <p class="detail">Sold $6.0M of a $11.5M offering to 25 investors, first sale 2026-07-15. Based in New Jersey.</p>
+  
+  <p class="meta"><span class="id">Form D 0000950157-26-001237</span><span>Filed Nov 12</span><a href="https://www.sec.gov/Archives/edgar/data/1852165/000095015726001237/0000950157-26-001237-index.htm" target="_blank" rel="noopener">Official record</a></p>
+</li></ol><details><summary>2 more from today</summary><ul class="rows"><li><span class="chip sec-rules">FDA</span><a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K261679" target="_blank" rel="noopener">FDA clears BlineSlide (Deep Breathe, Inc.)</a></li><li><span class="chip sec-rules">FDA</span><a href="https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K260391" target="_blank" rel="noopener">FDA clears AVIEW Aorta Metrics (Coreline Soft Co., Ltd.)</a></li></ul></details>
+  </section>
+  <section aria-labelledby="t-week">
+    <h2 id="t-week">Past week</h2>
+    <p class="empty">The past week fills in as the daily runs build up history.</p>
+  </section>
+  <section class="notes" aria-label="How this is built">
+    <p><b>FDA</b> items come from openFDA 510(k) clearances and FDA's AI device list. Confirmed AI means the device is on FDA's list. AI named means the device or company name says AI. Possible AI means it sits in a product category where a quarter or more of clearances since 2016 are AI, so check the record.</p>
+    <p><b>Raise</b> items come from SEC Form D filings in health industry groups with at least $2M sold, excluding funds and amendments. Startups that file under Other Technology are missed.</p>
+    <p>Built 2026-11-15 19:40 UTC from public records. Each item appears once, on the day it was first seen.</p>
+  </section>
+</main>
+</body></html>

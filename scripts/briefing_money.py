@@ -147,7 +147,8 @@ def main():
                 + (f", first sale {f['first_sale']}" if f["first_sale"] else "")
                 + (f". Based in {f['state']}." if f["state"] else ".")
                 + ("" if f["equity"] else " Not an equity raise (debt or other securities)."),
-                page_url, d.isoformat(), f"formd:{acc}"))
+                page_url, d.isoformat(), f"formd:{acc}",
+                amount=f["sold"], industry=f["group"], equity=f["equity"], source="SEC Form D"))
             day_kept += 1
         kept += day_kept
         # A day counts as done only if every filing was read; failures get retried next run.

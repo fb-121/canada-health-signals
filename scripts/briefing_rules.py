@@ -69,7 +69,8 @@ def from_list(rows, notes):
             f"FDA adds {r.get('Device', '').strip()} ({r.get('Company', '').strip()}) to its AI device list",
             f"Confirmed AI-enabled device. Panel: {r.get('Panel (Lead)', '').strip()}. "
             f"Decision {d.isoformat() if d else 'date unknown'}, {k}.",
-            k_url(k), d.isoformat() if d else None, f"fda-list:{k}"))
+            k_url(k), d.isoformat() if d else None, f"fda-list:{k}",
+            confidence="confirmed", source="FDA AI device list"))
     save_seen("rules_fda_list", seen)
     notes.append(f"FDA AI list: {len(rows)} devices, {len(out)} new to report"
                  + (" (first run: seeded)" if first_run else ""))
@@ -163,7 +164,10 @@ def from_openfda(rows, notes):
                 "rules",
                 f"FDA clears {name} ({applicant}), {'AI device' if confirmed else 'possible AI device'}",
                 f"510(k) {k}, decided {r.get('decision_date', '')}. Product code {code}. {why_flag}",
-                k_url(k), r.get("decision_date"), f"510k:{k}"))
+                k_url(k), r.get("decision_date"), f"510k:{k}",
+                confidence="confirmed" if confirmed else "named" if named else "inferred",
+                share=round(pct, 3) if pct is not None else None, product_code=code,
+                source="openFDA 510(k)"))
     save_seen("rules_510k", seen)
     notes.append(f"openFDA 510(k): {len(codes)} watched codes, {len(strong)} at {MIN_SHARE:.0%}+ AI share, "
                  f"{fetched} clearances in the last {LOOKBACK_DAYS} days, {len(out)} kept, {len(skipped)} dropped"

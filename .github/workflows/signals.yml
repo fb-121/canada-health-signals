@@ -38,6 +38,10 @@ jobs:
           SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
         run: python scripts/briefing_money.py
 
+      - name: "Briefing: build the page"
+        continue-on-error: true
+        run: python scripts/build_briefing.py
+
       - name: Build the page
         continue-on-error: true   # a page problem must never lose the day's data
         run: python scripts/build_site.py

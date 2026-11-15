@@ -46,10 +46,11 @@ def save_seen(name, seen):
     (STATE / f"{name}.txt").write_text("\n".join(sorted(seen)) + "\n")
 
 
-def item(section, headline, detail, source_url, event_date, key):
-    """One briefing item. 'why' stays empty until the why-line step exists."""
+def item(section, headline, detail, source_url, event_date, key, **facts):
+    """One briefing item. 'why' stays empty until the why-line step exists.
+    facts: structured fields the page ranks on (confidence, share, amount, ...)."""
     return {"section": section, "headline": headline, "detail": detail,
-            "source_url": source_url, "event_date": event_date, "key": key, "why": None}
+            "source_url": source_url, "event_date": event_date, "key": key, "why": None, **facts}
 
 
 def write_items(section, items, notes):
