@@ -1,0 +1,158 @@
+{
+ "checked_utc": "2026-11-16T03:47Z",
+ "build_checked": {
+  "schema_version": 2,
+  "content_id": "4fe735194e",
+  "generated_utc": "2026-11-16T03:46Z"
+ },
+ "fixture_unit_tests": {
+  "kind": "fixture unit tests, no network",
+  "ran": 55,
+  "failures": 0,
+  "errors": 0,
+  "passed": 55,
+  "ran_at": "2026-11-16T03:46Z",
+  "meaning": "Logic checked on reconstructed records with no network. Says nothing about live sources."
+ },
+ "live_sources": {
+  "fda_510k_summaries": {
+   "live": "blocked",
+   "live_detail": "FDA redirects scripts to an abuse-detection page; automated reading off, manual review in use",
+   "checked_at": "2026-11-16T03:31Z"
+  },
+  "fda_access_probe": {
+   "live": null,
+   "live_detail": null,
+   "checked_at": "2026-11-16T03:31Z"
+  },
+  "fda_ai_device_list": {
+   "live": "ok",
+   "live_detail": "1614 rows read from the FDA list",
+   "checked_at": "2026-11-16T03:46Z"
+  },
+  "openfda_510k": {
+   "live": "ok",
+   "live_detail": "20 clearances returned by the API",
+   "checked_at": "2026-11-16T03:46Z"
+  },
+  "sec_form_d": {
+   "live": "unproven",
+   "live_detail": "0 filings read, 1 unreadable",
+   "checked_at": "2026-11-16T03:46Z"
+  }
+ },
+ "public_copies": {
+  "pages json": {
+   "verdict": "current",
+   "canonical": {
+    "url": "https://fb-121.github.io/canada-health-signals/briefing.json",
+    "http": 200,
+    "content_id": "4fe735194e",
+    "generated_utc": "2026-11-16T03:46Z",
+    "headers": {
+     "cache-control": "max-age=600",
+     "age": "0",
+     "x-cache": "MISS",
+     "last-modified": "Mon, 16 Nov 2026 03:46:49 GMT",
+     "etag": "\"6afa7ca9-88be\"",
+     "expires": "Mon, 16 Nov 2026 03:57:08 GMT",
+     "x-served-by": "cache-sjc10079-SJC"
+    }
+   },
+   "origin": {
+    "http": 200,
+    "content_id": "4fe735194e",
+    "generated_utc": "2026-11-16T03:46Z"
+   }
+  },
+  "pages md": {
+   "verdict": "current",
+   "canonical": {
+    "url": "https://fb-121.github.io/canada-health-signals/briefing.md",
+    "http": 200,
+    "content_id": "4fe735194e",
+    "generated_utc": "2026-11-16T03:46Z",
+    "headers": {
+     "cache-control": "max-age=600",
+     "age": "0",
+     "x-cache": "MISS",
+     "last-modified": "Mon, 16 Nov 2026 03:46:49 GMT",
+     "etag": "\"6afa7ca9-2e05\"",
+     "expires": "Mon, 16 Nov 2026 03:57:08 GMT",
+     "x-served-by": "cache-pao-kpao1770040-PAO"
+    }
+   },
+   "origin": {
+    "http": 200,
+    "content_id": "4fe735194e",
+    "generated_utc": "2026-11-16T03:46Z"
+   }
+  },
+  "pages html": {
+   "verdict": "current",
+   "canonical": {
+    "url": "https://fb-121.github.io/canada-health-signals/briefing.html",
+    "http": 200,
+    "content_id": "4fe735194e",
+    "generated_utc": "2026-11-16T03:46Z",
+    "headers": {
+     "cache-control": "max-age=600",
+     "age": "0",
+     "x-cache": "MISS",
+     "last-modified": "Mon, 16 Nov 2026 03:46:49 GMT",
+     "etag": "\"6afa7ca9-61ff\"",
+     "expires": "Mon, 16 Nov 2026 03:57:09 GMT",
+     "x-served-by": "cache-sjc1000090-SJC"
+    }
+   },
+   "origin": {
+    "http": 200,
+    "content_id": "4fe735194e",
+    "generated_utc": "2026-11-16T03:46Z"
+   }
+  },
+  "raw json": {
+   "verdict": "current",
+   "canonical": {
+    "url": "https://raw.githubusercontent.com/fb-121/canada-health-signals/main/docs/briefing.json",
+    "http": 200,
+    "content_id": "4fe735194e",
+    "generated_utc": "2026-11-16T03:46Z",
+    "headers": {
+     "cache-control": "max-age=300",
+     "x-cache": "MISS",
+     "etag": "\"f1ba774223dfa41be2a500c1fa84f895a790e6f8d25c6ee47cc1a5e2c6480bca\"",
+     "expires": "Mon, 16 Nov 2026 03:51:23 GMT",
+     "x-served-by": "cache-pao-kpao1770072-PAO"
+    }
+   },
+   "origin": {
+    "http": 200,
+    "content_id": "4fe735194e",
+    "generated_utc": "2026-11-16T03:46Z"
+   }
+  },
+  "raw md": {
+   "verdict": "current",
+   "canonical": {
+    "url": "https://raw.githubusercontent.com/fb-121/canada-health-signals/main/docs/briefing.md",
+    "http": 200,
+    "content_id": "4fe735194e",
+    "generated_utc": "2026-11-16T03:46Z",
+    "headers": {
+     "cache-control": "max-age=300",
+     "x-cache": "MISS",
+     "etag": "\"0bc5e74040cde61876028fae6ae8e8bd92767ffd7b5a2f53fa8e251e938b8988\"",
+     "expires": "Mon, 16 Nov 2026 03:51:23 GMT",
+     "x-served-by": "cache-pao-kpao1770023-PAO"
+    }
+   },
+   "origin": {
+    "http": 200,
+    "content_id": "4fe735194e",
+    "generated_utc": "2026-11-16T03:46Z"
+   }
+  }
+ },
+ "note": "Pages caches for up to 10 minutes and the raw host for 5. A canonical copy may lag the origin by that much."
+}
