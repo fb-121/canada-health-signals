@@ -1,8 +1,8 @@
 {
- "kind": "fixture unit tests, no network (FAILURE DRILL: forced to fail)",
+ "kind": "fixture unit tests, no network",
  "ran": 63,
  "failures": 0,
  "errors": 0,
  "passed": 63,
- "ran_at": "2026-11-16T04:05Z"
+ "ran_at": "2026-11-16T04:06Z"
 }

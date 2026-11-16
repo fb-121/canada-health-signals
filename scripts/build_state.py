@@ -42,8 +42,8 @@ def mark_stale(docs, state):
         old = {}
     gen = (old.get("build") or {}).get("generated_utc") or old.get("generated_utc") or "an earlier run"
     why = ", ".join(f"{k} {v}" for k, v in state["critical"].items() if v != "success")
-    note = (f"Today's briefing build failed ({why}) at {state['run_utc']}. This is the earlier briefing generated "
-            f"{gen}. It is not today's.")
+    note = (f"The briefing build failed ({why}) at {state['run_utc']}. What follows is the earlier briefing generated "
+            f"{gen}, not the one this run should have produced.")
     state["published"] = {"is_current": False, "shown_briefing_generated_utc": gen,
                           "shown_content_id": (old.get("build") or {}).get("content_id")}
     if old:
