@@ -47,6 +47,20 @@ def get(url, ua=UA, limit=50_000_000, pause=0.0):
         return 0, b"", f"{type(e).__name__}: {e}"[:160]
 
 
+# ---------- FDA visiting hours ----------
+
+FDA_PAUSE = 30.0   # accessdata.fda.gov robots.txt: 30 seconds between requests
+
+
+def fda_window_open(now=None):
+    """accessdata.fda.gov's robots.txt names visiting hours of 23:00 to 05:00 EDT, which is 03:00 to 09:00 UTC.
+    Read as Eastern Standard Time (winter) the same hours are 04:00 to 10:00 UTC. Only 04:00 to 09:00 UTC
+    is inside both readings, so scripts touch accessdata.fda.gov only then. api.fda.gov and www.fda.gov
+    are other hosts and are not covered by this file."""
+    now = now or datetime.now(timezone.utc)
+    return 4 <= now.hour < 9
+
+
 # ---------- dates ----------
 
 def pdate(s):

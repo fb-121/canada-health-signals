@@ -1,6 +1,6 @@
 {
  "K261679": {
-  "status": "verified",
+  "status": "document_supported",
   "subject": "AI functionality",
   "claim": "FDA's 510(k) summary for BlineSlide (Deep Breathe, Inc.) describes the device as an AI-assisted tool.",
   "document_url": "https://www.accessdata.fda.gov/cdrh_docs/pdf26/K261679.pdf",
@@ -30,6 +30,7 @@
    "The first quote supports an AI label for the subject device. The method is not settled: the table lists both computer vision and machine learning and the column mapping is unclear.",
    "Quotes and page numbers came from a text extraction, not from comparing with the PDF itself. A person should open the PDF and confirm pages 3, 4, 5 and 7.",
    "An earlier analysis said the summary lists computer vision 'not machine learning'. That was too strong and was corrected on 2026-11-16."
-  ]
+  ],
+  "human_verification": "pending: open the PDF, confirm the three quotes and pages 3, 4, 5 and 7, then set status human_verified with verified_by and verified_on"
  }
 }

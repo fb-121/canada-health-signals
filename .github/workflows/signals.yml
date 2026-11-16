@@ -11,6 +11,12 @@ on:
 permissions:
   contents: write
 
+# FDA summary reading lives in fda-docs.yml, inside FDA's visiting hours. Both workflows commit to main,
+# so they never run at the same time.
+concurrency:
+  group: data-writes
+  cancel-in-progress: false
+
 jobs:
   probe:
     runs-on: ubuntu-latest
@@ -35,18 +41,6 @@ jobs:
       - name: "Briefing: Rules (FDA AI clearances)"
         continue-on-error: true
         run: python scripts/briefing_rules.py
-
-      - name: "Briefing: install PDF reader"
-        continue-on-error: true
-        run: pip install --quiet pypdf
-
-      - name: "Briefing: diagnose FDA document access"
-        continue-on-error: true
-        run: python scripts/fda_probe.py K261679
-
-      - name: "Briefing: read FDA 510(k) summaries"
-        continue-on-error: true
-        run: python scripts/briefing_docs.py
 
       - name: "Briefing: Money (SEC Form D health raises)"
         continue-on-error: true
@@ -90,4 +84,17 @@ jobs:
         with:
           python-version: "3.12"
       - name: Compare the public files with the build
+        id: check
+        continue-on-error: true
         run: python scripts/verify_live.py
+      - name: Publish status.json (fixture tests, live sources, public copies)
+        run: |
+          git config user.name "signals-bot"
+          git config user.email "signals-bot@users.noreply.github.com"
+          git add docs/status.json
+          git diff --cached --quiet || git commit -m "status: live check $(date -u +%FT%H:%MZ)"
+          git pull --rebase origin main
+          git push
+      - name: Fail if a public copy is wrong
+        if: steps.check.outcome == 'failure'
+        run: exit 1

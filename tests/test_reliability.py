@@ -17,6 +17,8 @@ import build_briefing as page         # noqa: E402
 import fda_probe as probe             # noqa: E402
 from datetime import datetime, timezone
 
+REAL_WINDOW = bc.fda_window_open   # captured before any test replaces it
+
 
 def rule(key="510k:K9", ev="inferred", **kw):
     base = bc.item("rules", "FDA clears X", "d", "https://x", "2026-11-01", key, evidence=ev,
@@ -24,7 +26,7 @@ def rule(key="510k:K9", ev="inferred", **kw):
     return base
 
 
-REVIEW = {"K9": {"status": "verified", "subject": "AI functionality", "claim": "Summary says AI-assisted.",
+REVIEW = {"K9": {"status": "document_supported", "subject": "AI functionality", "claim": "Summary says AI-assisted.",
                  "document_url": "https://www.accessdata.fda.gov/cdrh_docs/pdf26/K9.pdf",
                  "evidence": [{"quote": "an AI-assisted tool", "page": 3, "page_basis": "tool-reported"}],
                  "reviewed_on": "2026-11-16", "reviewer": "Claude via fetch", "independent": False}}
@@ -39,6 +41,22 @@ class RealFiles(unittest.TestCase):
         self.assertFalse(r["independent"])
         self.assertFalse(r["verbatim_checked"])      # must stay false until a person compares with the PDF
         self.assertTrue(r["caveats"])
+        self.assertEqual(r["status"], "document_supported")   # not human verified until a person checks the PDF
+
+    def test_human_verified_requires_a_person_and_a_verbatim_check(self):
+        hv = {"K9": dict(REVIEW["K9"], status="human_verified")}
+        problems = " | ".join(rv.validate(hv))
+        self.assertIn("verbatim_checked", problems)
+        self.assertIn("verified_by", problems)
+        ok = {"K9": dict(REVIEW["K9"], status="human_verified", verbatim_checked=True, verified_by="Faaiz", verified_on="2026-11-17")}
+        self.assertEqual(rv.validate(ok), [])
+
+    def test_pending_review_is_shown_as_pending_not_verified(self):
+        it = rule()
+        rv.apply(it, REVIEW)
+        html = page.chips(it) + page.review_html(it)
+        self.assertIn("human check pending", html)
+        self.assertIn("Human verification pending", html)
 
     def test_known_issues_have_what_the_page_needs(self):
         issues = json.loads((ROOT / "data" / "briefing" / "known_issues.json").read_text())
@@ -85,7 +103,8 @@ class Reviews(unittest.TestCase):
             (Path(tmp) / bc.today().isoformat() / "rules.json").write_text(json.dumps([it]))
             out = page.load_day(bc.today())
             self.assertEqual(out[0]["evidence"], "document_verified")
-            self.assertEqual(out[0]["review"]["status"], "verified")
+            self.assertEqual(out[0]["review"]["status"], "document_supported")
+            self.assertEqual(out[0]["verification_status"], "human check pending")
 
     def test_review_survives_schema_upgrade_rewrite(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -105,7 +124,7 @@ class Reviews(unittest.TestCase):
         problems = " | ".join(rv.validate(bad))
         for needle in ("official host", "over 30 words", "no page and no note", "not a date"):
             self.assertIn(needle, problems)
-        self.assertTrue(any("verified with no evidence" in p or "missing evidence" in p
+        self.assertTrue(any("with no evidence" in p or "missing evidence" in p
                             for p in rv.validate({"K2": dict(REVIEW["K9"], evidence=[])})))
 
 
@@ -198,6 +217,7 @@ class FreshnessAndLive(unittest.TestCase):
             it.update(source="openFDA 510(k)", summary_available=True)
             (day / "rules.json").write_text(json.dumps([it]))
             docs.get = lambda *a, **k: (404, b"", "HTTP 404")
+            bc.fda_window_open = lambda now=None: True
             docs.main()
             st = json.loads((Path(tmp) / "status.json").read_text())["fda_510k_summaries"]
             self.assertEqual(st["live"], "failed")
@@ -239,11 +259,27 @@ class BlockedReading(unittest.TestCase):
             it.update(source="openFDA 510(k)", summary_available=True)
             (day / "rules.json").write_text(json.dumps([it]))
             calls = []
+            bc.fda_window_open = lambda now=None: True
             docs.get = lambda *a, **k: calls.append(a) or (200, b"", "")
             docs.main()
             self.assertEqual(calls, [])
             st = json.loads((Path(tmp) / "status.json").read_text())["fda_510k_summaries"]
             self.assertEqual(st["live"], "blocked")
+
+
+class VisitingHours(unittest.TestCase):
+    def test_window_is_inside_both_eastern_readings(self):
+        at = lambda h: REAL_WINDOW(datetime(2026, 11, 16, h, 30, tzinfo=timezone.utc))
+        self.assertEqual([h for h in range(24) if at(h)], [4, 5, 6, 7, 8])
+
+    def test_nothing_is_sent_to_fda_outside_the_window(self):
+        bc.fda_window_open = lambda now=None: False
+        calls = []
+        probe.hop = lambda *a, **k: calls.append(a) or {}
+        docs.get = lambda *a, **k: calls.append(a) or (200, b"", "")
+        self.assertEqual(probe.main(), 0)
+        self.assertEqual(docs.main(), 0)
+        self.assertEqual(calls, [])
 
 
 class CorrectionHistory(unittest.TestCase):

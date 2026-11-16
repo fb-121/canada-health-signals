@@ -48,7 +48,7 @@ METHOD = {
     "what_this_is": "A daily, source-linked briefing of two kinds of public health-tech signals: FDA clearances of AI-enabled medical devices, and private financings by health companies. Built for one reader (a non-technical founder tracking US health tech). Every record links to an official source. Facts come from those records. Analysis is written by a reviewer and labelled as interpretation. Nothing here is investment or legal advice.",
     "evidence_classes": {
         "fda_listed": "On FDA's AI-enabled device list.",
-        "document_verified": "FDA's 510(k) summary itself describes AI or machine learning. The summary may name the method (for example computer vision), which is recorded.",
+        "document_verified": "FDA's 510(k) summary itself describes AI or machine learning. The summary may name the method (for example computer vision), which is recorded. When this rests on a manual review, verification_status says whether a person has checked the quotes against the PDF (human verified) or not yet (human check pending).",
         "manufacturer_reported": "The manufacturer's own device or company name claims AI. Not checked against FDA documents.",
         "inferred": "No document evidence. The FDA product code is AI-heavy, which is a guess.",
         "unknown": "No evidence of AI either way.",
@@ -219,7 +219,9 @@ def chips(i):
     if i["section"] == "rules" and i.get("evidence") in EV_LABEL:
         label, cls = EV_LABEL[i["evidence"]]
         out.append(f'<span class="chip {cls}">{label}</span>')
-        if i.get("evidence_source") == "manual review":
+        if i.get("verification_status") == "human check pending":
+            out.append('<span class="chip late">Document-supported, human check pending</span>')
+        elif i.get("evidence_source") == "manual review":
             out.append('<span class="chip named">Manual review</span>')
     if i["section"] == "money":
         if i.get("kind") == "update":
@@ -279,8 +281,10 @@ def review_html(i):
     cav = "".join(f"<li>{e(c)}</li>" for c in r.get("caveats", []))
     check = "Quotes compared with the PDF." if r.get("verbatim_checked") else "Quotes not yet compared with the PDF."
     who = "independent" if r.get("independent") else "not independent"
+    check = {"document_supported": "Supported by the document's text. Human verification pending: no person has compared the quotes with the PDF.",
+             "human_verified": f"Human verified by {r.get('verified_by')} on {r.get('verified_on')}."}.get(r.get("status"), check)
     return (f'<div class="review"><span class="label">Manual review, {e(nice_date(r.get("reviewed_on")))}: '
-            f'{e(r.get("subject"))}, {e(r.get("status"))}. {e(r.get("reviewer"))} ({who}). {check}</span>'
+            f'{e(r.get("subject"))}, {e(r.get("status", "").replace("_", " "))}. {e(r.get("reviewer"))} ({who}). {check}</span>'
             f'<p>{e(r.get("claim"))}</p><ul class="q">{quotes}</ul>'
             + (f'<details><summary>Caveats</summary><ul class="q">{cav}</ul></details>' if cav else "")
             + f'<a href="{e(r.get("document_url"))}" target="_blank" rel="noopener">Official document</a></div>')
@@ -607,7 +611,7 @@ def build(now=None):
     <p><b>FDA labels.</b> FDA-listed: on FDA's AI-enabled device list. Document-verified: the FDA 510(k) summary describes AI or machine learning (the summary may name a method such as computer vision). Manufacturer-reported: the device or company name claims AI, unchecked. Inferred: a guess from an AI-heavy product code. AI unknown: no evidence either way.</p>
     <p><b>Financing labels.</b> Derived from the Form D's own security-type flags and an EDGAR lookup. A listed company's private placement is not a startup round. An amendment updates an existing offering and is not a new raise. Late means more than 15 days after the first sale, adjusted for weekends only. Startups that file under Other Technology are missed.</p>
     <p>{e(qual)} Built {now:%Y-%m-%d %H:%M} UTC from public records. Each record appears once, on the day it was first detected. A record that later gains evidence is shown again under Updated records, labelled as an update.</p>
-    <p class="stamp" data-content-id="{info['content_id']}" data-schema="{info['schema_version']}">Build: content id {info['content_id']}, schema {info['schema_version']}, {info['records_today']} records today, generated {info['generated_utc']}{f", workflow commit {info['workflow_commit']}" if info['workflow_commit'] else ""}. Copies fetched through a cache can be minutes behind; compare the content id.</p>
+    <p class="stamp" data-content-id="{info['content_id']}" data-schema="{info['schema_version']}">Build: content id {info['content_id']}, schema {info['schema_version']}, {info['records_today']} records today, generated {info['generated_utc']}{f", workflow commit {info['workflow_commit']}" if info['workflow_commit'] else ""}. Copies fetched through a cache can be minutes behind; compare the content id. Test and live-check status: <a href="status.json">status.json</a>.</p>
   </section>
 </main>
 """
@@ -703,7 +707,7 @@ def export(now):
                       + "; ".join(f"{u['date']} {u['kind']}: {u['detail']}" for u in ups))
             r = i.get("review")
             if r:
-                md.append(f"  Manual review ({r['status']}, {r['reviewer']}, independent={r['independent']}, "
+                md.append(f"  Manual review ({r['status']}; {i.get('verification_status')}; {r['reviewer']}; independent={r['independent']}; "
                           f"verbatim checked={r.get('verbatim_checked', False)}): {r['claim']}")
                 md += [f"  - \"{q['quote']}\" page {q.get('page')} ({q.get('page_basis')})" for q in r["evidence"]]
                 md += [f"  - Caveat: {c}" for c in r.get("caveats", [])]

@@ -1,5 +1,24 @@
 # Briefing changelog and validation notes
 
+## Revision 3.1, 2026-11-16: pilot readiness (architecture frozen at tag `pilot-v1`)
+
+No new sources and no new features.
+
+| # | Request | What was done |
+|---|---------|---------------|
+| 1 | BlineSlide: document-supported versus human verified | Review statuses are now `document_supported`, `human_verified`, `rejected`, `inconclusive`. BlineSlide is `document_supported`: the AI-assisted classification stays, and the page, Markdown and JSON say "human check pending". `human_verified` is refused by the validator unless `verbatim_checked` is true and a named person and date are recorded. |
+| 2 | FDA visiting hours | accessdata.fda.gov's robots.txt names 23:00 to 05:00 Eastern and 30 seconds between requests. The probe and the summary reader moved to `.github/workflows/fda-docs.yml` at 05:23 UTC. Both scripts refuse to contact accessdata.fda.gov outside 04:00 to 09:00 UTC, the hours inside the window under both EDT and EST, whatever triggered them. The probe now also waits 30 seconds between its own requests. The two workflows share a concurrency group so they never commit at the same time. |
+| 3 | Public-output discrepancy | At 03:39 UTC both canonical URLs (Pages and raw, no query string) served the current build with its stamp, raw's headers showed `max-age=300`, and every Pages deployment had succeeded. So the older copy came from a cache between the reader and GitHub, not from deployment. `verify-live` now fetches canonical and cache-busted URLs separately, matches schema, content id and generation time, records cache headers, and labels any gap as "intermediary cache" or "deployment problem". |
+| 4 | Fixture tests versus live checks, public | `docs/status.json` (published at `/status.json`, linked from the page) holds three separate blocks: fixture unit test results (55, no network), each source's live state, and the public-copy check. The briefing JSON and Markdown keep the same split. |
+| 5 | Scope | Unchanged. |
+| 6 | Git history | See below. |
+
+### Git history clean-up
+
+A full mirror backup and a bundle of every ref were made before rewriting. The private email appeared as author or committer on 6 commits on main (3 of them also on branch `briefing-v0`), and 20 commit messages carried AI-session URLs from two sessions. History on `main` and `briefing-v0` was rewritten: the email was replaced with the GitHub noreply address, and the `Claude-Session` lines were removed. Every commit hash changed. Future commits use the noreply address and carry no session URL. Pull request #1 still holds its original three commits on GitHub's side, which a push cannot change (see open issues).
+
+---
+
 ## Revision 3, 2026-11-16: reliability
 
 No new sources and no new features. Public URLs and the Markdown and JSON outputs are unchanged. JSON gains `build`, `tests`, `data_quality.open_issues` and `today.updated_records`.

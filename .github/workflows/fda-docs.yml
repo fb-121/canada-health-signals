@@ -1,0 +1,42 @@
+name: fda-docs
+
+# Reads FDA 510(k) summary PDFs on accessdata.fda.gov. FDA's robots.txt there names visiting hours of
+# 23:00 to 05:00 Eastern and 30 seconds between requests. 05:23 UTC is inside the window under both
+# EDT and EST, and the scripts refuse to send anything outside 04:00 to 09:00 UTC whatever triggered them.
+on:
+  schedule:
+    - cron: "23 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: data-writes
+  cancel-in-progress: false
+
+jobs:
+  fda-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install PDF reader
+        run: pip install --quiet pypdf
+      - name: Diagnose FDA document access
+        continue-on-error: true
+        run: python scripts/fda_probe.py K261679
+      - name: Read FDA 510(k) summaries (skipped while access is restricted)
+        continue-on-error: true
+        run: python scripts/briefing_docs.py
+      - name: Commit data
+        if: always()
+        run: |
+          git config user.name "signals-bot"
+          git config user.email "signals-bot@users.noreply.github.com"
+          git add data
+          git diff --cached --quiet || git commit -m "data: FDA documents $(date -u +%F)"
+          git pull --rebase origin main
+          git push

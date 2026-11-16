@@ -21,10 +21,14 @@ import http.client
 import json
 import ssl
 import sys
+import time
 import urllib.parse
 from datetime import datetime, timezone
 
-from briefing_common import OUT, UA, save_json, write_status
+import briefing_common as bc
+from briefing_common import FDA_PAUSE, OUT, UA, save_json, write_status
+
+_last_fda = [0.0]
 
 HEADERS_KEPT = ("server", "content-type", "content-length", "location", "retry-after", "via", "x-cache",
                 "cache-control", "content-disposition", "x-frame-options")
@@ -35,6 +39,11 @@ CONTROL_URL = "https://api.fda.gov/device/510k.json?limit=1"
 def hop(url, timeout=40):
     """One request, no redirect following. Returns a record of what happened."""
     u = urllib.parse.urlsplit(url)
+    if u.netloc == "www.accessdata.fda.gov":          # keep FDA's 30 second interval between our requests
+        wait = _last_fda[0] + FDA_PAUSE - time.time()
+        if wait > 0:
+            time.sleep(wait)
+        _last_fda[0] = time.time()
     rec = {"url": url, "status": None, "error": None, "headers": {}, "body_start": "", "bytes_read": 0}
     try:
         conn = http.client.HTTPSConnection(u.netloc, timeout=timeout, context=ssl.create_default_context())
@@ -88,6 +97,9 @@ def classify(chain, control_ok=True):
 
 def main():
     k = sys.argv[1] if len(sys.argv) > 1 else "K261679"
+    if not bc.fda_window_open():
+        print("- outside FDA visiting hours (04:00 to 09:00 UTC); no request sent to accessdata.fda.gov")
+        return 0
     pdf = f"https://www.accessdata.fda.gov/cdrh_docs/pdf{k[1:3]}/{k}.pdf"
     record_page = f"https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID={k}"
     out = {"checked_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ"), "user_agent": UA, "record": k,

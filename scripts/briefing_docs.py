@@ -25,6 +25,7 @@ import tempfile
 from datetime import timedelta
 from pathlib import Path
 
+import briefing_common as bc
 import briefing_reviews as reviews
 from briefing_common import OUT, get, load_json, log_correction, note_update, save_json, today, write_status
 
@@ -35,7 +36,7 @@ STRONG_AI = re.compile(
 BARE_AI = re.compile(r"\bAI\b")
 METHODS = ("computer vision", "machine learning", "deep learning", "neural network", "rule-based",
            "signal processing", "image processing", "classical")
-PAUSE = 30.0        # FDA's robots.txt asks for 30 seconds between requests
+PAUSE = bc.FDA_PAUSE  # FDA's robots.txt asks for 30 seconds between requests
 MAX_FETCH = 8       # per run, so a run stays under about four minutes
 REVIEWS_PATH = OUT / "reviews.json"
 
@@ -144,6 +145,9 @@ def apply_to_item(it, facts):
 
 def main():
     cache_dir = OUT / "docs"
+    if not bc.fda_window_open():
+        print("- outside FDA visiting hours (04:00 to 09:00 UTC); summaries not read this run, status left as last recorded")
+        return 0
     changed, fetched, failed, cached, notes = 0, 0, 0, 0, []
     first_error = None
     probe = load_json(OUT / "diagnostics" / "fda_access.json", {})

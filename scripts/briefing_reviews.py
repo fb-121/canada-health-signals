@@ -5,9 +5,13 @@ official document. It is hand-maintained and never rewritten by the daily script
 it on top of whatever the automated steps derived, so a reviewed classification survives every rerun.
 
 One review, keyed by record id (for example an FDA K number):
-  status         verified      the document supports the claim  -> evidence class document_verified
-                 rejected      the document does not support it  -> evidence class unknown
-                 inconclusive  read, but nothing can be concluded -> automated class is left alone
+  status         document_supported  the document's text supports the claim, but no person has yet compared the
+                                     quotes with the PDF itself -> evidence class document_verified, shown as
+                                     "human check pending"
+                 human_verified      a named person opened the PDF and confirmed the quotes and pages
+                                     (needs verbatim_checked true, verified_by and verified_on)
+                 rejected            the document does not support it  -> evidence class unknown
+                 inconclusive        read, but nothing can be concluded -> automated class is left alone
   subject        what was checked (for example "AI functionality")
   claim          the one sentence being verified
   document_url   the official document (must be on an official host)
@@ -20,7 +24,10 @@ One review, keyed by record id (for example an FDA K number):
 """
 from briefing_common import load_json, pdate
 
-STATUS_TO_EVIDENCE = {"verified": "document_verified", "rejected": "unknown", "inconclusive": None}
+STATUS_TO_EVIDENCE = {"document_supported": "document_verified", "human_verified": "document_verified",
+                      "rejected": "unknown", "inconclusive": None}
+VERIFICATION = {"document_supported": "human check pending", "human_verified": "human verified",
+                "rejected": "document does not support the claim", "inconclusive": "inconclusive"}
 OFFICIAL_HOSTS = ("https://www.accessdata.fda.gov/", "https://www.sec.gov/", "https://api.fda.gov/")
 REQUIRED = ("status", "subject", "claim", "document_url", "evidence", "reviewed_on", "reviewer", "independent")
 
@@ -50,8 +57,13 @@ def validate(reviews):
                 problems.append(f"{rid}: evidence {n + 1} quote is over 30 words")
             if ev.get("page") is None and not ev.get("page_basis"):
                 problems.append(f"{rid}: evidence {n + 1} has no page and no note on why")
-        if r.get("status") == "verified" and not r.get("evidence"):
-            problems.append(f"{rid}: verified with no evidence")
+        if r.get("status") in ("document_supported", "human_verified") and not r.get("evidence"):
+            problems.append(f"{rid}: {r.get('status')} with no evidence")
+        if r.get("status") == "human_verified":
+            if r.get("verbatim_checked") is not True:
+                problems.append(f"{rid}: human_verified needs verbatim_checked true")
+            if not r.get("verified_by") or pdate(r.get("verified_on")) is None:
+                problems.append(f"{rid}: human_verified needs verified_by and verified_on")
     return problems
 
 
@@ -68,9 +80,10 @@ def apply(item, reviews):
     if not r:
         return False
     item["review"] = r
+    item["verification_status"] = VERIFICATION.get(r.get("status"))
     ups = item.setdefault("updates", [])
     upd = {"date": r["reviewed_on"], "kind": "manual_review",
-           "detail": f"{r['subject']}: {r['status']} by {r['reviewer']}"}
+           "detail": f"{r['subject']}: {r['status'].replace('_', ' ')} ({VERIFICATION.get(r['status'])}), reviewed by {r['reviewer']}"}
     if upd not in ups:
         ups.append(upd)
     forced = STATUS_TO_EVIDENCE.get(r["status"])
