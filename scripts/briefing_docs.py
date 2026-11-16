@@ -25,7 +25,8 @@ import tempfile
 from datetime import timedelta
 from pathlib import Path
 
-from briefing_common import OUT, get, load_json, log_correction, save_json, today, write_status
+import briefing_reviews as reviews
+from briefing_common import OUT, get, load_json, log_correction, note_update, save_json, today, write_status
 
 STRONG_AI = re.compile(
     r"artificial intelligence|machine[- ]learning|deep[- ]learning|neural network|convolutional|"
@@ -34,7 +35,9 @@ STRONG_AI = re.compile(
 BARE_AI = re.compile(r"\bAI\b")
 METHODS = ("computer vision", "machine learning", "deep learning", "neural network", "rule-based",
            "signal processing", "image processing", "classical")
-PAUSE = 0.6
+PAUSE = 30.0        # FDA's robots.txt asks for 30 seconds between requests
+MAX_FETCH = 8       # per run, so a run stays under about four minutes
+REVIEWS_PATH = OUT / "reviews.json"
 
 
 def pdf_url(k):
@@ -121,6 +124,8 @@ def apply_to_item(it, facts):
     it["document"] = facts
     if facts.get("status") != "read":
         return None
+    if reviews.review_for(it, reviews.load(REVIEWS_PATH)):
+        return None      # a manual review decides this item's class; automation does not overrule it
     old = it.get("evidence")
     new = old
     if old != "fda_listed":
@@ -132,13 +137,15 @@ def apply_to_item(it, facts):
         log_correction(it["key"], "evidence", old, new,
                        "FDA 510(k) summary " + ("describes AI" if new == "document_verified" else "has no AI language"))
         it["evidence"] = new
+        note_update(it, "document_read", f"FDA 510(k) summary read: evidence {old} to {new}")
         return f"{it['record_id']}: {old} -> {new}"
     return None
 
 
 def main():
     cache_dir = OUT / "docs"
-    changed, fetched, failed, notes = 0, 0, 0, []
+    changed, fetched, failed, cached, notes = 0, 0, 0, 0, []
+    first_error = None
     for n in range(0, 7):
         path = OUT / (today() - timedelta(days=n)).isoformat() / "rules.json"
         items = load_json(path, None)
@@ -150,10 +157,16 @@ def main():
                 continue
             k = it["record_id"]
             facts = load_json(cache_dir / f"{k}.json", None)
+            if facts is not None:
+                cached += 1
             if facts is None:
-                status, body, err = get(pdf_url(k), pause=PAUSE, limit=25_000_000)
+                if fetched + failed >= MAX_FETCH:
+                    notes.append(f"{k}: left for the next run (limit of {MAX_FETCH} downloads per run)")
+                    continue
+                status, body, err = get(pdf_url(k), pause=PAUSE if fetched + failed else 0, limit=25_000_000)
                 if status != 200:
                     failed += 1
+                    first_error = first_error or (err or str(status))
                     notes.append(f"{k}: summary PDF not retrieved ({err or status})")
                     continue
                 text = extract_text(body)
@@ -171,7 +184,10 @@ def main():
         if touched:
             save_items = json.dumps(items, indent=1, ensure_ascii=False) + "\n"
             path.write_text(save_items, encoding="utf-8")
-    write_status("fda_510k_summaries", read=fetched, failed=failed, evidence_changed=changed)
+    live = "unproven" if not (fetched or failed or cached) else "failed" if failed and not (fetched or cached) \
+        else "degraded" if failed else "ok"
+    write_status("fda_510k_summaries", read=fetched, failed=failed, from_cache=cached, evidence_changed=changed,
+                 live=live, live_detail=(f"{fetched} downloaded, {failed} failed" + (f" ({first_error})" if first_error else "")))
     print("\n".join("- " + n for n in notes) or "- nothing to check")
     return 0
 

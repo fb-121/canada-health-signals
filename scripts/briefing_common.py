@@ -144,6 +144,15 @@ def write_status(source, **facts):
     save_json(path, status)
 
 
+def note_update(it, kind, detail, on=None):
+    """Records that an already-reported item gained material new evidence. The item keeps its
+    first_detected date and counts as an update, never as a new clearance or financing event."""
+    row = {"date": iso(on) or today().isoformat(), "kind": kind, "detail": detail}
+    ups = it.setdefault("updates", [])
+    if row not in ups:
+        ups.append(row)
+
+
 def log_correction(key, field, old, new, reason):
     """Append-only history of changes to something the page already said."""
     OUT.mkdir(parents=True, exist_ok=True)
@@ -201,6 +210,8 @@ def write_items(section, items, notes):
             new["first_detected"] = old.get("first_detected") or new["first_detected"]
             new["briefing_date"] = old.get("briefing_date") or new["briefing_date"]
             new["recency"] = recency(new["event_date"], new["first_detected"])
+            if old.get("updates"):
+                new["updates"] = old["updates"]
             files[path][n] = new
             changed.add(path)
             upgraded += 1

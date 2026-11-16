@@ -203,7 +203,9 @@ def from_openfda(rows, notes):
                  f"{fetched} clearances in the last {LOOKBACK_DAYS} days, {len(out)} kept, {len(skipped)} dropped"
                  + (f"; errors: {'; '.join(errors[:3])}" if errors else ""))
     notes.extend("DROPPED: " + s for s in skipped)
-    write_status("openfda_510k", latest_decision_date=iso(latest), fetched=fetched, errors=len(errors))
+    write_status("openfda_510k", latest_decision_date=iso(latest), fetched=fetched, errors=len(errors),
+                 live="failed" if errors else "ok" if fetched else "unproven",
+                 live_detail=("; ".join(errors[:2]) if errors else f"{fetched} clearances returned by the API"))
     return out
 
 
@@ -212,7 +214,8 @@ def main():
     notes = []
     dates = [parse_us_date(r.get("Date of Final Decision", "")) for r in rows]
     write_status("fda_ai_device_list", latest_decision_date=iso(max((d for d in dates if d), default=None)),
-                 devices=len(rows))
+                 devices=len(rows), live="ok" if rows else "failed",
+                 live_detail=f"{len(rows)} rows read from the FDA list" if rows else "no rows read")
     items = from_list(rows, notes) + from_openfda(rows, notes)
     write_items("rules", items, notes)
     return 0

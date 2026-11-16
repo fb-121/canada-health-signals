@@ -299,7 +299,9 @@ def main():
     save_json(OUT / "state" / "offerings.json", {a: v for a, v in ledger.items() if (v.get("filed") or "9") >= keep})
     notes.append(f"Checked {checked} filings, {len(items)} items; pipeline first ran {start}")
     write_status("sec_form_d", latest_index_date=iso(last_index), filings_read=checked, unreadable=failed,
-                 items=len(items))
+                 items=len(items),
+                 live="unproven" if not checked else "degraded" if failed else "ok",
+                 live_detail=f"{checked} filings read, {failed} unreadable")
     write_items("money", items, notes)
     return 0
 

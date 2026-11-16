@@ -1,0 +1,35 @@
+{
+ "K261679": {
+  "status": "verified",
+  "subject": "AI functionality",
+  "claim": "FDA's 510(k) summary for BlineSlide (Deep Breathe, Inc.) describes the device as an AI-assisted tool.",
+  "document_url": "https://www.accessdata.fda.gov/cdrh_docs/pdf26/K261679.pdf",
+  "record_url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K261679",
+  "evidence": [
+   {
+    "quote": "an AI-assisted tool for detecting the absence of pleural line motion (lung sliding or lung pulse) in LUS cines",
+    "page": 3,
+    "page_basis": "510(k) Summary, device overview. Page number reported by a text fetch tool; not confirmed in a PDF viewer."
+   },
+   {
+    "quote": "Algorithm Methodology: Computer vision; Machine Learning-Based Algorithms",
+    "page": 7,
+    "page_basis": "Comparison table. The table is flattened in extracted text, so it is not known which column (subject, predicate or reference device) each method belongs to."
+   },
+   {
+    "quote": "BlineSlide is intended for use as a concurrent reading aid to assist interpreting physicians",
+    "page": 4,
+    "page_basis": "Indications for use. Continues onto page 5. Page reported by a text fetch tool."
+   }
+  ],
+  "reviewed_on": "2026-11-16",
+  "reviewer": "Claude, reading the FDA PDF through a text fetch tool",
+  "independent": false,
+  "verbatim_checked": false,
+  "caveats": [
+   "The first quote supports an AI label for the subject device. The method is not settled: the table lists both computer vision and machine learning and the column mapping is unclear.",
+   "Quotes and page numbers came from a text extraction, not from comparing with the PDF itself. A person should open the PDF and confirm pages 3, 4, 5 and 7.",
+   "An earlier analysis said the summary lists computer vision 'not machine learning'. That was too strong and was corrected on 2026-11-16."
+  ]
+ }
+}

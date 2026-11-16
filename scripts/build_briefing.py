@@ -8,13 +8,16 @@ Standard library only, no fetches at view time. Everything on the page is either
   python scripts/build_briefing.py                     writes the three files in docs/
   python scripts/build_briefing.py --fragment PATH     also writes the page body alone (for previews)
 """
+import hashlib
 import html
 import json
+import os
 import re
 import sys
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
+import briefing_reviews as reviews
 from briefing_common import load_json, pdate
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -23,6 +26,8 @@ DOCS = ROOT / "docs"
 TOP_N = 7
 QUOTA = {"rules": 4, "money": 3}
 WEEK = 7
+UPDATE_DAYS = 3        # an earlier record that gained evidence stays under Updated records this many days
+PIPELINE_STALE_HOURS = 36
 SCHEMA = 2
 
 EV_LABEL = {"fda_listed": ("FDA-listed AI", "conf"), "document_verified": ("Document-verified", "conf"),
@@ -84,7 +89,13 @@ def load_day(d):
     items = []
     for sec in ("rules", "money"):
         items += load_json(DATA / d.isoformat() / f"{sec}.json", [])
-    return [upgrade(i) for i in items]
+    rv = reviews.load(DATA / "reviews.json")
+    out = []
+    for i in items:
+        i = upgrade(i)
+        reviews.apply(i, rv)
+        out.append(i)
+    return out
 
 
 def upgrade(i):
@@ -179,6 +190,9 @@ def quality(items):
         if not ok:
             issues.append(msg)
 
+    for problem in reviews.validate(reviews.load(DATA / "reviews.json")):
+        check(False, "review: " + problem)
+    check(True, "reviews file read")
     seen = {}
     for i in items:
         rid = ident(i)
@@ -205,6 +219,8 @@ def chips(i):
     if i["section"] == "rules" and i.get("evidence") in EV_LABEL:
         label, cls = EV_LABEL[i["evidence"]]
         out.append(f'<span class="chip {cls}">{label}</span>')
+        if i.get("evidence_source") == "manual review":
+            out.append('<span class="chip named">Manual review</span>')
     if i["section"] == "money":
         if i.get("kind") == "update":
             out.append('<span class="chip upd">Amendment</span>')
@@ -253,6 +269,64 @@ def doc_facts(i):
             f'<a href="{e(d.get("pdf_url", ""))}" target="_blank" rel="noopener">Read the summary</a></div>')
 
 
+def review_html(i):
+    r = i.get("review")
+    if not r:
+        return ""
+    quotes = "".join(
+        f"<li>\u201c{e(q.get('quote'))}\u201d, page {e(q['page']) if q.get('page') is not None else 'unknown'}"
+        f"<br><span class='label'>{e(q.get('page_basis', ''))}</span></li>" for q in r.get("evidence", []))
+    cav = "".join(f"<li>{e(c)}</li>" for c in r.get("caveats", []))
+    check = "Quotes compared with the PDF." if r.get("verbatim_checked") else "Quotes not yet compared with the PDF."
+    who = "independent" if r.get("independent") else "not independent"
+    return (f'<div class="review"><span class="label">Manual review, {e(nice_date(r.get("reviewed_on")))}: '
+            f'{e(r.get("subject"))}, {e(r.get("status"))}. {e(r.get("reviewer"))} ({who}). {check}</span>'
+            f'<p>{e(r.get("claim"))}</p><ul class="q">{quotes}</ul>'
+            + (f'<details><summary>Caveats</summary><ul class="q">{cav}</ul></details>' if cav else "")
+            + f'<a href="{e(r.get("document_url"))}" target="_blank" rel="noopener">Official document</a></div>')
+
+
+def updated_records(today):
+    """Earlier records that gained material evidence in the last UPDATE_DAYS days. They are updates,
+    not new clearances or financing events, and are never counted as new."""
+    out = []
+    for n in range(1, 15):
+        for i in load_day(today - timedelta(days=n)):
+            ups = [u for u in i.get("updates", []) if pdate(u.get("date")) and 0 <= (today - pdate(u["date"])).days < UPDATE_DAYS]
+            if ups:
+                out.append((i, ups))
+    out.sort(key=lambda t: max(u["date"] for u in t[1]), reverse=True)
+    return out
+
+
+def updated_html(recs):
+    cards = []
+    for i, ups in recs:
+        lines = "".join(f"<li><span class='id'>{e(nice_date(u['date']))}</span> {e(u['kind'].replace('_', ' '))}: {e(u['detail'])}</li>" for u in ups)
+        cards.append(f'<li class="item"><h3>{e(clean_headline(i))}</h3><div class="chips"><span class="chip upd">Update, not a new event</span>{chips(i)}</div>'
+                     f'<ul class="q">{lines}</ul>{doc_facts(i)}{review_html(i)}'
+                     f'<p class="meta"><span class="id">{e(ident(i))}</span><span><span class="dl">First reported</span> {e(nice_date(i.get("first_detected")))}</span>'
+                     f'<a href="{e(i.get("source_url", ""))}" target="_blank" rel="noopener">Official record</a></p></li>')
+    return f'<ol class="items">{"".join(cards)}</ol>'
+
+
+def content_id(today):
+    """Short hash of what the day's outputs say. The same value is stamped into html, md and json so a
+    reader, or the live-output check, can tell whether a copy they fetched is the current one."""
+    rows = []
+    for n in range(0, 15):
+        for i in load_day(today - timedelta(days=n)):
+            rows.append([i.get("key"), i.get("evidence"), i.get("category"), i.get("amount"),
+                         len(i.get("updates", [])), (i.get("review") or {}).get("status")])
+    return hashlib.sha256(json.dumps(sorted(rows, key=str), default=str).encode()).hexdigest()[:10]
+
+
+def build_info(now, items):
+    return {"generated_utc": now.strftime("%Y-%m-%dT%H:%MZ"), "schema_version": SCHEMA,
+            "records_today": len(items), "content_id": content_id(now.date()),
+            "workflow_commit": (os.environ.get("GITHUB_SHA") or "")[:7] or None}
+
+
 def analysis_html(a):
     if not a:
         return ""
@@ -271,6 +345,7 @@ def record_html(i, lead=True):
   {'' if lead else f'<h4>{e(clean_headline(i))}</h4>'}
   <p class="detail">{e(i.get("detail", ""))}</p>
   {doc_facts(i)}
+  {review_html(i)}
   <p class="meta"><span class="id">{e(ident(i))}</span>{dates_line(i)}<a href="{e(i.get("source_url", ""))}" target="_blank" rel="noopener">Official record</a></p>
 </div>"""
 
@@ -288,21 +363,55 @@ def row(s):
     return f'<li>{chip}<a href="{e(s["lead"].get("source_url", ""))}" target="_blank" rel="noopener">{e(s["headline"])}</a></li>'
 
 
-def freshness_html(status, now):
+def when(ts):
+    try:
+        return datetime.strptime(ts, "%Y-%m-%dT%H:%MZ").replace(tzinfo=timezone.utc)
+    except (TypeError, ValueError):
+        return None
+
+
+LIVE_CLASS = {"ok": "ok", "degraded": "stale", "failed": "stale", "unproven": ""}
+
+
+def freshness_html(status, now, tests=None):
+    """Two separate questions per source. Is the source's own data current (newest record date against
+    its normal cadence)? Did our pipeline run recently (last check time)? And a third: did the live
+    request work (live state), which is different from the unit tests passing."""
     rows = []
     for src, (field, label, limit, why) in FRESH.items():
         s = status.get(src)
         if not s:
-            rows.append(f"<tr><td>{e(label)}</td><td>no run recorded</td><td></td><td>{e(why)}</td></tr>")
+            rows.append(f"<tr><td>{e(label)}</td><td colspan='4'>no run recorded</td></tr>")
             continue
         latest = pdate(s.get(field)) if field else None
         age = (now.date() - latest).days if latest else None
         flag = "" if age is None or limit is None else ("ok" if age <= limit else "stale")
-        rows.append(f'<tr><td>{e(label)}</td><td>{e(nice_date(latest) if latest else "n/a")}</td>'
-                    f'<td class="{flag}">{"" if age is None else f"{age} days old"}{" (stale)" if flag == "stale" else ""}</td>'
-                    f'<td>{e(why)}</td></tr>')
-    return ('<div class="scroll"><table><thead><tr><th>Source</th><th>Newest data</th><th>Age</th><th>Normal cadence</th>'
-            f'</tr></thead><tbody>{"".join(rows)}</tbody></table></div>')
+        ran = when(s.get("checked_at"))
+        hrs = (now - ran).total_seconds() / 3600 if ran else None
+        pflag = "" if hrs is None else ("ok" if hrs <= PIPELINE_STALE_HOURS else "stale")
+        live = s.get("live", "unproven")
+        rows.append(
+            f'<tr><td>{e(label)}<br><span class="label">{e(why)}</span></td>'
+            f'<td class="{flag}">{e(nice_date(latest) if latest else "n/a")}'
+            f'{"" if age is None else f"<br>{age} days old"}{" (source stale)" if flag == "stale" else ""}</td>'
+            f'<td class="{pflag}">{e(s.get("checked_at", "never"))}'
+            f'{"" if hrs is None else f"<br>{hrs:.0f} h ago"}{" (pipeline stale)" if pflag == "stale" else ""}</td>'
+            f'<td class="{LIVE_CLASS.get(live, "")}">{e(live)}<br><span class="label">{e(s.get("live_detail", ""))}</span></td></tr>')
+    t = ""
+    if tests:
+        t = (f'<p class="empty">Unit tests (fixtures, no network): {tests.get("passed")} of {tests.get("ran")} passed, ran {e(tests.get("ran_at"))}. '
+             f'Passing says the logic is right on those fixtures. It does not say any source is reachable: that is the Live column.</p>')
+    return ('<div class="scroll"><table><thead><tr><th>Source</th><th>Newest source record</th><th>Pipeline last ran</th>'
+            f'<th>Live request</th></tr></thead><tbody>{"".join(rows)}</tbody></table></div>{t}')
+
+
+def issues_html(issues):
+    live = [x for x in issues if x.get("status") != "closed"]
+    if not live:
+        return '<p class="empty">No open issues recorded.</p>'
+    lis = "".join(f"<li><span class='chip {'late' if x.get('severity') == 'high' else 'cat'}'>{e(x.get('severity'))}</span> "
+                  f"<b>{e(x.get('area'))}</b> ({e(x.get('status'))}, opened {e(x.get('opened'))}). {e(x.get('text'))}</li>" for x in live)
+    return f'<ul class="rows corr">{lis}</ul>'
 
 
 def corrections_html(rows):
@@ -403,6 +512,10 @@ table{border-collapse:collapse;font-size:13px;min-width:480px;width:100%}
 th,td{text-align:left;padding:6px 10px 6px 0;border-bottom:1px solid var(--line);vertical-align:top}
 th{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:500}
 td.ok{color:var(--conf)} td.stale{color:var(--warn);font-weight:600}
+.review{border:1px solid var(--line);border-radius:6px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;font-size:13.5px}
+.review p{margin:0}
+ul.q{display:flex;flex-direction:column;gap:4px;list-style:disc;padding-left:18px;color:var(--muted);font-size:13px}
+.stamp{font-family:var(--mono);font-size:11.5px;color:var(--muted)}
 @media (max-width:480px){.day{grid-template-columns:1fr;gap:6px}.item{padding:14px}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -416,25 +529,33 @@ def build(now=None):
     status = load_json(DATA / "status.json", {})
     corrections = [json.loads(l) for l in (DATA / "corrections.jsonl").read_text().splitlines() if l.strip()] \
         if (DATA / "corrections.jsonl").exists() else []
+    tests = load_json(DATA / "tests.json", None)
+    known = load_json(DATA / "known_issues.json", [])
     items = load_day(today)
     stories = make_stories(items, analysis)
     top, rest = pick(stories)
     n_checks, issues = quality(items)
+    updated = updated_records(today)
+    info = build_info(now, items)
     n_new = sum(i.get("recency") == "new" for i in items)
     n_rules = sum(i["section"] == "rules" for i in items)
-    n_money = sum(i["section"] == "money" for i in items)
+    n_amend = sum(i["section"] == "money" and i.get("kind") == "update" for i in items)
+    n_money = sum(i["section"] == "money" for i in items) - n_amend
     n_with_analysis = sum(1 for s in stories if s["analysis"])
+    upd_sentence = (f" <b>{len(updated)}</b> earlier record{'s' if len(updated) != 1 else ''} gained new evidence "
+                    f"(listed under Updated records, not counted as new events)." if updated else "")
 
     if items:
-        summary = (f"<b>{len(items)}</b> records in <b>{len(stories)}</b> stories: <b>{n_rules}</b> FDA, "
-                   f"<b>{n_money}</b> financing filings. <b>{n_new}</b> are new (event within 14 days of detection); "
-                   f"the rest are recent or historical. Analysis written for <b>{n_with_analysis}</b> stories.")
+        summary = (f"First detected today: <b>{n_rules}</b> FDA clearances and <b>{n_money}</b> new financing filings"
+                   + (f", plus <b>{n_amend}</b> amendments to earlier offerings" if n_amend else "")
+                   + f". <b>{n_new}</b> records are new (event within 14 days of detection); the rest are recent or historical "
+                   f"backfill. Analysis written for <b>{n_with_analysis}</b> stories." + upd_sentence)
         today_html = f'<ol class="items">{"".join(story_card(s) for s in top)}</ol>'
         if rest:
             today_html += (f'<details><summary>{len(rest)} more stories from today</summary>'
                            f'<ul class="rows">{"".join(row(s) for s in rest)}</ul></details>')
     else:
-        summary = "Nothing new passed the filter today."
+        summary = "Nothing new passed the filter today." + upd_sentence
         today_html = '<p class="empty">No new FDA AI clearances or health financings were found since the last run.</p>'
 
     days = []
@@ -449,6 +570,10 @@ def build(now=None):
     qual = (f"{n_checks - len(issues)} of {n_checks} data checks passed." if not issues
             else f"{len(issues)} of {n_checks} data checks flagged: " + "; ".join(issues[:4]))
 
+    updated_section = (f'<section aria-labelledby="t-upd"><h2 id="t-upd">Updated records</h2>'
+                       f'<p class="summary">Earlier records that gained new evidence. They are updates, not new clearances or financing events.</p>'
+                       f'{updated_html(updated)}</section>') if updated else ""
+
     return f"""{STYLE}
 <main class="wrap">
   <header>
@@ -460,13 +585,18 @@ def build(now=None):
     <h2 id="t-today">Today</h2>
     {today_html}
   </section>
+  {updated_section}
   <section aria-labelledby="t-week">
     <h2 id="t-week">Past week</h2>
     {week_html}
   </section>
   <section aria-labelledby="t-fresh">
     <h2 id="t-fresh">Source freshness</h2>
-    {freshness_html(status, now)}
+    {freshness_html(status, now, tests)}
+  </section>
+  <section aria-labelledby="t-issues">
+    <h2 id="t-issues">Open data-quality issues</h2>
+    {issues_html(known)}
   </section>
   <section aria-labelledby="t-corr">
     <h2 id="t-corr">Corrections and changes</h2>
@@ -476,7 +606,8 @@ def build(now=None):
     <p><b>Facts versus analysis.</b> Everything outside the shaded analysis boxes comes from an official record. Analysis boxes are interpretation, written by a reviewer, labelled with who wrote them and whether they were reviewed.</p>
     <p><b>FDA labels.</b> FDA-listed: on FDA's AI-enabled device list. Document-verified: the FDA 510(k) summary describes AI or machine learning (the summary may name a method such as computer vision). Manufacturer-reported: the device or company name claims AI, unchecked. Inferred: a guess from an AI-heavy product code. AI unknown: no evidence either way.</p>
     <p><b>Financing labels.</b> Derived from the Form D's own security-type flags and an EDGAR lookup. A listed company's private placement is not a startup round. An amendment updates an existing offering and is not a new raise. Late means more than 15 days after the first sale, adjusted for weekends only. Startups that file under Other Technology are missed.</p>
-    <p>{e(qual)} Built {now:%Y-%m-%d %H:%M} UTC from public records. Each record appears once, on the day it was first detected.</p>
+    <p>{e(qual)} Built {now:%Y-%m-%d %H:%M} UTC from public records. Each record appears once, on the day it was first detected. A record that later gains evidence is shown again under Updated records, labelled as an update.</p>
+    <p class="stamp" data-content-id="{info['content_id']}" data-schema="{info['schema_version']}">Build: content id {info['content_id']}, schema {info['schema_version']}, {info['records_today']} records today, generated {info['generated_utc']}{f", workflow commit {info['workflow_commit']}" if info['workflow_commit'] else ""}. Copies fetched through a cache can be minutes behind; compare the content id.</p>
   </section>
 </main>
 """
@@ -500,6 +631,10 @@ def export(now):
     top, rest = pick(stories)
     shown = {id(s) for s in top}
     n_checks, issues = quality(items)
+    updated = updated_records(today)
+    info = build_info(now, items)
+    tests = load_json(DATA / "tests.json", None)
+    known = load_json(DATA / "known_issues.json", [])
     out_stories = []
     for n, s in enumerate(top + rest, 1):
         out_stories.append({"rank": n, "shown_on_page": id(s) in shown, "company_id": s["company_id"],
@@ -515,9 +650,14 @@ def export(now):
             week.append({"date": d.isoformat(), "items": [public_record(i) for i in sorted(its, key=item_rank)]})
     data = {"title": "Health Tech Morning Brief", "schema_version": SCHEMA,
             "generated_utc": now.strftime("%Y-%m-%dT%H:%MZ"), "date": today.isoformat(), "method": METHOD,
+            "build": info,
             "source_freshness": status,
-            "data_quality": {"checks_run": n_checks, "issues": issues},
-            "today": {"count": len(items), "story_count": len(stories), "stories": out_stories, "items": flat},
+            "tests": {"fixture_unit_tests": tests,
+                      "note": "Fixture tests use reconstructed records and no network. They do not show a source is reachable. See live in source_freshness."},
+            "data_quality": {"checks_run": n_checks, "issues": issues,
+                             "open_issues": [x for x in known if x.get("status") != "closed"]},
+            "today": {"count": len(items), "story_count": len(stories), "stories": out_stories, "items": flat,
+                      "updated_records": [{**public_record(i), "recent_updates": ups} for i, ups in updated]},
             "past_week": week}
     (DOCS / "briefing.json").write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
 
@@ -527,10 +667,15 @@ def export(now):
     md += [f"- **financing categories**: {METHOD['financing_categories']}"]
     md += [f"- **dates**: " + " ".join(f"{k}: {v}" for k, v in METHOD["dates"].items()), "",
            "## Known gaps", ""] + [f"- {g}" for g in METHOD["known_gaps"]]
-    md += ["", f"## Source freshness", ""]
+    md += ["", f"## Source freshness", "",
+           "Source data freshness (newest record) and pipeline freshness (last run) are separate. Live is whether the request worked.", ""]
     for src, (field, label, limit, why) in FRESH.items():
         s = status.get(src, {})
-        md.append(f"- {label}: newest data {s.get(field) or 'n/a'}, checked {s.get('checked_at', 'never')}")
+        md.append(f"- {label}: newest source record {s.get(field) or 'n/a'}; pipeline last ran {s.get('checked_at', 'never')}; "
+                  f"live request {s.get('live', 'unproven')} {s.get('live_detail', '')}".rstrip())
+    if tests:
+        md.append(f"- Fixture unit tests (no network): {tests.get('passed')} of {tests.get('ran')} passed at {tests.get('ran_at')}. "
+                  "This does not show any source is reachable.")
     md += ["", f"## Today ({len(items)} records in {len(stories)} stories)", ""]
     for st in out_stories:
         md.append(f"{st['rank']}. **{st['headline']}** ({st['section']})")
@@ -551,6 +696,20 @@ def export(now):
                       f"{'reviewed' if a.get('reviewed') else 'not reviewed'}): why it matters: {a.get('why')} Watch next: {a.get('watch')}")
     if not out_stories:
         md.append("No new records today.")
+    if updated:
+        md += ["", f"## Updated records ({len(updated)}; updates, not new events)", ""]
+        for i, ups in updated:
+            md.append(f"- {clean_headline(i)} ({ident(i)}), first reported {i.get('first_detected')}: "
+                      + "; ".join(f"{u['date']} {u['kind']}: {u['detail']}" for u in ups))
+            r = i.get("review")
+            if r:
+                md.append(f"  Manual review ({r['status']}, {r['reviewer']}, independent={r['independent']}, "
+                          f"verbatim checked={r.get('verbatim_checked', False)}): {r['claim']}")
+                md += [f"  - \"{q['quote']}\" page {q.get('page')} ({q.get('page_basis')})" for q in r["evidence"]]
+                md += [f"  - Caveat: {c}" for c in r.get("caveats", [])]
+                md.append(f"  Document: {r['document_url']}")
+    md += ["", "## Open data-quality issues", ""]
+    md += [f"- [{x.get('severity')}] {x.get('area')} ({x.get('status')}): {x.get('text')}" for x in known if x.get("status") != "closed"]
     md += ["", "## Past week", ""]
     for day in week:
         md.append(f"### {day['date']}")
@@ -559,7 +718,9 @@ def export(now):
     if not week:
         md.append("History builds as daily runs accumulate. Everything above was first detected today.")
     md += ["", f"## Data quality", "", f"{n_checks - len(issues)} of {n_checks} checks passed." + (" Flagged: " + "; ".join(issues) if issues else ""),
-           "", f"Generated {data['generated_utc']} from public records. Machine-readable version: briefing.json."]
+           "", f"Build: content id {info['content_id']}, schema {info['schema_version']}, generated {info['generated_utc']}"
+           + (f", workflow commit {info['workflow_commit']}" if info['workflow_commit'] else "")
+           + ". Copies fetched through a cache can be minutes behind; compare the content id. Machine-readable version: briefing.json."]
     (DOCS / "briefing.md").write_text("\n".join(md) + "\n", encoding="utf-8")
     print("- wrote docs/briefing.json and docs/briefing.md")
 

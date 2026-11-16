@@ -28,9 +28,9 @@ jobs:
         continue-on-error: true
         run: python scripts/ai_evidence.py
 
-      - name: "Briefing: data-integrity tests"
+      - name: "Briefing: fixture unit tests (no network)"
         continue-on-error: true
-        run: python -m unittest discover -s tests
+        run: python scripts/run_tests.py
 
       - name: "Briefing: Rules (FDA AI clearances)"
         continue-on-error: true
@@ -39,6 +39,10 @@ jobs:
       - name: "Briefing: install PDF reader"
         continue-on-error: true
         run: pip install --quiet pypdf
+
+      - name: "Briefing: diagnose FDA document access"
+        continue-on-error: true
+        run: python scripts/fda_probe.py K261679
 
       - name: "Briefing: read FDA 510(k) summaries"
         continue-on-error: true
@@ -71,3 +75,19 @@ jobs:
           git diff --cached --quiet || git commit -m "data: daily snapshot $(date -u +%F)"
           git pull --rebase origin main
           git push
+
+  verify-live:
+    # Live integration check. Unit tests passing and the data job going green do not show that the
+    # public files are current. This fails when a public copy still carries an older build.
+    needs: probe
+    if: always() && needs.probe.result == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compare the public files with the build
+        run: python scripts/verify_live.py
