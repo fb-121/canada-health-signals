@@ -1,6 +1,6 @@
 # Seven-day internal pilot
 
-The architecture is frozen at git tag `pilot-v1` for the pilot. The question is whether the real daily briefings are accurate, relevant, fresh and useful, before any expansion.
+The architecture is frozen at commit `f8df353` (main, 2026-11-16) for the pilot. Any later commit that touches `scripts/`, `tests/` or `.github/` must be a fix logged in the changelog. The question is whether the real daily briefings are accurate, relevant, fresh and useful, before any expansion.
 
 **Dates.** Seven briefings, Tuesday 2026-11-17 to Monday 2026-11-23. The briefing builds at 11:17 UTC (4:17 am Calgary). FDA documents are checked at 05:23 UTC.
 

@@ -1,6 +1,6 @@
 # Briefing changelog and validation notes
 
-## Revision 3.1, 2026-11-16: pilot readiness (architecture frozen at tag `pilot-v1`)
+## Revision 3.1, 2026-11-16: pilot readiness (architecture frozen at commit `f8df353`)
 
 No new sources and no new features.
 
