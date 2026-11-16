@@ -1,19 +1,19 @@
 {
- "checked_utc": "2026-11-16T04:05Z",
+ "checked_utc": "2026-11-16T04:09Z",
  "build_checked": {
   "schema_version": 2,
   "content_id": "4fe735194e",
-  "generated_utc": "2026-11-16T04:01Z",
+  "generated_utc": "2026-11-16T04:08Z",
   "age_hours": 0.0,
   "is_current": true
  },
  "build": {
-  "status": "failed",
-  "run_utc": "2026-11-16T04:05Z",
-  "run_url": "https://github.com/fb-121/canada-health-signals/actions/runs/43801761803",
+  "status": "ok",
+  "run_utc": "2026-11-16T04:08Z",
+  "run_url": "https://github.com/fb-121/canada-health-signals/actions/runs/43802039361",
   "critical": {
-   "tests": "failure",
-   "build": "skipped"
+   "tests": "success",
+   "build": "success"
   },
   "optional_collection": {
    "probe": "success",
@@ -25,9 +25,9 @@
   },
   "optional_failed": [],
   "published": {
-   "is_current": false,
-   "shown_briefing_generated_utc": "2026-11-16T04:01Z",
-   "shown_content_id": "4fe735194e"
+   "is_current": true,
+   "generated_utc": "2026-11-16T04:08Z",
+   "content_id": "4fe735194e"
   }
  },
  "fixture_unit_tests": {
@@ -36,7 +36,7 @@
   "failures": 0,
   "errors": 0,
   "passed": 63,
-  "ran_at": "2026-11-16T04:01Z",
+  "ran_at": "2026-11-16T04:08Z",
   "meaning": "Logic checked on reconstructed records with no network. Says nothing about live sources."
  },
  "live_sources": {
@@ -53,21 +53,131 @@
   "fda_ai_device_list": {
    "live": "ok",
    "live_detail": "1614 rows read from the FDA list",
-   "checked_at": "2026-11-16T04:01Z"
+   "checked_at": "2026-11-16T04:08Z"
   },
   "openfda_510k": {
    "live": "ok",
    "live_detail": "20 clearances returned by the API",
-   "checked_at": "2026-11-16T04:01Z"
+   "checked_at": "2026-11-16T04:08Z"
   },
   "sec_form_d": {
    "live": "unproven",
    "live_detail": "0 filings read, 1 unreadable",
-   "checked_at": "2026-11-16T04:01Z"
+   "checked_at": "2026-11-16T04:08Z"
   }
  },
  "public_copies": {
-  "not_checked": "today's build failed; the public briefing is an earlier one, marked not current"
+  "pages json": {
+   "verdict": "current",
+   "canonical": {
+    "url": "https://fb-121.github.io/canada-health-signals/briefing.json",
+    "http": 200,
+    "content_id": "4fe735194e",
+    "generated_utc": "2026-11-16T04:08Z",
+    "headers": {
+     "cache-control": "max-age=600",
+     "age": "0",
+     "x-cache": "MISS",
+     "last-modified": "Mon, 16 Nov 2026 04:09:03 GMT",
+     "etag": "\"6afa81df-88be\"",
+     "expires": "Mon, 16 Nov 2026 04:19:20 GMT",
+     "x-served-by": "cache-bfi-kbfi7400058-BFI"
+    }
+   },
+   "origin": {
+    "http": 200,
+    "content_id": "4fe735194e",
+    "generated_utc": "2026-11-16T04:08Z"
+   }
+  },
+  "pages md": {
+   "verdict": "current",
+   "canonical": {
+    "url": "https://fb-121.github.io/canada-health-signals/briefing.md",
+    "http": 200,
+    "content_id": "4fe735194e",
+    "generated_utc": "2026-11-16T04:08Z",
+    "headers": {
+     "cache-control": "max-age=600",
+     "age": "0",
+     "x-cache": "MISS",
+     "last-modified": "Mon, 16 Nov 2026 04:09:03 GMT",
+     "etag": "\"6afa81df-2e05\"",
+     "expires": "Mon, 16 Nov 2026 04:19:21 GMT",
+     "x-served-by": "cache-bfi-kbfi7400099-BFI"
+    }
+   },
+   "origin": {
+    "http": 200,
+    "content_id": "4fe735194e",
+    "generated_utc": "2026-11-16T04:08Z"
+   }
+  },
+  "pages html": {
+   "verdict": "current",
+   "canonical": {
+    "url": "https://fb-121.github.io/canada-health-signals/briefing.html",
+    "http": 200,
+    "content_id": "4fe735194e",
+    "generated_utc": "2026-11-16T04:08Z",
+    "headers": {
+     "cache-control": "max-age=600",
+     "age": "0",
+     "x-cache": "MISS",
+     "last-modified": "Mon, 16 Nov 2026 04:09:03 GMT",
+     "etag": "\"6afa81df-61ff\"",
+     "expires": "Mon, 16 Nov 2026 04:19:21 GMT",
+     "x-served-by": "cache-bfi-kbfi7400034-BFI"
+    }
+   },
+   "origin": {
+    "http": 200,
+    "content_id": "4fe735194e",
+    "generated_utc": "2026-11-16T04:08Z"
+   }
+  },
+  "raw json": {
+   "verdict": "current",
+   "canonical": {
+    "url": "https://raw.githubusercontent.com/fb-121/canada-health-signals/main/docs/briefing.json",
+    "http": 200,
+    "content_id": "4fe735194e",
+    "generated_utc": "2026-11-16T04:08Z",
+    "headers": {
+     "cache-control": "max-age=300",
+     "x-cache": "MISS",
+     "etag": "\"dd9a3595ef4457847c73531a116263f9fef9f72dc85b545be08a56829ff43239\"",
+     "expires": "Mon, 16 Nov 2026 04:13:35 GMT",
+     "x-served-by": "cache-bfi-kbfi7400105-BFI"
+    }
+   },
+   "origin": {
+    "http": 200,
+    "content_id": "4fe735194e",
+    "generated_utc": "2026-11-16T04:08Z"
+   }
+  },
+  "raw md": {
+   "verdict": "current",
+   "canonical": {
+    "url": "https://raw.githubusercontent.com/fb-121/canada-health-signals/main/docs/briefing.md",
+    "http": 200,
+    "content_id": "4fe735194e",
+    "generated_utc": "2026-11-16T04:08Z",
+    "headers": {
+     "cache-control": "max-age=300",
+     "x-cache": "MISS",
+     "etag": "\"d7d22b5f809cf6a67133dc115bbae9615667a662584567dc905eac1c006a1ed5\"",
+     "expires": "Mon, 16 Nov 2026 04:13:35 GMT",
+     "x-served-by": "cache-bfi-kbfi7400103-BFI"
+    }
+   },
+   "origin": {
+    "http": 200,
+    "content_id": "4fe735194e",
+    "generated_utc": "2026-11-16T04:08Z"
+   }
+  }
  },
  "note": "Pages caches for up to 10 minutes and the raw host for 5. A canonical copy may lag the origin by that much."
 }
