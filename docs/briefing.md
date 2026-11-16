@@ -1,3 +1,6 @@
+<!--build-failed-->
+> **NOT CURRENT.** Today's briefing build failed (tests failure, build skipped) at 2026-11-16T04:05Z. This is the earlier briefing generated 2026-11-16T04:01Z. It is not today's.
+
 # Health Tech Morning Brief, November 16, 2026
 
 A daily, source-linked briefing of two kinds of public health-tech signals: FDA clearances of AI-enabled medical devices, and private financings by health companies. Built for one reader (a non-technical founder tracking US health tech). Every record links to an official source. Facts come from those records. Analysis is written by a reviewer and labelled as interpretation. Nothing here is investment or legal advice.

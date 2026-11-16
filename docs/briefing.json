@@ -819,5 +819,29 @@
     }
    ]
   }
- ]
+ ],
+ "build_failed": {
+  "notice": "Today's briefing build failed (tests failure, build skipped) at 2026-11-16T04:05Z. This is the earlier briefing generated 2026-11-16T04:01Z. It is not today's.",
+  "status": "failed",
+  "run_utc": "2026-11-16T04:05Z",
+  "run_url": "https://github.com/fb-121/canada-health-signals/actions/runs/43801761803",
+  "critical": {
+   "tests": "failure",
+   "build": "skipped"
+  },
+  "optional_collection": {
+   "probe": "success",
+   "ai_evidence": "success",
+   "rules": "success",
+   "money": "success",
+   "site": "success",
+   "ai_page": "success"
+  },
+  "optional_failed": [],
+  "published": {
+   "is_current": false,
+   "shown_briefing_generated_utc": "2026-11-16T04:01Z",
+   "shown_content_id": "4fe735194e"
+  }
+ }
 }
