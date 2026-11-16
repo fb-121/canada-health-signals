@@ -42,6 +42,16 @@ SECURITY_FLAGS = {"isEquityType": "equity", "isDebtType": "debt", "isOptionToAcq
                   "isMineralPropertyType": "mineral property", "isOtherType": "other"}
 
 
+# US federal holidays (OPM), when EDGAR posts no daily index. Checked against EDGAR's 2026 QTR4 listing:
+# no index exists for 2026-10-12 or 2026-11-11, and EDGAR answers HTTP 403, not 404, for the missing file.
+FEDERAL_HOLIDAYS = {
+    "2026-01-01", "2026-01-19", "2026-02-16", "2026-05-25", "2026-06-19", "2026-07-03", "2026-09-07",
+    "2026-10-12", "2026-11-11", "2026-11-26", "2026-12-25",
+    "2027-01-01", "2027-01-18", "2027-02-15", "2027-05-31", "2027-06-18", "2027-07-05", "2027-09-06",
+    "2027-10-11", "2027-11-11", "2027-11-25", "2027-12-24",
+}
+
+
 def index_url(d):
     q = (d.month - 1) // 3 + 1
     return f"https://www.sec.gov/Archives/edgar/daily-index/{d.year}/QTR{q}/form.{d:%Y%m%d}.idx"
@@ -248,9 +258,14 @@ def main():
     days = [d for d in days if d.isoformat() not in done_days]
 
     checked = failed = 0
+    index_failed = []
     last_index = None
     for d in days:
         if d.weekday() >= 5:
+            done_days.add(d.isoformat())
+            continue
+        if d.isoformat() in FEDERAL_HOLIDAYS:
+            notes.append(f"{d}: federal holiday, EDGAR posts no index")
             done_days.add(d.isoformat())
             continue
         status, body, err = get(index_url(d), ua=UA, pause=PAUSE)
@@ -259,7 +274,7 @@ def main():
             continue
         if status != 200:
             notes.append(f"{d}: index failed, {err or status}")
-            failed += 1
+            index_failed.append(f"{d} ({err or status})")
             continue
         last_index = d
         rows = list(parse_index(body.decode("latin-1")))
@@ -300,8 +315,10 @@ def main():
     notes.append(f"Checked {checked} filings, {len(items)} items; pipeline first ran {start}")
     write_status("sec_form_d", latest_index_date=iso(last_index), filings_read=checked, unreadable=failed,
                  items=len(items),
-                 live="unproven" if not checked else "degraded" if failed else "ok",
-                 live_detail=f"{checked} filings read, {failed} unreadable")
+                 live="unproven" if not checked else "degraded" if failed or index_failed else "ok",
+                 live_detail=f"{checked} filings read, {failed} unreadable"
+                 + (f"; daily index not retrieved for {', '.join(index_failed)}" if index_failed else "")
+                 + ("; no new index to read this run, so no filing was retrieved" if not checked and not index_failed else ""))
     write_items("money", items, notes)
     return 0
 

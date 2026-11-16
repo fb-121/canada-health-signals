@@ -62,6 +62,34 @@ def mark_stale(docs, state):
     return note
 
 
+SOURCE_STEPS = {"RULES": ("openfda_510k", "fda_ai_device_list"), "MONEY": ("sec_form_d",)}
+
+
+def mark_failed_sources(env, root=ROOT):
+    """Run before the build. A collection step that crashed never wrote its own status, so the source would
+    still show the last run's live state. This marks those sources failed for this run, keeping their old
+    check time, so a crash cannot pass as a successful source check."""
+    path = root / "data" / "briefing" / "status.json"
+    try:
+        status = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        status = {}
+    marked = []
+    for step, sources in SOURCE_STEPS.items():
+        if env.get(step) not in ("failure", "cancelled"):
+            continue
+        for src in sources:
+            s = status.setdefault(src, {})
+            s["live"] = "failed"
+            s["live_detail"] = (f"collection step failed this run; figures are from the last completed check "
+                                f"({s.get('checked_at', 'none')})")
+            marked.append(src)
+    if marked:
+        path.write_text(json.dumps(status, indent=1, ensure_ascii=False, sort_keys=True) + "\n", encoding="utf-8")
+        print("- marked failed this run: " + ", ".join(marked))
+    return marked
+
+
 def main(env=os.environ, root=ROOT, now=None):
     now = now or datetime.now(timezone.utc)
     state = state_from_env(env, now)
@@ -88,4 +116,7 @@ def main(env=os.environ, root=ROOT, now=None):
 
 
 if __name__ == "__main__":
+    if "--sources" in sys.argv:
+        mark_failed_sources(os.environ)
+        sys.exit(0)
     sys.exit(main())

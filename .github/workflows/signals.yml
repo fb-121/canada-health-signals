@@ -64,6 +64,13 @@ jobs:
           SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
         run: python scripts/briefing_money.py
 
+      - name: Mark sources whose collection step failed this run
+        if: always()
+        env:
+          RULES: ${{ steps.rules.outcome }}
+          MONEY: ${{ steps.money.outcome }}
+        run: python scripts/build_state.py --sources
+
       - name: "Critical: build the briefing (only after tests pass)"
         id: build
         if: steps.tests.outcome == 'success'

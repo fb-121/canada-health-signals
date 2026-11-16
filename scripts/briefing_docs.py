@@ -176,15 +176,12 @@ def main():
                     notes.append(f"{k}: left for the next run (limit of {MAX_FETCH} downloads per run)")
                     continue
                 try:
-                    bc.fda_gate()   # 30 s since the last FDA request by any script, and inside visiting hours now
+                    # every request, redirect hops included, waits 30 s and re-checks visiting hours
+                    status, body, err, hops = bc.fda_fetch(pdf_url(k))
                 except bc.FDAWindowClosed:
-                    notes.append(f"{k}: not requested, FDA visiting hours ended during the run")
+                    notes.append(f"{k}: not requested (or redirect not followed), FDA visiting hours ended during the run")
                     stop = True
                     break
-                try:
-                    status, body, err = get(pdf_url(k), limit=25_000_000)
-                finally:
-                    bc.fda_done()
                 if status != 200:
                     failed += 1
                     first_error = first_error or (err or str(status))

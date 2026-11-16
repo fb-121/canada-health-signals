@@ -17,6 +17,7 @@ import re
 import tempfile
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -102,6 +103,46 @@ def fda_gate():
 def fda_done():
     """Marks the end of a request, so the next one waits 30 seconds from here."""
     _stamp()
+
+
+class _NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, *args, **kwargs):
+        return None          # urllib then raises HTTPError with the 3xx status, so each hop is ours to send
+
+
+def _open(url, ua, timeout=60):
+    """One request, redirects not followed. Replaced in tests."""
+    req = urllib.request.Request(url, headers={"User-Agent": ua, "Accept": "*/*"})
+    return urllib.request.build_opener(_NoRedirect).open(req, timeout=timeout)
+
+
+def fda_fetch(url, ua=UA, limit=25_000_000, max_hops=4):
+    """GET from accessdata.fda.gov with every request, redirect hops included, sent one at a time through
+    fda_gate() and fda_done(). Returns (status, body, error, hops). Raises FDAWindowClosed if visiting hours
+    end before any hop; nothing is sent after that point. A redirect off accessdata.fda.gov is not followed."""
+    hops = []
+    for _ in range(max_hops + 1):
+        if urllib.parse.urlsplit(url).netloc != FDA_HOST:
+            return 0, b"", f"redirect to another host not followed: {url}", hops
+        fda_gate()
+        try:
+            with _open(url, ua) as r:
+                body = r.read(limit + 1)
+            hops.append((url, r.status))
+            return r.status, body, "", hops
+        except urllib.error.HTTPError as e:
+            hops.append((url, e.code))
+            loc = e.headers.get("Location") if e.headers else None
+            if e.code in (301, 302, 303, 307, 308) and loc:
+                url = urllib.parse.urljoin(url, loc)
+                continue
+            return e.code, b"", f"HTTP {e.code}", hops
+        except Exception as e:
+            hops.append((url, None))
+            return 0, b"", f"{type(e).__name__}: {e}"[:160], hops
+        finally:
+            fda_done()
+    return 0, b"", f"more than {max_hops} redirects", hops
 
 
 # ---------- dates ----------

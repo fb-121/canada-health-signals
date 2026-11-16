@@ -1,5 +1,17 @@
 # Briefing changelog and validation notes
 
+## Final pre-pilot review, 2026-11-16
+
+The freeze reference stays `f8df353`. Everything below is a minimal correction or a documentation change. There are no new sources, features, ranking rules or schema changes.
+
+| Area | Finding | Change |
+|------|---------|--------|
+| FDA redirects | `briefing_docs.py` used the generic fetcher, which follows redirects inside urllib. Only the first request passed the 30-second and visiting-hours gate, so a redirect hop (FDA's abuse-detection redirect, for example) went out with no gate. `fda_probe.py` already gated each hop. | New `fda_fetch()` in `briefing_common.py`: redirects are not followed automatically, every hop is its own request through `fda_gate()` and `fda_done()`, a redirect to another host is not followed, and the chain is capped at 4 redirects. The reader uses it. Automated reading stays off while FDA blocks scripts. 5 fixture tests added. |
+| Optional step crashes | If `briefing_rules.py` or `briefing_money.py` crashed, it never wrote its status, so the page and `status.json` still showed the previous run's live "ok". | A step before the build marks those sources `failed` for this run and keeps their last check time (`build_state.py --sources`). Fixture test added. |
+| SEC "1 unreadable" | It was EDGAR's index for 2026-11-11, a federal holiday with no index file. EDGAR answers 403 for a missing file. Confirmed against EDGAR's 2026 QTR4 directory listing, which also lacks 2026-10-12. | The collector skips listed US federal holidays (2026 and 2027), and the status reports index failures separately from unreadable filings. A run that reads no filing stays `unproven`. Fixture test added. |
+| Positioning | The project was presented as "Canada Health Signals" and "Health Tech Morning Brief". | The README and the briefing (page title, heading, opening description, Markdown heading, JSON `title` value) now say HealthSignal, North American Healthcare Technology Intelligence, US-first and Canada-aware. They state that coverage is US data today. `index.html` is a separate earlier project (the wastewater page) and was left unchanged. |
+| Pilot | The relevance scale and daily procedure did not match the agreed plan. | `docs/pilot.md` updated (0 to 3 relevance, daily usefulness yes/no, 9-step procedure, targets). Added `docs/pilot-log.md` and `docs/pilot-review-queue.md`. |
+
 ## Operational fixes before the pilot, 2026-11-16
 
 Architecture freeze reference stays `f8df353`. These are operational fixes, not design changes: no new sources, features or ranking changes.

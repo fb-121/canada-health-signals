@@ -76,7 +76,15 @@
   "opened": "2026-11-16",
   "severity": "low",
   "area": "SEC Form D",
-  "status": "open",
-  "text": "The run at 03:32 UTC on 2026-11-16 read 0 new filings and logged 1 unreadable filing, so SEC's live state shows unproven. Not yet investigated. Expected to clear on the next business-day index."
+  "status": "explained 2026-11-16; corrected",
+  "text": "The 'unreadable' item was EDGAR's daily index for 2026-11-11, which returned HTTP 403. EDGAR's 2026 QTR4 directory listing, checked in a browser on 2026-11-16, has no index for 2026-11-11 (Veterans Day) or 2026-10-12 (Columbus Day): EDGAR posts none on federal holidays and answers 403, not 404, for the missing file. This was a source limitation, not a parsing or retrieval fault. The collector now skips listed federal holidays, and the status separates index failures from unreadable filings. SEC stays 'unproven' until a run reads at least one filing. The first chance is the 2026-11-17 run, reading the 2026-11-16 index."
+ },
+ {
+  "id": "homepage",
+  "opened": "2026-11-16",
+  "severity": "low",
+  "area": "Public positioning",
+  "status": "open, your decision",
+  "text": "The site root (index.html) is the earlier Canadian wastewater page, rebuilt daily by build_site.py, and does not link to HealthSignal. HealthSignal lives at /briefing.html. Making HealthSignal the front page would mean changing build_site.py or adding a landing page, which is outside the pilot freeze. The repository description on GitHub also still describes the older project and must be changed in GitHub's settings."
  }
 ]

@@ -45,7 +45,7 @@ FRESH = {  # source -> (status field, label, days before it counts as stale, why
 }
 
 METHOD = {
-    "what_this_is": "A daily, source-linked briefing of two kinds of public health-tech signals: FDA clearances of AI-enabled medical devices, and private financings by health companies. Built for one reader (a non-technical founder tracking US health tech). Every record links to an official source. Facts come from those records. Analysis is written by a reviewer and labelled as interpretation. Nothing here is investment or legal advice.",
+    "what_this_is": "HealthSignal is a source-linked healthcare technology intelligence briefing for founders, operators and people interested in the future of medicine. It is designed from a Canadian perspective and is US-first: current coverage is FDA clearances of AI-enabled medical devices and private financings by healthcare companies from SEC Form D filings, both US sources. It does not yet cover Canadian regulatory or financing data. Every record links to an official source. Facts come from those records. Analysis is written by a reviewer and labelled as interpretation. Nothing here is investment or legal advice.",
     "evidence_classes": {
         "fda_listed": "On FDA's AI-enabled device list.",
         "document_verified": "FDA's 510(k) summary itself describes AI or machine learning. The summary may name the method (for example computer vision), which is recorded. When this rests on a manual review, verification_status says whether a person has checked the quotes against the PDF (human verified) or not yet (human check pending).",
@@ -428,7 +428,7 @@ def corrections_html(rows):
 
 
 STYLE = """
-<title>Health Tech Morning Brief</title>
+<title>HealthSignal</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -582,7 +582,8 @@ def build(now=None):
 <main class="wrap">
   <header>
     <span class="kicker">{today:%A}, {today:%B} {today.day}, {today.year}</span>
-    <h1>Health Tech Morning Brief</h1>
+    <h1>HealthSignal</h1>
+    <p class="summary">North American Healthcare Technology Intelligence. US-first, Canada-aware.</p>
     <p class="summary">{summary}</p>
   </header>
   <section aria-labelledby="t-today">
@@ -652,7 +653,7 @@ def export(now):
         its = load_day(d)
         if its:
             week.append({"date": d.isoformat(), "items": [public_record(i) for i in sorted(its, key=item_rank)]})
-    data = {"title": "Health Tech Morning Brief", "schema_version": SCHEMA,
+    data = {"title": "HealthSignal", "schema_version": SCHEMA,
             "generated_utc": now.strftime("%Y-%m-%dT%H:%MZ"), "date": today.isoformat(), "method": METHOD,
             "build": info,
             "source_freshness": status,
@@ -665,7 +666,7 @@ def export(now):
             "past_week": week}
     (DOCS / "briefing.json").write_text(json.dumps(data, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
 
-    md = [f"# Health Tech Morning Brief, {today:%B} {today.day}, {today.year}", "", METHOD["what_this_is"], "",
+    md = [f"# HealthSignal, {today:%B} {today.day}, {today.year}", "", "North American Healthcare Technology Intelligence. US-first, Canada-aware.", "", METHOD["what_this_is"], "",
           "## How to read the labels", ""]
     md += [f"- **{k}**: {v}" for k, v in METHOD["evidence_classes"].items()]
     md += [f"- **financing categories**: {METHOD['financing_categories']}"]

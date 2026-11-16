@@ -332,7 +332,7 @@ class PageLogic(unittest.TestCase):
             page.DATA = Path(tmp)
             bc.OUT = Path(tmp)
             html = page.build()
-            self.assertIn("Health Tech Morning Brief", html)
+            self.assertIn("HealthSignal", html)
             self.assertNotIn("—", html)
 
 

@@ -16,7 +16,40 @@ import briefing_reviews as rv         # noqa: E402
 import build_briefing as page         # noqa: E402
 import fda_probe as probe             # noqa: E402
 import build_state                    # noqa: E402
+import briefing_money as money        # noqa: E402
 from datetime import datetime, timezone
+
+import email.message
+import urllib.error
+
+
+class _Resp:
+    def __init__(self, status, body=b""):
+        self.status, self._b = status, body
+
+    def read(self, n=-1):
+        return self._b
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *a):
+        return False
+
+
+def fake_open(calls, plan):
+    """Stands in for one HTTP request with redirects not followed. plan: (status, Location) per request."""
+    def _o(url, ua, timeout=60):
+        calls.append(url)
+        st, loc = plan[min(len(calls) - 1, len(plan) - 1)]
+        if st == 200:
+            return _Resp(200, b"%PDF-1.4")
+        h = email.message.Message()
+        if loc:
+            h["Location"] = loc
+        raise urllib.error.HTTPError(url, st, "x", h, None)
+    return _o
+
 
 REAL_WINDOW = bc.fda_window_open   # captured before any test replaces it
 bc.FDA_CLOCK = Path(tempfile.mkdtemp()) / "fda_clock"   # never share the real runner clock with tests
@@ -219,7 +252,7 @@ class FreshnessAndLive(unittest.TestCase):
             it = rule()
             it.update(source="openFDA 510(k)", summary_available=True)
             (day / "rules.json").write_text(json.dumps([it]))
-            docs.get = lambda *a, **k: (404, b"", "HTTP 404")
+            bc._open = fake_open([], [(404, None)])
             bc.fda_window_open = lambda now=None: True
             docs.main()
             st = json.loads((Path(tmp) / "status.json").read_text())["fda_510k_summaries"]
@@ -263,7 +296,7 @@ class BlockedReading(unittest.TestCase):
             (day / "rules.json").write_text(json.dumps([it]))
             calls = []
             bc.fda_window_open = lambda now=None: True
-            docs.get = lambda *a, **k: calls.append(a) or (200, b"", "")
+            bc._open = fake_open(calls, [(200, None)])
             docs.main()
             self.assertEqual(calls, [])
             st = json.loads((Path(tmp) / "status.json").read_text())["fda_510k_summaries"]
@@ -279,7 +312,7 @@ class VisitingHours(unittest.TestCase):
         bc.fda_window_open = lambda now=None: False
         calls = []
         probe.hop = lambda *a, **k: calls.append(a) or {}
-        docs.get = lambda *a, **k: calls.append(a) or (200, b"", "")
+        bc._open = fake_open(calls, [(200, None)])
         self.assertEqual(probe.main(), 0)
         self.assertEqual(docs.main(), 0)
         self.assertEqual(calls, [])
@@ -339,7 +372,7 @@ class FDARequestGate(unittest.TestCase):
             opens = iter([True, True, True, False, False, False])   # start check, gate 1, gate 2, then closed
             bc.fda_window_open = lambda now=None: next(opens)
             calls = []
-            docs.get = lambda *a, **k: calls.append(a) or (404, b"", "HTTP 404")
+            bc._open = fake_open(calls, [(404, None)])
             docs.main()
             self.assertEqual(len(calls), 2)
             self.assertEqual(self.slept, [30.0, 30.0])   # waited before request 2, and before the refused third
@@ -382,9 +415,115 @@ class BuildReliability(unittest.TestCase):
             self.assertTrue(st["published"]["is_current"])
             self.assertNotIn("Not current", (docs / "briefing.html").read_text())
 
+    def test_crashed_collection_step_is_never_shown_as_a_live_success(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            p = Path(tmp) / "data" / "briefing"
+            p.mkdir(parents=True)
+            (p / "status.json").write_text(json.dumps({
+                "sec_form_d": {"live": "ok", "checked_at": "2026-11-16T11:20Z"},
+                "openfda_510k": {"live": "ok", "checked_at": "2026-11-16T11:18Z"}}))
+            marked = build_state.mark_failed_sources({"RULES": "success", "MONEY": "failure"}, Path(tmp))
+            st = json.loads((p / "status.json").read_text())
+            self.assertEqual(marked, ["sec_form_d"])
+            self.assertEqual(st["sec_form_d"]["live"], "failed")
+            self.assertEqual(st["sec_form_d"]["checked_at"], "2026-11-16T11:20Z")   # old check time kept
+            self.assertEqual(st["openfda_510k"]["live"], "ok")
+
     def test_failed_build_counts_as_critical(self):
         s = build_state.state_from_env(dict(self.ENV_OK, BUILD="failure"), datetime(2026, 11, 16, tzinfo=timezone.utc))
         self.assertEqual(s["status"], "failed")
+
+
+class RedirectHops(unittest.TestCase):
+    """Every redirect hop to accessdata.fda.gov is its own request through the gate."""
+    def setUp(self):
+        self.t = [1000.0]
+        self.slept = []
+        bc._now = lambda: self.t[0]
+        bc._sleep = lambda s: (self.slept.append(round(s, 3)), self.t.__setitem__(0, self.t[0] + s))
+        bc.FDA_CLOCK = Path(tempfile.mkdtemp()) / "clock"
+        bc.fda_window_open = lambda now=None: True
+
+    def tearDown(self):
+        import time as _t
+        bc._now = _t.time
+        bc._sleep = lambda s: None
+
+    PDF = "https://www.accessdata.fda.gov/cdrh_docs/pdf26/K1.pdf"
+
+    def test_redirect_hop_waits_30_seconds(self):
+        calls = []
+        bc._open = fake_open(calls, [(302, "/apology_objects/abuse-detection-apology.html"), (404, None)])
+        status, body, err, hops = bc.fda_fetch(self.PDF)
+        self.assertEqual(len(calls), 2)
+        self.assertEqual(calls[1], "https://www.accessdata.fda.gov/apology_objects/abuse-detection-apology.html")
+        self.assertEqual(self.slept, [30.0])
+        self.assertEqual((status, [h[1] for h in hops]), (404, [302, 404]))
+
+    def test_hours_rechecked_before_the_redirect_hop(self):
+        opens = iter([True, False])
+        bc.fda_window_open = lambda now=None: next(opens)
+        calls = []
+        bc._open = fake_open(calls, [(302, "/next"), (200, None)])
+        with self.assertRaises(bc.FDAWindowClosed):
+            bc.fda_fetch(self.PDF)
+        self.assertEqual(len(calls), 1)          # the hop was not sent
+
+    def test_redirect_to_another_host_is_not_followed(self):
+        calls = []
+        bc._open = fake_open(calls, [(302, "https://elsewhere.example/x.pdf")])
+        status, body, err, hops = bc.fda_fetch(self.PDF)
+        self.assertEqual(len(calls), 1)
+        self.assertIn("another host", err)
+
+    def test_redirect_loop_is_bounded(self):
+        calls = []
+        bc._open = fake_open(calls, [(302, "/again")])
+        status, body, err, hops = bc.fda_fetch(self.PDF, max_hops=3)
+        self.assertEqual(len(calls), 4)
+        self.assertIn("more than 3 redirects", err)
+
+    def test_reader_sends_redirect_hops_through_the_gate(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            bc.OUT = docs.OUT = Path(tmp)
+            docs.REVIEWS_PATH = Path(tmp) / "reviews.json"
+            day = Path(tmp) / bc.today().isoformat()
+            day.mkdir()
+            it = rule()
+            it.update(source="openFDA 510(k)", summary_available=True)
+            (day / "rules.json").write_text(json.dumps([it]))
+            calls = []
+            bc._open = fake_open(calls, [(302, "/apology_objects/abuse-detection-apology.html"), (404, None)])
+            docs.main()
+            self.assertEqual(len(calls), 2)
+            self.assertEqual(self.slept, [30.0])
+            st = json.loads((Path(tmp) / "status.json").read_text())["fda_510k_summaries"]
+            self.assertEqual(st["live"], "failed")
+
+
+class SECIndex(unittest.TestCase):
+    def test_federal_holiday_index_is_not_requested_or_counted_as_a_failure(self):
+        from datetime import date
+        with tempfile.TemporaryDirectory() as tmp:
+            bc.OUT = money.OUT = Path(tmp)
+            bc.STATE = Path(tmp) / "state"
+            real_today = money.today
+            money.today = lambda: date(2026, 11, 17)
+            asked = []
+
+            def fake_get(url, **k):
+                asked.append(url)
+                return 403, b"", "HTTP 403"
+            real_get, money.get = money.get, fake_get
+            try:
+                money.main()
+            finally:
+                money.get, money.today = real_get, real_today
+            self.assertFalse(any("20261111" in u for u in asked))
+            st = json.loads((Path(tmp) / "status.json").read_text())["sec_form_d"]
+            self.assertEqual(st["live"], "unproven")              # nothing read is never called a success
+            self.assertIn("daily index not retrieved", st["live_detail"])
+            self.assertNotIn("2026-11-11", st["live_detail"])
 
 
 class CorrectionHistory(unittest.TestCase):
