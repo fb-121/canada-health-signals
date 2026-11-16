@@ -1,6 +1,8 @@
-# Health Tech Morning Brief, November 16, 2026
+# HealthSignal, November 16, 2026
 
-A daily, source-linked briefing of two kinds of public health-tech signals: FDA clearances of AI-enabled medical devices, and private financings by health companies. Built for one reader (a non-technical founder tracking US health tech). Every record links to an official source. Facts come from those records. Analysis is written by a reviewer and labelled as interpretation. Nothing here is investment or legal advice.
+North American Healthcare Technology Intelligence. US-first, Canada-aware.
+
+HealthSignal is a source-linked healthcare technology intelligence briefing for founders, operators and people interested in the future of medicine. It is designed from a Canadian perspective and is US-first: current coverage is FDA clearances of AI-enabled medical devices and private financings by healthcare companies from SEC Form D filings, both US sources. It does not yet cover Canadian regulatory or financing data. Every record links to an official source. Facts come from those records. Analysis is written by a reviewer and labelled as interpretation. Nothing here is investment or legal advice.
 
 ## How to read the labels
 
@@ -26,11 +28,11 @@ A daily, source-linked briefing of two kinds of public health-tech signals: FDA 
 
 Source data freshness (newest record) and pipeline freshness (last run) are separate. Live is whether the request worked.
 
-- SEC Form D daily index: newest source record n/a; pipeline last ran 2026-11-16T04:08Z; live request unproven 0 filings read, 1 unreadable
-- openFDA 510(k) clearances: newest source record 2026-10-30; pipeline last ran 2026-11-16T04:08Z; live request ok 20 clearances returned by the API
-- FDA AI-enabled device list: newest source record 2026-06-29; pipeline last ran 2026-11-16T04:08Z; live request ok 1614 rows read from the FDA list
-- FDA 510(k) summaries: newest source record n/a; pipeline last ran 2026-11-16T03:31Z; live request blocked FDA redirects scripts to an abuse-detection page; automated reading off, manual review in use
-- Fixture unit tests (no network): 63 of 63 passed at 2026-11-16T04:08Z. This does not show any source is reachable.
+- SEC Form D daily index: newest source record n/a; pipeline last ran 2026-11-16T04:27Z; live request unproven 0 filings read, 0 unreadable; no new index to read this run, so no filing was retrieved
+- openFDA 510(k) clearances: newest source record 2026-10-30; pipeline last ran 2026-11-16T04:27Z; live request ok 20 clearances returned by the API
+- FDA AI-enabled device list: newest source record 2026-06-29; pipeline last ran 2026-11-16T04:27Z; live request ok 1614 rows read from the FDA list
+- FDA 510(k) summaries: newest source record n/a; pipeline last ran 2026-11-16T04:11Z; live request blocked FDA redirects scripts to an abuse-detection page; automated reading off, manual review in use
+- Fixture unit tests (no network): 70 of 70 passed at 2026-11-16T04:27Z. This does not show any source is reachable.
 
 ## Today (0 records in 0 stories)
 
@@ -58,8 +60,9 @@ No new records today.
 - [medium] Company identity (open): FDA applicant IDs are name slugs, so spelling variants can split one company. The same company is not linked across FDA and SEC.
 - [low] Form D lateness (open): Deadlines adjust for weekends, not federal holidays, so a filing one business day over may be on time.
 - [medium] 510(k) summaries (open): Significant-modification analysis is not built. Only same-company reference devices and change-control-plan mentions are flagged.
-- [medium] Git history (open, needs GitHub Support): The private email and AI-session URLs were removed from main and briefing-v0 by rewriting history. GitHub keeps pull request #1's original commits (refs/pull/1/head), which cannot be changed by a push, and old commit pages can stay reachable by their hash until GitHub garbage-collects them. Removing those needs a request to GitHub Support.
-- [low] SEC Form D (open): The run at 03:32 UTC on 2026-11-16 read 0 new filings and logged 1 unreadable filing, so SEC's live state shows unproven. Not yet investigated. Expected to clear on the next business-day index.
+- [medium] Git history (support request drafted, waiting for approval): The private email and AI-session URLs were removed from main and briefing-v0 by rewriting history. GitHub keeps pull request #1's original commits (refs/pull/1/head), which cannot be changed by a push, and old commit pages can stay reachable by their hash until GitHub garbage-collects them. Removing those needs a request to GitHub Support.
+- [low] SEC Form D (explained 2026-11-16; corrected): The 'unreadable' item was EDGAR's daily index for 2026-11-11, which returned HTTP 403. EDGAR's 2026 QTR4 directory listing, checked in a browser on 2026-11-16, has no index for 2026-11-11 (Veterans Day) or 2026-10-12 (Columbus Day): EDGAR posts none on federal holidays and answers 403, not 404, for the missing file. This was a source limitation, not a parsing or retrieval fault. The collector now skips listed federal holidays, and the status separates index failures from unreadable filings. SEC stays 'unproven' until a run reads at least one filing. The first chance is the 2026-11-17 run, reading the 2026-11-16 index.
+- [low] Public positioning (open, your decision): The site root (index.html) is the earlier Canadian wastewater page, rebuilt daily by build_site.py, and does not link to HealthSignal. HealthSignal lives at /briefing.html. Making HealthSignal the front page would mean changing build_site.py or adding a landing page, which is outside the pilot freeze. The repository description on GitHub also still describes the older project and must be changed in GitHub's settings.
 
 ## Past week
 
@@ -85,4 +88,4 @@ No new records today.
 
 1 of 1 checks passed.
 
-Build: content id 4fe735194e, schema 2, generated 2026-11-16T04:08Z, workflow commit 3cbb0d4. Copies fetched through a cache can be minutes behind; compare the content id. Machine-readable version: briefing.json.
+Build: content id 4fe735194e, schema 2, generated 2026-11-16T04:27Z, workflow commit 8bc8b82. Copies fetched through a cache can be minutes behind; compare the content id. Machine-readable version: briefing.json.
