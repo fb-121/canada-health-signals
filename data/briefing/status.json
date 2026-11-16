@@ -1,6 +1,6 @@
 {
  "fda_510k_summaries": {
-  "checked_at": "2026-11-16T03:31Z",
+  "checked_at": "2026-11-16T04:11Z",
   "evidence_changed": 0,
   "failed": 0,
   "from_cache": 0,
@@ -9,7 +9,7 @@
   "read": 0
  },
  "fda_access_probe": {
-  "checked_at": "2026-11-16T03:31Z",
+  "checked_at": "2026-11-16T04:11Z",
   "record": "K261679",
   "verdict": "access_restriction"
  },
