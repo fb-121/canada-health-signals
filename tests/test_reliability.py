@@ -218,6 +218,33 @@ class AccessDiagnosis(unittest.TestCase):
         self.assertEqual(c(self.chain(error="TimeoutError")), "network_restriction")
         self.assertEqual(c(self.chain(500, "oops")), "unclear")
 
+    def test_redirect_into_an_abuse_detection_page_is_a_confirmed_restriction(self):
+        chain = [{"url": "https://www.accessdata.fda.gov/cdrh_docs/pdf26/K1.pdf", "status": 302, "error": None,
+                  "headers": {"location": "/apology_objects/abuse-detection-apology.html"}, "body_start": ""},
+                 {"url": "https://www.accessdata.fda.gov/apology_objects/abuse-detection-apology.html", "status": 404,
+                  "error": None, "headers": {}, "body_start": "FDA Apology", "is_pdf": False}]
+        self.assertEqual(probe.classify(chain), "access_restriction")
+
+
+class BlockedReading(unittest.TestCase):
+    def test_no_download_is_attempted_while_fda_blocks_scripts(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            bc.OUT = docs.OUT = Path(tmp)
+            docs.REVIEWS_PATH = Path(tmp) / "reviews.json"
+            (Path(tmp) / "diagnostics").mkdir()
+            (Path(tmp) / "diagnostics" / "fda_access.json").write_text(json.dumps({"verdict": "access_restriction"}))
+            day = Path(tmp) / bc.today().isoformat()
+            day.mkdir()
+            it = rule()
+            it.update(source="openFDA 510(k)", summary_available=True)
+            (day / "rules.json").write_text(json.dumps([it]))
+            calls = []
+            docs.get = lambda *a, **k: calls.append(a) or (200, b"", "")
+            docs.main()
+            self.assertEqual(calls, [])
+            st = json.loads((Path(tmp) / "status.json").read_text())["fda_510k_summaries"]
+            self.assertEqual(st["live"], "blocked")
+
 
 class CorrectionHistory(unittest.TestCase):
     def test_log_is_append_only(self):

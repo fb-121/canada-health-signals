@@ -146,6 +146,11 @@ def main():
     cache_dir = OUT / "docs"
     changed, fetched, failed, cached, notes = 0, 0, 0, 0, []
     first_error = None
+    probe = load_json(OUT / "diagnostics" / "fda_access.json", {})
+    blocked = probe.get("verdict") == "access_restriction"
+    if blocked:
+        notes.append("FDA access probe says access_restriction (redirect to an abuse-detection page): not downloading. "
+                     "Manual reviews in reviews.json apply.")
     for n in range(0, 7):
         path = OUT / (today() - timedelta(days=n)).isoformat() / "rules.json"
         items = load_json(path, None)
@@ -160,6 +165,8 @@ def main():
             if facts is not None:
                 cached += 1
             if facts is None:
+                if blocked:
+                    continue
                 if fetched + failed >= MAX_FETCH:
                     notes.append(f"{k}: left for the next run (limit of {MAX_FETCH} downloads per run)")
                     continue
@@ -184,10 +191,11 @@ def main():
         if touched:
             save_items = json.dumps(items, indent=1, ensure_ascii=False) + "\n"
             path.write_text(save_items, encoding="utf-8")
-    live = "unproven" if not (fetched or failed or cached) else "failed" if failed and not (fetched or cached) \
-        else "degraded" if failed else "ok"
+    live = "blocked" if blocked and not cached else "unproven" if not (fetched or failed or cached) \
+        else "failed" if failed and not (fetched or cached) else "degraded" if failed else "ok"
     write_status("fda_510k_summaries", read=fetched, failed=failed, from_cache=cached, evidence_changed=changed,
-                 live=live, live_detail=(f"{fetched} downloaded, {failed} failed" + (f" ({first_error})" if first_error else "")))
+                 live=live, live_detail=("FDA redirects scripts to an abuse-detection page; automated reading off, manual review in use" if blocked
+                              else f"{fetched} downloaded, {failed} failed" + (f" ({first_error})" if first_error else "")))
     print("\n".join("- " + n for n in notes) or "- nothing to check")
     return 0
 

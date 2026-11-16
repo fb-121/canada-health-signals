@@ -370,7 +370,7 @@ def when(ts):
         return None
 
 
-LIVE_CLASS = {"ok": "ok", "degraded": "stale", "failed": "stale", "unproven": ""}
+LIVE_CLASS = {"ok": "ok", "degraded": "stale", "failed": "stale", "blocked": "stale", "unproven": ""}
 
 
 def freshness_html(status, now, tests=None):

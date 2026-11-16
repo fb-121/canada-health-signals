@@ -1,22 +1,66 @@
 [
- {"id": "fda-pdf-retrieval", "opened": "2026-11-15", "severity": "high", "area": "FDA 510(k) summaries",
-  "status": "investigating",
-  "text": "The automated reader got HTTP 404 on all 7 summary PDFs in GitHub Actions although the address matches the link on FDA's own record page. A diagnostic now records redirects, headers and body (data/briefing/diagnostics/fda_access.json). Until it is explained, document-verified labels come only from manual reviews."},
- {"id": "bline-method", "opened": "2026-11-16", "severity": "medium", "area": "BlineSlide K261679",
+ {
+  "id": "fda-pdf-retrieval",
+  "opened": "2026-11-15",
+  "severity": "high",
+  "area": "FDA 510(k) summaries",
+  "status": "confirmed restriction, automated reading off",
+  "text": "Confirmed 2026-11-16: from GitHub Actions, requests for FDA summary PDFs and even the FDA record page are redirected by FDA's bot-defence service (AkamaiGHost) to an abuse-detection page, with the project's honest user agent and 30 second pacing. The address itself is correct. FDA offers no official bulk route to summary text: openFDA and the downloadable 510(k) files carry metadata only. Automated reading is switched off while the probe sees this, it is not worked around, and document-verified labels come only from manual reviews. The probe re-checks once a day and reading resumes by itself if access opens."
+ },
+ {
+  "id": "bline-method",
+  "opened": "2026-11-16",
+  "severity": "medium",
+  "area": "BlineSlide K261679",
   "status": "open",
-  "text": "FDA's comparison table lists computer vision and machine-learning-based algorithms, and the extracted text does not show which device each belongs to. The AI-assisted label is supported; the method is not settled. Quotes and page numbers are not yet compared with the PDF by a person."},
- {"id": "fda-visiting-hours", "opened": "2026-11-16", "severity": "low", "area": "FDA robots.txt",
+  "text": "FDA's comparison table lists computer vision and machine-learning-based algorithms, and the extracted text does not show which device each belongs to. The AI-assisted label is supported; the method is not settled. Quotes and page numbers are not yet compared with the PDF by a person."
+ },
+ {
+  "id": "fda-visiting-hours",
+  "opened": "2026-11-16",
+  "severity": "low",
+  "area": "FDA robots.txt",
   "status": "open",
-  "text": "FDA's robots.txt asks for 30 seconds between requests, which the reader now follows, and names visiting hours of 23:00 to 05:00 Eastern. The daily run is at 11:17 UTC, outside those hours. The file lists no disallow rule for /cdrh_docs/."},
- {"id": "pages-cache", "opened": "2026-11-16", "severity": "medium", "area": "Public outputs",
+  "text": "FDA's robots.txt asks for 30 seconds between requests, which the reader now follows, and names visiting hours of 23:00 to 05:00 Eastern. The daily run is at 11:17 UTC, outside those hours. The file lists no disallow rule for /cdrh_docs/."
+ },
+ {
+  "id": "pages-cache",
+  "opened": "2026-11-16",
+  "severity": "medium",
+  "area": "Public outputs",
   "status": "mitigated",
-  "text": "An outside fetch of the public files returned an older version. GitHub Pages and the raw file host cache for several minutes. Each output now carries a build stamp and a content id, and a workflow job compares the live files with the built ones after every run."},
- {"id": "analysis-unreviewed", "opened": "2026-11-15", "severity": "medium", "area": "Why it matters / watch next",
-  "status": "open", "text": "Analysis exists for four stories, all written by Claude and none independently reviewed."},
- {"id": "company-ids", "opened": "2026-11-15", "severity": "medium", "area": "Company identity",
-  "status": "open", "text": "FDA applicant IDs are name slugs, so spelling variants can split one company. The same company is not linked across FDA and SEC."},
- {"id": "form-d-holidays", "opened": "2026-11-15", "severity": "low", "area": "Form D lateness",
-  "status": "open", "text": "Deadlines adjust for weekends, not federal holidays, so a filing one business day over may be on time."},
- {"id": "modification-analysis", "opened": "2026-11-15", "severity": "medium", "area": "510(k) summaries",
-  "status": "open", "text": "Significant-modification analysis is not built. Only same-company reference devices and change-control-plan mentions are flagged."}
+  "text": "An outside fetch of the public files returned an older version. GitHub Pages and the raw file host cache for several minutes. Each output now carries a build stamp and a content id, and a workflow job compares the live files with the built ones after every run."
+ },
+ {
+  "id": "analysis-unreviewed",
+  "opened": "2026-11-15",
+  "severity": "medium",
+  "area": "Why it matters / watch next",
+  "status": "open",
+  "text": "Analysis exists for four stories, all written by Claude and none independently reviewed."
+ },
+ {
+  "id": "company-ids",
+  "opened": "2026-11-15",
+  "severity": "medium",
+  "area": "Company identity",
+  "status": "open",
+  "text": "FDA applicant IDs are name slugs, so spelling variants can split one company. The same company is not linked across FDA and SEC."
+ },
+ {
+  "id": "form-d-holidays",
+  "opened": "2026-11-15",
+  "severity": "low",
+  "area": "Form D lateness",
+  "status": "open",
+  "text": "Deadlines adjust for weekends, not federal holidays, so a filing one business day over may be on time."
+ },
+ {
+  "id": "modification-analysis",
+  "opened": "2026-11-15",
+  "severity": "medium",
+  "area": "510(k) summaries",
+  "status": "open",
+  "text": "Significant-modification analysis is not built. Only same-company reference devices and change-control-plan mentions are flagged."
+ }
 ]

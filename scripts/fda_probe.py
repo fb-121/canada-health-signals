@@ -69,6 +69,10 @@ def follow(url, limit=4):
 def classify(chain, control_ok=True):
     """Puts a request chain in one box. Pure function so it can be tested without a network."""
     last = chain[-1]
+    for h in chain:   # a redirect into a bot-defence page is a confirmed restriction whatever the final status says
+        loc = (h.get("headers") or {}).get("location", "") + " " + h.get("url", "")
+        if "abuse-detection" in loc.lower() or "apology" in loc.lower():
+            return "access_restriction"
     if last.get("error"):
         return "network_restriction"
     st = last.get("status")
@@ -96,6 +100,8 @@ def main():
     out["pdf"] = follow(pdf)
     out["verdict"] = classify(out["pdf"], control_ok)
     out["record_page_verdict"] = ("reachable" if out["record_page"][-1].get("status") == 200 else "not reachable")
+    out["reading"] = ("FDA's bot-defence service redirects scripted requests to an abuse-detection page. Automated reading of "
+                      "summary PDFs is switched off while this holds. Manual review is used instead." if out["verdict"] == "access_restriction" else "")
     save_json(OUT / "diagnostics" / "fda_access.json", out)
     last = out["pdf"][-1]
     line = (f"{k}: verdict={out['verdict']}; pdf status={last.get('status')} error={last.get('error')} "
