@@ -1,0 +1,81 @@
+{
+ "checked_at": "2026-11-16T03:21Z",
+ "control_api": {
+  "error": null,
+  "reachable": true,
+  "status": 200,
+  "url": "https://api.fda.gov/device/510k.json?limit=1"
+ },
+ "official_link_confirmed_by": "FDA 510(k) database page lists this exact address (checked 2026-11-16)",
+ "pdf": [
+  {
+   "body_start": "<!DOCTYPE html> <html lang=\"en\" style=\"\" xmlns=\"http://www.w3.org/1999/xhtml\"> <head> <title>FDA Apology</title> <noscript> <meta id=\"redirect\" http-equiv=\"refresh\" content=\"0; url=/apology_objects/abuse-detection-apology.html\"> </noscript>",
+   "bytes_read": 420,
+   "error": null,
+   "headers": {
+    "cache-control": "no-cache, no-store, must-revalidate",
+    "content-length": "420",
+    "content-type": "text/html",
+    "location": "/apology_objects/abuse-detection-apology.html",
+    "server": "AkamaiGHost"
+   },
+   "is_pdf": false,
+   "status": 302,
+   "url": "https://www.accessdata.fda.gov/cdrh_docs/pdf26/K261679.pdf"
+  },
+  {
+   "body_start": "<!DOCTYPE html> <html lang=\"en\" style=\"\" xmlns=\"http://www.w3.org/1999/xhtml\"> <head> <title>FDA Apology</title> <noscript> <meta id=\"redirect\" http-equiv=\"refresh\" content=\"0; url=/apology_objects/abuse-detection-apology.html\"> </noscript>",
+   "bytes_read": 420,
+   "error": null,
+   "headers": {
+    "cache-control": "no-cache, no-store, must-revalidate",
+    "content-length": "420",
+    "content-type": "text/html",
+    "location": "/apology_objects/abuse-detection-apology.html",
+    "server": "AkamaiGHost",
+    "x-frame-options": "SAMEORIGIN"
+   },
+   "is_pdf": false,
+   "status": 404,
+   "url": "https://www.accessdata.fda.gov/apology_objects/abuse-detection-apology.html"
+  }
+ ],
+ "pdf_url": "https://www.accessdata.fda.gov/cdrh_docs/pdf26/K261679.pdf",
+ "record": "K261679",
+ "record_page": [
+  {
+   "body_start": "<!DOCTYPE html> <html lang=\"en\" style=\"\" xmlns=\"http://www.w3.org/1999/xhtml\"> <head> <title>FDA Apology</title> <noscript> <meta id=\"redirect\" http-equiv=\"refresh\" content=\"0; url=/apology_objects/abuse-detection-apology.html\"> </noscript>",
+   "bytes_read": 420,
+   "error": null,
+   "headers": {
+    "cache-control": "no-cache, no-store, must-revalidate",
+    "content-length": "420",
+    "content-type": "text/html",
+    "location": "/apology_objects/abuse-detection-apology.html",
+    "server": "AkamaiGHost"
+   },
+   "is_pdf": false,
+   "status": 302,
+   "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K261679"
+  },
+  {
+   "body_start": "<!DOCTYPE html> <html lang=\"en\" style=\"\" xmlns=\"http://www.w3.org/1999/xhtml\"> <head> <title>FDA Apology</title> <noscript> <meta id=\"redirect\" http-equiv=\"refresh\" content=\"0; url=/apology_objects/abuse-detection-apology.html\"> </noscript>",
+   "bytes_read": 420,
+   "error": null,
+   "headers": {
+    "cache-control": "no-cache, no-store, must-revalidate",
+    "content-length": "420",
+    "content-type": "text/html",
+    "location": "/apology_objects/abuse-detection-apology.html",
+    "server": "AkamaiGHost",
+    "x-frame-options": "SAMEORIGIN"
+   },
+   "is_pdf": false,
+   "status": 404,
+   "url": "https://www.accessdata.fda.gov/apology_objects/abuse-detection-apology.html"
+  }
+ ],
+ "record_page_verdict": "not reachable",
+ "user_agent": "CanadaHealthSignals/0.5 briefing (open-data research; +https://github.com/fb-121/canada-health-signals)",
+ "verdict": "url_error"
+}
