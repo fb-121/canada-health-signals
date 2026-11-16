@@ -26,11 +26,11 @@ A daily, source-linked briefing of two kinds of public health-tech signals: FDA 
 
 Source data freshness (newest record) and pipeline freshness (last run) are separate. Live is whether the request worked.
 
-- SEC Form D daily index: newest source record n/a; pipeline last ran 2026-11-16T03:24Z; live request unproven 0 filings read, 1 unreadable
-- openFDA 510(k) clearances: newest source record 2026-10-30; pipeline last ran 2026-11-16T03:21Z; live request ok 20 clearances returned by the API
-- FDA AI-enabled device list: newest source record 2026-06-29; pipeline last ran 2026-11-16T03:21Z; live request ok 1614 rows read from the FDA list
-- FDA 510(k) summaries: newest source record n/a; pipeline last ran 2026-11-16T03:24Z; live request failed 0 downloaded, 7 failed (HTTP 404)
-- Fixture unit tests (no network): 49 of 49 passed at 2026-11-16T03:21Z. This does not show any source is reachable.
+- SEC Form D daily index: newest source record n/a; pipeline last ran 2026-11-16T03:32Z; live request unproven 0 filings read, 1 unreadable
+- openFDA 510(k) clearances: newest source record 2026-10-30; pipeline last ran 2026-11-16T03:31Z; live request ok 20 clearances returned by the API
+- FDA AI-enabled device list: newest source record 2026-06-29; pipeline last ran 2026-11-16T03:31Z; live request ok 1614 rows read from the FDA list
+- FDA 510(k) summaries: newest source record n/a; pipeline last ran 2026-11-16T03:31Z; live request blocked FDA redirects scripts to an abuse-detection page; automated reading off, manual review in use
+- Fixture unit tests (no network): 51 of 51 passed at 2026-11-16T03:31Z. This does not show any source is reachable.
 
 ## Today (0 records in 0 stories)
 
@@ -50,7 +50,7 @@ No new records today.
 
 ## Open data-quality issues
 
-- [high] FDA 510(k) summaries (investigating): The automated reader got HTTP 404 on all 7 summary PDFs in GitHub Actions although the address matches the link on FDA's own record page. A diagnostic now records redirects, headers and body (data/briefing/diagnostics/fda_access.json). Until it is explained, document-verified labels come only from manual reviews.
+- [high] FDA 510(k) summaries (confirmed restriction, automated reading off): Confirmed 2026-11-16: from GitHub Actions, requests for FDA summary PDFs and even the FDA record page are redirected by FDA's bot-defence service (AkamaiGHost) to an abuse-detection page, with the project's honest user agent and 30 second pacing. The address itself is correct. FDA offers no official bulk route to summary text: openFDA and the downloadable 510(k) files carry metadata only. Automated reading is switched off while the probe sees this, it is not worked around, and document-verified labels come only from manual reviews. The probe re-checks once a day and reading resumes by itself if access opens.
 - [medium] BlineSlide K261679 (open): FDA's comparison table lists computer vision and machine-learning-based algorithms, and the extracted text does not show which device each belongs to. The AI-assisted label is supported; the method is not settled. Quotes and page numbers are not yet compared with the PDF by a person.
 - [low] FDA robots.txt (open): FDA's robots.txt asks for 30 seconds between requests, which the reader now follows, and names visiting hours of 23:00 to 05:00 Eastern. The daily run is at 11:17 UTC, outside those hours. The file lists no disallow rule for /cdrh_docs/.
 - [medium] Public outputs (mitigated): An outside fetch of the public files returned an older version. GitHub Pages and the raw file host cache for several minutes. Each output now carries a build stamp and a content id, and a workflow job compares the live files with the built ones after every run.
@@ -83,4 +83,4 @@ No new records today.
 
 1 of 1 checks passed.
 
-Build: content id dbe4df7710, schema 2, generated 2026-11-16T03:24Z, workflow commit fc9caad. Copies fetched through a cache can be minutes behind; compare the content id. Machine-readable version: briefing.json.
+Build: content id dbe4df7710, schema 2, generated 2026-11-16T03:32Z, workflow commit 8b75bce. Copies fetched through a cache can be minutes behind; compare the content id. Machine-readable version: briefing.json.

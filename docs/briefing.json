@@ -1,7 +1,7 @@
 {
  "title": "Health Tech Morning Brief",
  "schema_version": 2,
- "generated_utc": "2026-11-16T03:24Z",
+ "generated_utc": "2026-11-16T03:32Z",
  "date": "2026-11-16",
  "method": {
   "what_this_is": "A daily, source-linked briefing of two kinds of public health-tech signals: FDA clearances of AI-enabled medical devices, and private financings by health companies. Built for one reader (a non-technical founder tracking US health tech). Every record links to an official source. Facts come from those records. Analysis is written by a reviewer and labelled as interpretation. Nothing here is investment or legal advice.",
@@ -39,36 +39,36 @@
   ]
  },
  "build": {
-  "generated_utc": "2026-11-16T03:24Z",
+  "generated_utc": "2026-11-16T03:32Z",
   "schema_version": 2,
   "records_today": 0,
   "content_id": "dbe4df7710",
-  "workflow_commit": "fc9caad"
+  "workflow_commit": "8b75bce"
  },
  "source_freshness": {
   "fda_510k_summaries": {
-   "checked_at": "2026-11-16T03:24Z",
+   "checked_at": "2026-11-16T03:31Z",
    "evidence_changed": 0,
-   "failed": 7,
+   "failed": 0,
    "from_cache": 0,
-   "live": "failed",
-   "live_detail": "0 downloaded, 7 failed (HTTP 404)",
+   "live": "blocked",
+   "live_detail": "FDA redirects scripts to an abuse-detection page; automated reading off, manual review in use",
    "read": 0
   },
   "fda_access_probe": {
-   "checked_at": "2026-11-16T03:21Z",
+   "checked_at": "2026-11-16T03:31Z",
    "record": "K261679",
-   "verdict": "url_error"
+   "verdict": "access_restriction"
   },
   "fda_ai_device_list": {
-   "checked_at": "2026-11-16T03:21Z",
+   "checked_at": "2026-11-16T03:31Z",
    "devices": 1614,
    "latest_decision_date": "2026-06-29",
    "live": "ok",
    "live_detail": "1614 rows read from the FDA list"
   },
   "openfda_510k": {
-   "checked_at": "2026-11-16T03:21Z",
+   "checked_at": "2026-11-16T03:31Z",
    "errors": 0,
    "fetched": 20,
    "latest_decision_date": "2026-10-30",
@@ -76,7 +76,7 @@
    "live_detail": "20 clearances returned by the API"
   },
   "sec_form_d": {
-   "checked_at": "2026-11-16T03:24Z",
+   "checked_at": "2026-11-16T03:32Z",
    "filings_read": 0,
    "items": 0,
    "latest_index_date": null,
@@ -88,11 +88,11 @@
  "tests": {
   "fixture_unit_tests": {
    "kind": "fixture unit tests, no network",
-   "ran": 49,
+   "ran": 51,
    "failures": 0,
    "errors": 0,
-   "passed": 49,
-   "ran_at": "2026-11-16T03:21Z"
+   "passed": 51,
+   "ran_at": "2026-11-16T03:31Z"
   },
   "note": "Fixture tests use reconstructed records and no network. They do not show a source is reachable. See live in source_freshness."
  },
@@ -105,8 +105,8 @@
     "opened": "2026-11-15",
     "severity": "high",
     "area": "FDA 510(k) summaries",
-    "status": "investigating",
-    "text": "The automated reader got HTTP 404 on all 7 summary PDFs in GitHub Actions although the address matches the link on FDA's own record page. A diagnostic now records redirects, headers and body (data/briefing/diagnostics/fda_access.json). Until it is explained, document-verified labels come only from manual reviews."
+    "status": "confirmed restriction, automated reading off",
+    "text": "Confirmed 2026-11-16: from GitHub Actions, requests for FDA summary PDFs and even the FDA record page are redirected by FDA's bot-defence service (AkamaiGHost) to an abuse-detection page, with the project's honest user agent and 30 second pacing. The address itself is correct. FDA offers no official bulk route to summary text: openFDA and the downloadable 510(k) files carry metadata only. Automated reading is switched off while the probe sees this, it is not worked around, and document-verified labels come only from manual reviews. The probe re-checks once a day and reading resumes by itself if access opens."
    },
    {
     "id": "bline-method",

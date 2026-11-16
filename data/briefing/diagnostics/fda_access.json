@@ -1,5 +1,5 @@
 {
- "checked_at": "2026-11-16T03:21Z",
+ "checked_at": "2026-11-16T03:31Z",
  "control_api": {
   "error": null,
   "reachable": true,
@@ -41,6 +41,7 @@
   }
  ],
  "pdf_url": "https://www.accessdata.fda.gov/cdrh_docs/pdf26/K261679.pdf",
+ "reading": "FDA's bot-defence service redirects scripted requests to an abuse-detection page. Automated reading of summary PDFs is switched off while this holds. Manual review is used instead.",
  "record": "K261679",
  "record_page": [
   {
@@ -77,5 +78,5 @@
  ],
  "record_page_verdict": "not reachable",
  "user_agent": "CanadaHealthSignals/0.5 briefing (open-data research; +https://github.com/fb-121/canada-health-signals)",
- "verdict": "url_error"
+ "verdict": "access_restriction"
 }
