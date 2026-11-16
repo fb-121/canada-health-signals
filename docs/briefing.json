@@ -1,7 +1,7 @@
 {
  "title": "HealthSignal",
  "schema_version": 2,
- "generated_utc": "2026-11-16T04:27Z",
+ "generated_utc": "2026-11-16T21:03Z",
  "date": "2026-11-16",
  "method": {
   "what_this_is": "HealthSignal is a source-linked healthcare technology intelligence briefing for founders, operators and people interested in the future of medicine. It is designed from a Canadian perspective and is US-first: current coverage is FDA clearances of AI-enabled medical devices and private financings by healthcare companies from SEC Form D filings, both US sources. It does not yet cover Canadian regulatory or financing data. Every record links to an official source. Facts come from those records. Analysis is written by a reviewer and labelled as interpretation. Nothing here is investment or legal advice.",
@@ -39,11 +39,11 @@
   ]
  },
  "build": {
-  "generated_utc": "2026-11-16T04:27Z",
+  "generated_utc": "2026-11-16T21:03Z",
   "schema_version": 2,
   "records_today": 0,
   "content_id": "4fe735194e",
-  "workflow_commit": "8bc8b82"
+  "workflow_commit": "f25be99"
  },
  "source_freshness": {
   "fda_510k_summaries": {
@@ -61,14 +61,14 @@
    "verdict": "access_restriction"
   },
   "fda_ai_device_list": {
-   "checked_at": "2026-11-16T04:27Z",
+   "checked_at": "2026-11-16T21:03Z",
    "devices": 1614,
    "latest_decision_date": "2026-06-29",
    "live": "ok",
    "live_detail": "1614 rows read from the FDA list"
   },
   "openfda_510k": {
-   "checked_at": "2026-11-16T04:27Z",
+   "checked_at": "2026-11-16T21:03Z",
    "errors": 0,
    "fetched": 20,
    "latest_decision_date": "2026-10-30",
@@ -76,7 +76,7 @@
    "live_detail": "20 clearances returned by the API"
   },
   "sec_form_d": {
-   "checked_at": "2026-11-16T04:27Z",
+   "checked_at": "2026-11-16T21:03Z",
    "filings_read": 0,
    "items": 0,
    "latest_index_date": null,
@@ -92,7 +92,7 @@
    "failures": 0,
    "errors": 0,
    "passed": 70,
-   "ran_at": "2026-11-16T04:27Z"
+   "ran_at": "2026-11-16T21:03Z"
   },
   "note": "Fixture tests use reconstructed records and no network. They do not show a source is reachable. See live in source_freshness."
  },
@@ -185,8 +185,8 @@
     "opened": "2026-11-16",
     "severity": "low",
     "area": "Public positioning",
-    "status": "open, your decision",
-    "text": "The site root (index.html) is the earlier Canadian wastewater page, rebuilt daily by build_site.py, and does not link to HealthSignal. HealthSignal lives at /briefing.html. Making HealthSignal the front page would mean changing build_site.py or adding a landing page, which is outside the pilot freeze. The repository description on GitHub also still describes the older project and must be changed in GitHub's settings."
+    "status": "deferred to after the pilot (decision 2026-11-16)",
+    "text": "The site root (index.html) is the earlier Canadian wastewater page, rebuilt daily by build_site.py, and does not link to HealthSignal, which lives at /briefing.html. Left unchanged for the pilot. After 2026-11-23 the direction is HealthSignal as the main offering, with the wastewater project kept as a separate archive. The GitHub repository description was set to the HealthSignal wording on 2026-11-16."
    }
   ]
  },
