@@ -1,10 +1,10 @@
 {
- "status": "failed",
- "run_utc": "2026-11-16T04:05Z",
- "run_url": "https://github.com/fb-121/canada-health-signals/actions/runs/43801761803",
+ "status": "ok",
+ "run_utc": "2026-11-16T04:08Z",
+ "run_url": "https://github.com/fb-121/canada-health-signals/actions/runs/43802039361",
  "critical": {
-  "tests": "failure",
-  "build": "skipped"
+  "tests": "success",
+  "build": "success"
  },
  "optional_collection": {
   "probe": "success",
@@ -16,8 +16,8 @@
  },
  "optional_failed": [],
  "published": {
-  "is_current": false,
-  "shown_briefing_generated_utc": "2026-11-16T04:01Z",
-  "shown_content_id": "4fe735194e"
+  "is_current": true,
+  "generated_utc": "2026-11-16T04:08Z",
+  "content_id": "4fe735194e"
  }
 }
