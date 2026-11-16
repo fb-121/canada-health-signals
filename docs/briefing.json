@@ -1,7 +1,7 @@
 {
  "title": "Health Tech Morning Brief",
  "schema_version": 2,
- "generated_utc": "2026-11-16T03:46Z",
+ "generated_utc": "2026-11-16T04:01Z",
  "date": "2026-11-16",
  "method": {
   "what_this_is": "A daily, source-linked briefing of two kinds of public health-tech signals: FDA clearances of AI-enabled medical devices, and private financings by health companies. Built for one reader (a non-technical founder tracking US health tech). Every record links to an official source. Facts come from those records. Analysis is written by a reviewer and labelled as interpretation. Nothing here is investment or legal advice.",
@@ -39,11 +39,11 @@
   ]
  },
  "build": {
-  "generated_utc": "2026-11-16T03:46Z",
+  "generated_utc": "2026-11-16T04:01Z",
   "schema_version": 2,
   "records_today": 0,
   "content_id": "4fe735194e",
-  "workflow_commit": "f8df353"
+  "workflow_commit": "c9fa2b8"
  },
  "source_freshness": {
   "fda_510k_summaries": {
@@ -61,14 +61,14 @@
    "verdict": "access_restriction"
   },
   "fda_ai_device_list": {
-   "checked_at": "2026-11-16T03:46Z",
+   "checked_at": "2026-11-16T04:01Z",
    "devices": 1614,
    "latest_decision_date": "2026-06-29",
    "live": "ok",
    "live_detail": "1614 rows read from the FDA list"
   },
   "openfda_510k": {
-   "checked_at": "2026-11-16T03:46Z",
+   "checked_at": "2026-11-16T04:01Z",
    "errors": 0,
    "fetched": 20,
    "latest_decision_date": "2026-10-30",
@@ -76,7 +76,7 @@
    "live_detail": "20 clearances returned by the API"
   },
   "sec_form_d": {
-   "checked_at": "2026-11-16T03:46Z",
+   "checked_at": "2026-11-16T04:01Z",
    "filings_read": 0,
    "items": 0,
    "latest_index_date": null,
@@ -88,11 +88,11 @@
  "tests": {
   "fixture_unit_tests": {
    "kind": "fixture unit tests, no network",
-   "ran": 55,
+   "ran": 63,
    "failures": 0,
    "errors": 0,
-   "passed": 55,
-   "ran_at": "2026-11-16T03:46Z"
+   "passed": 63,
+   "ran_at": "2026-11-16T04:01Z"
   },
   "note": "Fixture tests use reconstructed records and no network. They do not show a source is reachable. See live in source_freshness."
  },

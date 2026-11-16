@@ -26,11 +26,11 @@ A daily, source-linked briefing of two kinds of public health-tech signals: FDA 
 
 Source data freshness (newest record) and pipeline freshness (last run) are separate. Live is whether the request worked.
 
-- SEC Form D daily index: newest source record n/a; pipeline last ran 2026-11-16T03:46Z; live request unproven 0 filings read, 1 unreadable
-- openFDA 510(k) clearances: newest source record 2026-10-30; pipeline last ran 2026-11-16T03:46Z; live request ok 20 clearances returned by the API
-- FDA AI-enabled device list: newest source record 2026-06-29; pipeline last ran 2026-11-16T03:46Z; live request ok 1614 rows read from the FDA list
+- SEC Form D daily index: newest source record n/a; pipeline last ran 2026-11-16T04:01Z; live request unproven 0 filings read, 1 unreadable
+- openFDA 510(k) clearances: newest source record 2026-10-30; pipeline last ran 2026-11-16T04:01Z; live request ok 20 clearances returned by the API
+- FDA AI-enabled device list: newest source record 2026-06-29; pipeline last ran 2026-11-16T04:01Z; live request ok 1614 rows read from the FDA list
 - FDA 510(k) summaries: newest source record n/a; pipeline last ran 2026-11-16T03:31Z; live request blocked FDA redirects scripts to an abuse-detection page; automated reading off, manual review in use
-- Fixture unit tests (no network): 55 of 55 passed at 2026-11-16T03:46Z. This does not show any source is reachable.
+- Fixture unit tests (no network): 63 of 63 passed at 2026-11-16T04:01Z. This does not show any source is reachable.
 
 ## Today (0 records in 0 stories)
 
@@ -85,4 +85,4 @@ No new records today.
 
 1 of 1 checks passed.
 
-Build: content id 4fe735194e, schema 2, generated 2026-11-16T03:46Z, workflow commit f8df353. Copies fetched through a cache can be minutes behind; compare the content id. Machine-readable version: briefing.json.
+Build: content id 4fe735194e, schema 2, generated 2026-11-16T04:01Z, workflow commit c9fa2b8. Copies fetched through a cache can be minutes behind; compare the content id. Machine-readable version: briefing.json.

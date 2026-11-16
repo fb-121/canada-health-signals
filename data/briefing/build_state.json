@@ -1,0 +1,23 @@
+{
+ "status": "ok",
+ "run_utc": "2026-11-16T04:01Z",
+ "run_url": "https://github.com/fb-121/canada-health-signals/actions/runs/43801383865",
+ "critical": {
+  "tests": "success",
+  "build": "success"
+ },
+ "optional_collection": {
+  "probe": "success",
+  "ai_evidence": "success",
+  "rules": "success",
+  "money": "success",
+  "site": "success",
+  "ai_page": "success"
+ },
+ "optional_failed": [],
+ "published": {
+  "is_current": true,
+  "generated_utc": "2026-11-16T04:01Z",
+  "content_id": "4fe735194e"
+ }
+}
