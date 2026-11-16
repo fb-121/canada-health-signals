@@ -68,7 +68,7 @@
   "opened": "2026-11-16",
   "severity": "medium",
   "area": "Git history",
-  "status": "open, needs GitHub Support",
+  "status": "support request drafted, waiting for approval",
   "text": "The private email and AI-session URLs were removed from main and briefing-v0 by rewriting history. GitHub keeps pull request #1's original commits (refs/pull/1/head), which cannot be changed by a push, and old commit pages can stay reachable by their hash until GitHub garbage-collects them. Removing those needs a request to GitHub Support."
  },
  {
