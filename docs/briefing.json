@@ -1,13 +1,13 @@
 {
  "title": "Health Tech Morning Brief",
  "schema_version": 2,
- "generated_utc": "2026-11-16T03:32Z",
+ "generated_utc": "2026-11-16T03:46Z",
  "date": "2026-11-16",
  "method": {
   "what_this_is": "A daily, source-linked briefing of two kinds of public health-tech signals: FDA clearances of AI-enabled medical devices, and private financings by health companies. Built for one reader (a non-technical founder tracking US health tech). Every record links to an official source. Facts come from those records. Analysis is written by a reviewer and labelled as interpretation. Nothing here is investment or legal advice.",
   "evidence_classes": {
    "fda_listed": "On FDA's AI-enabled device list.",
-   "document_verified": "FDA's 510(k) summary itself describes AI or machine learning. The summary may name the method (for example computer vision), which is recorded.",
+   "document_verified": "FDA's 510(k) summary itself describes AI or machine learning. The summary may name the method (for example computer vision), which is recorded. When this rests on a manual review, verification_status says whether a person has checked the quotes against the PDF (human verified) or not yet (human check pending).",
    "manufacturer_reported": "The manufacturer's own device or company name claims AI. Not checked against FDA documents.",
    "inferred": "No document evidence. The FDA product code is AI-heavy, which is a guess.",
    "unknown": "No evidence of AI either way."
@@ -39,11 +39,11 @@
   ]
  },
  "build": {
-  "generated_utc": "2026-11-16T03:32Z",
+  "generated_utc": "2026-11-16T03:46Z",
   "schema_version": 2,
   "records_today": 0,
-  "content_id": "dbe4df7710",
-  "workflow_commit": "8b75bce"
+  "content_id": "4fe735194e",
+  "workflow_commit": "f8df353"
  },
  "source_freshness": {
   "fda_510k_summaries": {
@@ -61,14 +61,14 @@
    "verdict": "access_restriction"
   },
   "fda_ai_device_list": {
-   "checked_at": "2026-11-16T03:31Z",
+   "checked_at": "2026-11-16T03:46Z",
    "devices": 1614,
    "latest_decision_date": "2026-06-29",
    "live": "ok",
    "live_detail": "1614 rows read from the FDA list"
   },
   "openfda_510k": {
-   "checked_at": "2026-11-16T03:31Z",
+   "checked_at": "2026-11-16T03:46Z",
    "errors": 0,
    "fetched": 20,
    "latest_decision_date": "2026-10-30",
@@ -76,7 +76,7 @@
    "live_detail": "20 clearances returned by the API"
   },
   "sec_form_d": {
-   "checked_at": "2026-11-16T03:32Z",
+   "checked_at": "2026-11-16T03:46Z",
    "filings_read": 0,
    "items": 0,
    "latest_index_date": null,
@@ -88,11 +88,11 @@
  "tests": {
   "fixture_unit_tests": {
    "kind": "fixture unit tests, no network",
-   "ran": 51,
+   "ran": 55,
    "failures": 0,
    "errors": 0,
-   "passed": 51,
-   "ran_at": "2026-11-16T03:31Z"
+   "passed": 55,
+   "ran_at": "2026-11-16T03:46Z"
   },
   "note": "Fixture tests use reconstructed records and no network. They do not show a source is reachable. See live in source_freshness."
  },
@@ -113,24 +113,24 @@
     "opened": "2026-11-16",
     "severity": "medium",
     "area": "BlineSlide K261679",
-    "status": "open",
-    "text": "FDA's comparison table lists computer vision and machine-learning-based algorithms, and the extracted text does not show which device each belongs to. The AI-assisted label is supported; the method is not settled. Quotes and page numbers are not yet compared with the PDF by a person."
+    "status": "open, human check pending",
+    "text": "BlineSlide's review is document-supported, not human verified. Quotes and pages came from a text extraction and no person has compared them with the PDF. The AI-assisted label is kept. FDA's comparison table lists computer vision and machine-learning-based algorithms, and the extracted text does not show which device each belongs to, so the method is not settled."
    },
    {
     "id": "fda-visiting-hours",
     "opened": "2026-11-16",
     "severity": "low",
     "area": "FDA robots.txt",
-    "status": "open",
-    "text": "FDA's robots.txt asks for 30 seconds between requests, which the reader now follows, and names visiting hours of 23:00 to 05:00 Eastern. The daily run is at 11:17 UTC, outside those hours. The file lists no disallow rule for /cdrh_docs/."
+    "status": "resolved 2026-11-16",
+    "text": "FDA's robots.txt for accessdata.fda.gov names visiting hours of 23:00 to 05:00 Eastern and 30 seconds between requests. Reading and the access probe now run in a separate workflow at 05:23 UTC, the scripts refuse to contact accessdata.fda.gov outside 04:00 to 09:00 UTC (inside the window under both EDT and EST), and every request there, probe included, is spaced 30 seconds apart. Before the fix, test runs on 2026-11-15 20:12 UTC and 2026-11-16 03:21 and 03:31 UTC sent a few requests outside the window."
    },
    {
     "id": "pages-cache",
     "opened": "2026-11-16",
     "severity": "medium",
     "area": "Public outputs",
-    "status": "mitigated",
-    "text": "An outside fetch of the public files returned an older version. GitHub Pages and the raw file host cache for several minutes. Each output now carries a build stamp and a content id, and a workflow job compares the live files with the built ones after every run."
+    "status": "investigated 2026-11-16",
+    "text": "An outside retrieval showed an older Markdown file and JSON without build metadata. At 03:39 UTC on 2026-11-16 both canonical URLs (GitHub Pages and the raw file host, no query string) served the current build with its stamp, and every Pages deployment had succeeded. So the older copy came from a cache between the reader and GitHub, most likely the retrieving tool's own cache (Pages allows 10 minutes, the raw host 5, and some fetch tools keep copies for 15 minutes). The verify-live job now checks canonical and cache-busted URLs separately, records cache headers, labels any gap as cache or deployment, and publishes the result in docs/status.json."
    },
    {
     "id": "analysis-unreviewed",
@@ -163,6 +163,22 @@
     "area": "510(k) summaries",
     "status": "open",
     "text": "Significant-modification analysis is not built. Only same-company reference devices and change-control-plan mentions are flagged."
+   },
+   {
+    "id": "history-pr-refs",
+    "opened": "2026-11-16",
+    "severity": "medium",
+    "area": "Git history",
+    "status": "open, needs GitHub Support",
+    "text": "The private email and AI-session URLs were removed from main and briefing-v0 by rewriting history. GitHub keeps pull request #1's original commits (refs/pull/1/head), which cannot be changed by a push, and old commit pages can stay reachable by their hash until GitHub garbage-collects them. Removing those needs a request to GitHub Support."
+   },
+   {
+    "id": "sec-unreadable",
+    "opened": "2026-11-16",
+    "severity": "low",
+    "area": "SEC Form D",
+    "status": "open",
+    "text": "The run at 03:32 UTC on 2026-11-16 read 0 new filings and logged 1 unreadable filing, so SEC's live state shows unproven. Not yet investigated. Expected to clear on the next business-day index."
    }
   ]
  },
@@ -200,7 +216,7 @@
     "source": "openFDA 510(k)",
     "recency": "recent",
     "review": {
-     "status": "verified",
+     "status": "document_supported",
      "subject": "AI functionality",
      "claim": "FDA's 510(k) summary for BlineSlide (Deep Breathe, Inc.) describes the device as an AI-assisted tool.",
      "document_url": "https://www.accessdata.fda.gov/cdrh_docs/pdf26/K261679.pdf",
@@ -230,13 +246,15 @@
       "The first quote supports an AI label for the subject device. The method is not settled: the table lists both computer vision and machine learning and the column mapping is unclear.",
       "Quotes and page numbers came from a text extraction, not from comparing with the PDF itself. A person should open the PDF and confirm pages 3, 4, 5 and 7.",
       "An earlier analysis said the summary lists computer vision 'not machine learning'. That was too strong and was corrected on 2026-11-16."
-     ]
+     ],
+     "human_verification": "pending: open the PDF, confirm the three quotes and pages 3, 4, 5 and 7, then set status human_verified with verified_by and verified_on"
     },
+    "verification_status": "human check pending",
     "updates": [
      {
       "date": "2026-11-16",
       "kind": "manual_review",
-      "detail": "AI functionality: verified by Claude, reading the FDA PDF through a text fetch tool"
+      "detail": "AI functionality: document supported (human check pending), reviewed by Claude, reading the FDA PDF through a text fetch tool"
      }
     ],
     "evidence_source": "manual review",
@@ -244,7 +262,7 @@
      {
       "date": "2026-11-16",
       "kind": "manual_review",
-      "detail": "AI functionality: verified by Claude, reading the FDA PDF through a text fetch tool"
+      "detail": "AI functionality: document supported (human check pending), reviewed by Claude, reading the FDA PDF through a text fetch tool"
      }
     ]
    }
@@ -588,7 +606,7 @@
      "source": "openFDA 510(k)",
      "recency": "recent",
      "review": {
-      "status": "verified",
+      "status": "document_supported",
       "subject": "AI functionality",
       "claim": "FDA's 510(k) summary for BlineSlide (Deep Breathe, Inc.) describes the device as an AI-assisted tool.",
       "document_url": "https://www.accessdata.fda.gov/cdrh_docs/pdf26/K261679.pdf",
@@ -618,13 +636,15 @@
        "The first quote supports an AI label for the subject device. The method is not settled: the table lists both computer vision and machine learning and the column mapping is unclear.",
        "Quotes and page numbers came from a text extraction, not from comparing with the PDF itself. A person should open the PDF and confirm pages 3, 4, 5 and 7.",
        "An earlier analysis said the summary lists computer vision 'not machine learning'. That was too strong and was corrected on 2026-11-16."
-      ]
+      ],
+      "human_verification": "pending: open the PDF, confirm the three quotes and pages 3, 4, 5 and 7, then set status human_verified with verified_by and verified_on"
      },
+     "verification_status": "human check pending",
      "updates": [
       {
        "date": "2026-11-16",
        "kind": "manual_review",
-       "detail": "AI functionality: verified by Claude, reading the FDA PDF through a text fetch tool"
+       "detail": "AI functionality: document supported (human check pending), reviewed by Claude, reading the FDA PDF through a text fetch tool"
       }
      ],
      "evidence_source": "manual review"
