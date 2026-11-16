@@ -26,9 +26,8 @@ import urllib.parse
 from datetime import datetime, timezone
 
 import briefing_common as bc
-from briefing_common import FDA_PAUSE, OUT, UA, save_json, write_status
+from briefing_common import OUT, UA, save_json, write_status
 
-_last_fda = [0.0]
 
 HEADERS_KEPT = ("server", "content-type", "content-length", "location", "retry-after", "via", "x-cache",
                 "cache-control", "content-disposition", "x-frame-options")
@@ -39,12 +38,14 @@ CONTROL_URL = "https://api.fda.gov/device/510k.json?limit=1"
 def hop(url, timeout=40):
     """One request, no redirect following. Returns a record of what happened."""
     u = urllib.parse.urlsplit(url)
-    if u.netloc == "www.accessdata.fda.gov":          # keep FDA's 30 second interval between our requests
-        wait = _last_fda[0] + FDA_PAUSE - time.time()
-        if wait > 0:
-            time.sleep(wait)
-        _last_fda[0] = time.time()
     rec = {"url": url, "status": None, "error": None, "headers": {}, "body_start": "", "bytes_read": 0}
+    fda = u.netloc == bc.FDA_HOST
+    if fda:
+        try:
+            bc.fda_gate()           # 30 s since the last FDA request by any script, and inside visiting hours now
+        except bc.FDAWindowClosed as ex:
+            rec.update(not_sent=True, error=f"not sent: {ex}")
+            return rec
     try:
         conn = http.client.HTTPSConnection(u.netloc, timeout=timeout, context=ssl.create_default_context())
         path = u.path + (("?" + u.query) if u.query else "")
@@ -59,6 +60,9 @@ def hop(url, timeout=40):
         conn.close()
     except Exception as ex:   # network level: no HTTP answer
         rec["error"] = f"{type(ex).__name__}: {ex}"[:200]
+    finally:
+        if fda:
+            bc.fda_done()
     return rec
 
 
@@ -110,6 +114,9 @@ def main():
                           "error": control[-1].get("error")}
     out["record_page"] = follow(record_page)
     out["pdf"] = follow(pdf)
+    if any(h.get("not_sent") for h in out["record_page"] + out["pdf"]):
+        print("- visiting hours ended during the probe; nothing recorded, previous diagnosis kept")
+        return 0
     out["verdict"] = classify(out["pdf"], control_ok)
     out["record_page_verdict"] = ("reachable" if out["record_page"][-1].get("status") == 200 else "not reachable")
     out["reading"] = ("FDA's bot-defence service redirects scripted requests to an abuse-detection page. Automated reading of "

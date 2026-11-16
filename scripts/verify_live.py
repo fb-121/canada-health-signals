@@ -27,6 +27,7 @@ OWNER, NAME = REPO.split("/")
 PAGES = f"https://{OWNER}.github.io/{NAME}"
 RAW = f"https://raw.githubusercontent.com/{REPO}/main/docs"
 WAIT_MINUTES = 12
+MAX_BUILD_AGE_HOURS = 6   # a build older than this is not today's run, so it is never reported current
 UA = f"CanadaHealthSignals/0.5 live-check (+https://github.com/{REPO})"
 KEEP = ("cache-control", "age", "x-cache", "last-modified", "etag", "expires", "x-served-by")
 
@@ -93,12 +94,18 @@ def diagnose(results, name):
 def main():
     local = json.loads((ROOT / "docs" / "briefing.json").read_text(encoding="utf-8"))
     want = (local["schema_version"], local["build"]["content_id"], local["build"]["generated_utc"])
+    build_state = json.loads((ROOT / "data" / "briefing" / "build_state.json").read_text(encoding="utf-8")) \
+        if (ROOT / "data" / "briefing" / "build_state.json").exists() else {"status": "unknown"}
+    gen = datetime.strptime(want[2], "%Y-%m-%dT%H:%MZ").replace(tzinfo=timezone.utc)
+    age_h = (datetime.now(timezone.utc) - gen).total_seconds() / 3600
+    build_current = build_state.get("status") == "ok" and age_h <= MAX_BUILD_AGE_HOURS and not local.get("build_failed")
     targets = [("pages json", f"{PAGES}/briefing.json", "json"), ("pages md", f"{PAGES}/briefing.md", "md"),
                ("pages html", f"{PAGES}/briefing.html", "html"), ("raw json", f"{RAW}/briefing.json", "json"),
                ("raw md", f"{RAW}/briefing.md", "md")]
     results = check(targets, want)
     verdicts = {n: diagnose(results, n) for n, _, _ in targets}
-    lines = [f"Expected schema {want[0]}, content id {want[1]}, generated {want[2]}", ""]
+    lines = [f"Expected schema {want[0]}, content id {want[1]}, generated {want[2]} ({age_h:.1f} h ago); "
+             f"build state {build_state.get('status')}; build current: {build_current}", ""]
     for n, _, _ in targets:
         c, b = results[(n, "canonical")], results[(n, "busted")]
         lines.append(f"- {n}: {verdicts[n]}. canonical: {c['content_id']} {c['generated_utc']} "
@@ -115,7 +122,9 @@ def main():
     sources = load(data / "status.json", {})
     status = {
         "checked_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ"),
-        "build_checked": {"schema_version": want[0], "content_id": want[1], "generated_utc": want[2]},
+        "build_checked": {"schema_version": want[0], "content_id": want[1], "generated_utc": want[2],
+                          "age_hours": round(age_h, 1), "is_current": build_current},
+        "build": build_state,
         "fixture_unit_tests": {**(load(data / "tests.json", {}) or {}),
                                "meaning": "Logic checked on reconstructed records with no network. Says nothing about live sources."},
         "live_sources": {k: {f: v.get(f) for f in ("live", "live_detail", "checked_at")} for k, v in sources.items()},
@@ -126,7 +135,7 @@ def main():
         "note": "Pages caches for up to 10 minutes and the raw host for 5. A canonical copy may lag the origin by that much.",
     }
     (ROOT / "docs" / "status.json").write_text(json.dumps(status, indent=1) + "\n", encoding="utf-8")
-    return 0 if all(r["ok"] for r in results.values()) else 1
+    return 0 if build_current and all(r["ok"] for r in results.values()) else 1
 
 
 if __name__ == "__main__":

@@ -14,6 +14,7 @@ Date model (every item carries these, unknown stays None, never guessed):
 import json
 import os
 import re
+import tempfile
 import time
 import urllib.error
 import urllib.request
@@ -59,6 +60,48 @@ def fda_window_open(now=None):
     are other hosts and are not covered by this file."""
     now = now or datetime.now(timezone.utc)
     return 4 <= now.hour < 9
+
+
+FDA_HOST = "www.accessdata.fda.gov"
+# One clock shared by every script in a workflow run (the workflow points this at the runner's temp folder),
+# so the 30 seconds hold across scripts, including the first request of each one.
+FDA_CLOCK = Path(os.environ.get("FDA_CLOCK_FILE") or Path(tempfile.gettempdir()) / "chs_fda_last_request")
+_now, _sleep = time.time, time.sleep      # replaced in tests
+
+
+class FDAWindowClosed(Exception):
+    """Raised instead of sending a request to accessdata.fda.gov outside its visiting hours."""
+
+
+def _clock():
+    try:
+        return float(FDA_CLOCK.read_text().strip())
+    except (OSError, ValueError):
+        return 0.0
+
+
+def _stamp():
+    try:
+        FDA_CLOCK.write_text(f"{_now():.3f}\n")
+    except OSError:
+        pass
+
+
+def fda_gate():
+    """Call immediately before EVERY request to accessdata.fda.gov. Waits until 30 seconds after the end of
+    the previous request by any script, then checks visiting hours at that moment (a wait can cross 09:00 UTC),
+    and raises FDAWindowClosed rather than send outside them. Pair with fda_done() after the response."""
+    wait = _clock() + FDA_PAUSE - _now()
+    if wait > 0:
+        _sleep(wait)
+    if not fda_window_open():
+        raise FDAWindowClosed("outside FDA visiting hours (04:00 to 09:00 UTC)")
+    _stamp()
+
+
+def fda_done():
+    """Marks the end of a request, so the next one waits 30 seconds from here."""
+    _stamp()
 
 
 # ---------- dates ----------

@@ -36,7 +36,7 @@ STRONG_AI = re.compile(
 BARE_AI = re.compile(r"\bAI\b")
 METHODS = ("computer vision", "machine learning", "deep learning", "neural network", "rule-based",
            "signal processing", "image processing", "classical")
-PAUSE = bc.FDA_PAUSE  # FDA's robots.txt asks for 30 seconds between requests
+# Spacing (30 s) and visiting hours are enforced per request by bc.fda_gate(), shared with fda_probe.py.
 MAX_FETCH = 8       # per run, so a run stays under about four minutes
 REVIEWS_PATH = OUT / "reviews.json"
 
@@ -150,6 +150,7 @@ def main():
         return 0
     changed, fetched, failed, cached, notes = 0, 0, 0, 0, []
     first_error = None
+    stop = False
     probe = load_json(OUT / "diagnostics" / "fda_access.json", {})
     blocked = probe.get("verdict") == "access_restriction"
     if blocked:
@@ -174,7 +175,16 @@ def main():
                 if fetched + failed >= MAX_FETCH:
                     notes.append(f"{k}: left for the next run (limit of {MAX_FETCH} downloads per run)")
                     continue
-                status, body, err = get(pdf_url(k), pause=PAUSE if fetched + failed else 0, limit=25_000_000)
+                try:
+                    bc.fda_gate()   # 30 s since the last FDA request by any script, and inside visiting hours now
+                except bc.FDAWindowClosed:
+                    notes.append(f"{k}: not requested, FDA visiting hours ended during the run")
+                    stop = True
+                    break
+                try:
+                    status, body, err = get(pdf_url(k), limit=25_000_000)
+                finally:
+                    bc.fda_done()
                 if status != 200:
                     failed += 1
                     first_error = first_error or (err or str(status))
@@ -195,6 +205,8 @@ def main():
         if touched:
             save_items = json.dumps(items, indent=1, ensure_ascii=False) + "\n"
             path.write_text(save_items, encoding="utf-8")
+        if stop:
+            break
     live = "blocked" if blocked and not cached else "unproven" if not (fetched or failed or cached) \
         else "failed" if failed and not (fetched or cached) else "degraded" if failed else "ok"
     write_status("fda_510k_summaries", read=fetched, failed=failed, from_cache=cached, evidence_changed=changed,

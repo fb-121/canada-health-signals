@@ -6,6 +6,7 @@ right on those fixtures. It says nothing about whether SEC, openFDA or FDA's doc
 today. That is what the per-source "live" state in status.json is for.
 """
 import json
+import os
 import sys
 import unittest
 from datetime import datetime, timezone
@@ -19,14 +20,15 @@ sys.path.insert(0, str(ROOT / "tests"))
 def main():
     suite = unittest.defaultTestLoader.discover(str(ROOT / "tests"))
     res = unittest.TextTestRunner(verbosity=1).run(suite)
-    rec = {"kind": "fixture unit tests, no network", "ran": res.testsRun, "failures": len(res.failures),
+    drill = os.environ.get("BRIEFING_DRILL_FAIL") == "1"   # manual failure drill: proves the critical-failure path
+    rec = {"kind": "fixture unit tests, no network" + (" (FAILURE DRILL: forced to fail)" if drill else ""), "ran": res.testsRun, "failures": len(res.failures),
            "errors": len(res.errors), "passed": res.testsRun - len(res.failures) - len(res.errors),
            "ran_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%MZ")}
     out = ROOT / "data" / "briefing" / "tests.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(rec, indent=1) + "\n", encoding="utf-8")
     print(json.dumps(rec))
-    return 0 if res.wasSuccessful() else 1
+    return 0 if res.wasSuccessful() and not drill else 1
 
 
 if __name__ == "__main__":

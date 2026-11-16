@@ -15,9 +15,12 @@ import briefing_docs as docs          # noqa: E402
 import briefing_reviews as rv         # noqa: E402
 import build_briefing as page         # noqa: E402
 import fda_probe as probe             # noqa: E402
+import build_state                    # noqa: E402
 from datetime import datetime, timezone
 
 REAL_WINDOW = bc.fda_window_open   # captured before any test replaces it
+bc.FDA_CLOCK = Path(tempfile.mkdtemp()) / "fda_clock"   # never share the real runner clock with tests
+bc._sleep = lambda s: None
 
 
 def rule(key="510k:K9", ev="inferred", **kw):
@@ -280,6 +283,108 @@ class VisitingHours(unittest.TestCase):
         self.assertEqual(probe.main(), 0)
         self.assertEqual(docs.main(), 0)
         self.assertEqual(calls, [])
+
+
+class FDARequestGate(unittest.TestCase):
+    def setUp(self):
+        self.t = [1000.0]
+        self.slept = []
+        bc._now = lambda: self.t[0]
+        bc._sleep = lambda s: (self.slept.append(round(s, 3)), self.t.__setitem__(0, self.t[0] + s))
+        bc.FDA_CLOCK = Path(tempfile.mkdtemp()) / "clock"
+        bc.fda_window_open = lambda now=None: True
+
+    def tearDown(self):
+        import time as _t
+        bc._now = _t.time
+        bc._sleep = lambda s: None
+
+    def test_spacing_is_measured_from_the_end_of_the_previous_request(self):
+        bc.fda_gate()
+        self.t[0] += 5          # the request itself takes 5 s
+        bc.fda_done()
+        bc.fda_gate()
+        self.assertEqual(self.slept, [30.0])
+
+    def test_first_request_of_a_second_script_still_waits(self):
+        bc.fda_gate(); bc.fda_done()             # last request of the probe
+        self.t[0] += 12
+        bc.fda_gate()                            # first request of the reader, a separate process sharing the clock file
+        self.assertEqual(self.slept, [18.0])
+
+    def test_hours_are_checked_after_the_wait_before_each_request(self):
+        bc.fda_gate(); bc.fda_done()
+        bc.fda_window_open = lambda now=None: False     # 09:00 UTC passed while waiting
+        with self.assertRaises(bc.FDAWindowClosed):
+            bc.fda_gate()
+
+    def test_probe_sends_nothing_when_the_gate_closes(self):
+        bc.fda_window_open = lambda now=None: False
+        rec = probe.hop("https://www.accessdata.fda.gov/cdrh_docs/pdf26/K1.pdf")
+        self.assertTrue(rec["not_sent"])
+        self.assertIsNone(rec["status"])
+
+    def test_reader_stops_when_hours_end_mid_run(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            bc.OUT = docs.OUT = Path(tmp)
+            docs.REVIEWS_PATH = Path(tmp) / "reviews.json"
+            day = Path(tmp) / bc.today().isoformat()
+            day.mkdir()
+            its = []
+            for n in (1, 2, 3):
+                it = rule(f"510k:K{n}")
+                it.update(source="openFDA 510(k)", summary_available=True)
+                its.append(it)
+            (day / "rules.json").write_text(json.dumps(its))
+            opens = iter([True, True, True, False, False, False])   # start check, gate 1, gate 2, then closed
+            bc.fda_window_open = lambda now=None: next(opens)
+            calls = []
+            docs.get = lambda *a, **k: calls.append(a) or (404, b"", "HTTP 404")
+            docs.main()
+            self.assertEqual(len(calls), 2)
+            self.assertEqual(self.slept, [30.0, 30.0])   # waited before request 2, and before the refused third
+
+
+class BuildReliability(unittest.TestCase):
+    def setup_docs(self, tmp):
+        docs = Path(tmp) / "docs"
+        docs.mkdir()
+        (docs / "briefing.json").write_text(json.dumps({"schema_version": 2, "build": {"generated_utc": "2026-11-16T11:20Z", "content_id": "abc"}}))
+        (docs / "briefing.md").write_text("# Brief\n")
+        (docs / "briefing.html").write_text('<main class="wrap"><h1>Brief</h1></main>')
+        (docs / "status.json").write_text(json.dumps({"public_copies": {"pages json": {"verdict": "current"}}}))
+        return docs
+
+    ENV_OK = {"TESTS": "success", "BUILD": "success", "PROBE": "success", "RULES": "failure", "MONEY": "success"}
+
+    def test_failed_tests_mark_the_old_briefing_not_current(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            docs = self.setup_docs(tmp)
+            env = dict(self.ENV_OK, TESTS="failure", BUILD="skipped")
+            build_state.main(env, Path(tmp), datetime(2026, 11, 17, 11, 25, tzinfo=timezone.utc))
+            self.assertIn("Not current.", (docs / "briefing.html").read_text())
+            self.assertIn("NOT CURRENT", (docs / "briefing.md").read_text())
+            j = json.loads((docs / "briefing.json").read_text())
+            self.assertFalse(j["build_failed"]["published"]["is_current"])
+            st = json.loads((docs / "status.json").read_text())
+            self.assertEqual(st["build"]["status"], "failed")
+            self.assertNotIn("pages json", st["public_copies"])       # no stale "current" verdict survives
+            build_state.main(env, Path(tmp), datetime(2026, 11, 17, 11, 25, tzinfo=timezone.utc))
+            self.assertEqual((docs / "briefing.html").read_text().count("Not current."), 1)   # idempotent
+
+    def test_optional_failure_does_not_block_publishing(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            docs = self.setup_docs(tmp)
+            build_state.main(self.ENV_OK, Path(tmp), datetime(2026, 11, 16, 11, 25, tzinfo=timezone.utc))
+            st = json.loads((Path(tmp) / "data" / "briefing" / "build_state.json").read_text())
+            self.assertEqual(st["status"], "ok")
+            self.assertEqual(st["optional_failed"], ["rules"])
+            self.assertTrue(st["published"]["is_current"])
+            self.assertNotIn("Not current", (docs / "briefing.html").read_text())
+
+    def test_failed_build_counts_as_critical(self):
+        s = build_state.state_from_env(dict(self.ENV_OK, BUILD="failure"), datetime(2026, 11, 16, tzinfo=timezone.utc))
+        self.assertEqual(s["status"], "failed")
 
 
 class CorrectionHistory(unittest.TestCase):

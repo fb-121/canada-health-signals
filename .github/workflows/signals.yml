@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: "17 11 * * *"   # daily, 11:17 UTC
   workflow_dispatch:         # lets you run it by hand from the Actions tab
+    inputs:
+      drill_fail_tests:
+        description: "Failure drill: force the fixture tests to fail, to check an old briefing is marked not current"
+        type: boolean
+        default: false
   push:
     paths:
       - "scripts/**"         # re-runs automatically when the scripts change
@@ -19,6 +24,9 @@ concurrency:
 
 jobs:
   probe:
+    # Optional steps collect source data: one failing never blocks publishing, and each records its own
+    # live state. Critical steps are the fixture tests and the briefing build: if either fails, the last
+    # good briefing is restored, marked "not current", status.json says the build failed, and the job fails.
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -27,38 +35,67 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Probe and archive feeds
+      - name: "Optional: probe and archive feeds"
+        id: probe
+        continue-on-error: true
         run: python scripts/probe.py
 
-      - name: Collect AI evidence counts and FDA list
+      - name: "Optional: collect AI evidence counts and FDA list"
+        id: ai_evidence
         continue-on-error: true
         run: python scripts/ai_evidence.py
 
-      - name: "Briefing: fixture unit tests (no network)"
+      - name: "Critical: fixture unit tests (no network)"
+        id: tests
         continue-on-error: true
+        env:
+          BRIEFING_DRILL_FAIL: ${{ inputs.drill_fail_tests && '1' || '' }}
         run: python scripts/run_tests.py
 
-      - name: "Briefing: Rules (FDA AI clearances)"
+      - name: "Optional: Rules (FDA AI clearances)"
+        id: rules
         continue-on-error: true
         run: python scripts/briefing_rules.py
 
-      - name: "Briefing: Money (SEC Form D health raises)"
+      - name: "Optional: Money (SEC Form D health raises)"
+        id: money
         continue-on-error: true
         env:
           SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
         run: python scripts/briefing_money.py
 
-      - name: "Briefing: build the page"
+      - name: "Critical: build the briefing (only after tests pass)"
+        id: build
+        if: steps.tests.outcome == 'success'
         continue-on-error: true
         run: python scripts/build_briefing.py
 
-      - name: Build the page
+      - name: "Optional: build the older site page"
+        id: site
         continue-on-error: true   # a page problem must never lose the day's data
         run: python scripts/build_site.py
 
-      - name: Build the AI page
+      - name: "Optional: build the AI page"
+        id: ai_page
         continue-on-error: true
         run: python scripts/build_ai.py
+
+      - name: Record build state; on critical failure restore and mark the last good briefing
+        if: always()
+        env:
+          TESTS: ${{ steps.tests.outcome }}
+          BUILD: ${{ steps.build.outcome }}
+          PROBE: ${{ steps.probe.outcome }}
+          AI_EVIDENCE: ${{ steps.ai_evidence.outcome }}
+          RULES: ${{ steps.rules.outcome }}
+          MONEY: ${{ steps.money.outcome }}
+          SITE: ${{ steps.site.outcome }}
+          AI_PAGE: ${{ steps.ai_page.outcome }}
+        run: |
+          if [ "$TESTS" != "success" ] || [ "$BUILD" != "success" ]; then
+            git checkout -- docs/briefing.html docs/briefing.md docs/briefing.json
+          fi
+          python scripts/build_state.py
 
       - name: Commit data and page
         if: always()
@@ -69,6 +106,12 @@ jobs:
           git diff --cached --quiet || git commit -m "data: daily snapshot $(date -u +%F)"
           git pull --rebase origin main
           git push
+
+      - name: Fail the job if a critical step failed
+        if: always() && (steps.tests.outcome != 'success' || steps.build.outcome != 'success')
+        run: |
+          echo "Critical failure: tests=${{ steps.tests.outcome }} build=${{ steps.build.outcome }}. The earlier briefing stays published, marked not current."
+          exit 1
 
   verify-live:
     # Live integration check. Unit tests passing and the data job going green do not show that the

@@ -27,9 +27,13 @@ jobs:
         run: pip install --quiet pypdf
       - name: Diagnose FDA document access
         continue-on-error: true
+        env:
+          FDA_CLOCK_FILE: ${{ runner.temp }}/fda_last_request   # one 30-second clock shared by both scripts
         run: python scripts/fda_probe.py K261679
       - name: Read FDA 510(k) summaries (skipped while access is restricted)
         continue-on-error: true
+        env:
+          FDA_CLOCK_FILE: ${{ runner.temp }}/fda_last_request
         run: python scripts/briefing_docs.py
       - name: Commit data
         if: always()

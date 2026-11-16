@@ -1,8 +1,8 @@
 {
  "kind": "fixture unit tests, no network",
- "ran": 55,
+ "ran": 63,
  "failures": 0,
  "errors": 0,
- "passed": 55,
- "ran_at": "2026-11-16T03:46Z"
+ "passed": 63,
+ "ran_at": "2026-11-16T03:59Z"
 }

@@ -1,5 +1,15 @@
 # Briefing changelog and validation notes
 
+## Operational fixes before the pilot, 2026-11-16
+
+Architecture freeze reference stays `f8df353`. These are operational fixes, not design changes: no new sources, features or ranking changes.
+
+| # | Fix | Detail |
+|---|-----|--------|
+| 1 | FDA request spacing and hours, per request | One gate (`fda_gate` and `fda_done` in `briefing_common.py`) now sits in front of every request to accessdata.fda.gov from `fda_probe.py` (including each redirect hop) and `briefing_docs.py`. It waits until 30 seconds after the end of the previous FDA request by either script, using a clock file both steps share (`FDA_CLOCK_FILE` in `fda-docs.yml`), so the first request of the second script also waits. After the wait it checks visiting hours again and sends nothing if they have ended. The probe then keeps its previous diagnosis and the reader stops. Before, the probe spaced requests only within itself and the reader's first request had no wait. |
+| 2 | Critical versus optional workflow steps | Fixture tests and the briefing build are critical. The build runs only if the tests pass. If either fails, `docs/briefing.*` are restored to the last good build, a "Not current" notice naming both times is put at the top of the HTML and Markdown and into the JSON, `docs/status.json` records the failure and drops any earlier "current" verdict, and the job fails, so `verify-live` does not run. Source collection (feed probe, AI evidence, Rules, Money) and the two older pages are optional: their failure is listed in `data/briefing/build_state.json` and never blocks publishing. Before, the first feed probe step had no `continue-on-error`, so a failure there skipped the build and left an old briefing and an old "current" status in place. `verify-live` now also fails when the build is not from this run (older than 6 hours or build state not ok). A manual failure drill (`drill_fail_tests` on manual runs) forces the tests to fail so the failure path can be tested on the live site. |
+| 3 | Privacy residue in PR #1 | A GitHub Support request was drafted and is waiting for approval. It has not been sent. |
+
 ## Revision 3.1, 2026-11-16: pilot readiness (architecture frozen at commit `f8df353`)
 
 No new sources and no new features.
