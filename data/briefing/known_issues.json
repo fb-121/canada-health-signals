@@ -84,7 +84,7 @@
   "opened": "2026-11-16",
   "severity": "low",
   "area": "Public positioning",
-  "status": "open, your decision",
-  "text": "The site root (index.html) is the earlier Canadian wastewater page, rebuilt daily by build_site.py, and does not link to HealthSignal. HealthSignal lives at /briefing.html. Making HealthSignal the front page would mean changing build_site.py or adding a landing page, which is outside the pilot freeze. The repository description on GitHub also still describes the older project and must be changed in GitHub's settings."
+  "status": "deferred to after the pilot (decision 2026-11-16)",
+  "text": "The site root (index.html) is the earlier Canadian wastewater page, rebuilt daily by build_site.py, and does not link to HealthSignal, which lives at /briefing.html. Left unchanged for the pilot. After 2026-11-23 the direction is HealthSignal as the main offering, with the wastewater project kept as a separate archive. The GitHub repository description was set to the HealthSignal wording on 2026-11-16."
  }
 ]

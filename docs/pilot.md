@@ -41,6 +41,8 @@ Log stories in `data/pilot/log.csv`, one row per story shown in Today and Update
 
 The day's narrative goes in `docs/pilot-log.md`.
 
+**One source of truth.** The pilot record lives in this repository and nowhere else: scores in `data/pilot/log.csv`, the daily narrative in `docs/pilot-log.md`, fixes in `docs/briefing-changelog.md`, and open problems in `data/briefing/known_issues.json`. The "HealthSignal Pre-Pilot Report" spreadsheet is a snapshot of the pre-pilot status as of 2026-11-16. It is not updated during the pilot and is not a pilot record, and any CSV exported from it is a copy of that snapshot.
+
 ## Targets, judged on day 7
 
 | Measure | Target |
