@@ -1,0 +1,15 @@
+{
+ "cik": "0001919246",
+ "exchanges": [
+  "NYSE"
+ ],
+ "fetched": "2026-11-17",
+ "files_periodic_reports": true,
+ "name": "Pelthos Therapeutics Inc.",
+ "sic": "2836",
+ "sic_description": "Biological Products, (No Diagnostic Substances)",
+ "state_of_incorporation": "NV",
+ "tickers": [
+  "PTHS"
+ ]
+}

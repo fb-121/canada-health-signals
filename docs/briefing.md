@@ -1,4 +1,4 @@
-# HealthSignal, November 16, 2026
+# HealthSignal, November 17, 2026
 
 North American Healthcare Technology Intelligence. US-first, Canada-aware.
 
@@ -28,15 +28,58 @@ HealthSignal is a source-linked healthcare technology intelligence briefing for 
 
 Source data freshness (newest record) and pipeline freshness (last run) are separate. Live is whether the request worked.
 
-- SEC Form D daily index: newest source record n/a; pipeline last ran 2026-11-16T21:03Z; live request unproven 0 filings read, 0 unreadable; no new index to read this run, so no filing was retrieved
-- openFDA 510(k) clearances: newest source record 2026-10-30; pipeline last ran 2026-11-16T21:03Z; live request ok 20 clearances returned by the API
-- FDA AI-enabled device list: newest source record 2026-06-29; pipeline last ran 2026-11-16T21:03Z; live request ok 1614 rows read from the FDA list
+- SEC Form D daily index: newest source record 2026-11-16; pipeline last ran 2026-11-17T19:53Z; live request ok 255 filings read, 0 unreadable
+- openFDA 510(k) clearances: newest source record 2026-11-06; pipeline last ran 2026-11-17T19:52Z; live request ok 32 clearances returned by the API
+- FDA AI-enabled device list: newest source record 2026-06-29; pipeline last ran 2026-11-17T19:52Z; live request ok 1614 rows read from the FDA list
 - FDA 510(k) summaries: newest source record n/a; pipeline last ran 2026-11-16T04:11Z; live request blocked FDA redirects scripts to an abuse-detection page; automated reading off, manual review in use
-- Fixture unit tests (no network): 70 of 70 passed at 2026-11-16T21:03Z. This does not show any source is reachable.
+- Fixture unit tests (no network): 70 of 70 passed at 2026-11-17T19:52Z. This does not show any source is reachable.
 
-## Today (0 records in 0 stories)
+## Today (11 records in 11 stories)
 
-No new records today.
+1. **FDA clears PeekMed® web (Peek Health, S.A.)** (rules)
+   - FDA clears PeekMed® web (Peek Health, S.A.) [new | inferred]
+     Product code QIH. Not on FDA's AI list. Guess from product code QIH, where 90% of clearances since 2016 are AI.
+     Dates: event 2026-11-04, filed None, detected 2026-11-17. Record K262667: https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K262667
+2. **FDA clears Clever One (Ewoosoft Co., Ltd.)** (rules)
+   - FDA clears Clever One (Ewoosoft Co., Ltd.) [new | inferred]
+     Product code QIH. Not on FDA's AI list. Guess from product code QIH, where 90% of clearances since 2016 are AI.
+     Dates: event 2026-11-04, filed None, detected 2026-11-17. Record K260372: https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K260372
+3. **FDA clears CadAI-B Dx (BeamWorks, Inc.)** (rules)
+   - FDA clears CadAI-B Dx (BeamWorks, Inc.) [new | inferred]
+     Product code QDQ. Not on FDA's AI list. Guess from product code QDQ, where 88% of clearances since 2016 are AI.
+     Dates: event 2026-11-06, filed None, detected 2026-11-17. Record K263749: https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K263749
+4. **FDA clears ECG Buddy-LVD (EB-LVD-01) (ARPI, Inc.)** (rules)
+   - FDA clears ECG Buddy-LVD (EB-LVD-01) (ARPI, Inc.) [new | inferred]
+     Product code QYE. Not on FDA's AI list. Guess from product code QYE, where 71% of clearances since 2016 are AI.
+     Dates: event 2026-11-06, filed None, detected 2026-11-17. Record K260436: https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K260436
+5. **Cellphire, Inc. reports $6.5M sold in a equity round** (money)
+   - Cellphire, Inc. reports $6.5M sold in a equity round [recent | official filing | equity round | no listing or SEC reporting found (not verified private)]
+     First sale 2026-10-30, filed 2026-11-16. Sold $6.5M of $8.0M offering to 22 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).
+     Dates: event 2026-10-30, filed 2026-11-16, detected 2026-11-17. Record Form D 0001815181-26-000001: https://www.sec.gov/Archives/edgar/data/1815181/000181518126000001/0001815181-26-000001-index.htm
+6. **Graviton BioScience Corp reports $5.0M sold in a equity round** (money)
+   - Graviton BioScience Corp reports $5.0M sold in a equity round [recent | official filing | equity round | no listing or SEC reporting found (not verified private) | filed 7 days late]
+     First sale 2026-10-23, filed 2026-11-16, 7 days after the 2026-11-09 deadline. Sold $5.0M of $75.0M offering to 2 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).
+     Dates: event 2026-10-23, filed 2026-11-16, detected 2026-11-17. Record Form D 0001847048-26-000004: https://www.sec.gov/Archives/edgar/data/1847048/000184704826000004/0001847048-26-000004-index.htm
+7. **Navierre Holdings, LLC reports $2.9M sold in a debt financing** (money)
+   - Navierre Holdings, LLC reports $2.9M sold in a debt financing [historical | official filing | debt financing | no listing or SEC reporting found (not verified private) | filed 115 days late]
+     First sale 2026-07-09, filed 2026-11-16, 115 days after the 2026-07-24 deadline. Sold $2.9M of $2.9M offering to 33 investors. Securities: debt. Ownership: no listing or SEC reporting found (not verified private).
+     Dates: event 2026-07-09, filed 2026-11-16, detected 2026-11-17. Record Form D 0001909320-26-000006: https://www.sec.gov/Archives/edgar/data/1909320/000190932026000006/0001909320-26-000006-index.htm
+8. **Park Dental Partners, Inc. reports $9.2M sold in a public-company private placement** (money)
+   - Park Dental Partners, Inc. reports $9.2M sold in a public-company private placement [new | official filing | public-company private placement | listed (Nasdaq: PARK)]
+     First sale 2026-11-06, filed 2026-11-16. Sold $9.2M of $9.2M offering to 1 investors. Securities: equity. Ownership: listed (Nasdaq: PARK).
+     Dates: event 2026-11-06, filed 2026-11-16, detected 2026-11-17. Record Form D 0001104659-26-128149: https://www.sec.gov/Archives/edgar/data/2069604/000110465926128149/0001104659-26-128149-index.htm
+9. **Pelthos Therapeutics Inc. reports $57.5M sold in a public-company private placement** (money)
+   - Pelthos Therapeutics Inc. reports $57.5M sold in a public-company private placement [recent | official filing | public-company private placement | listed (NYSE: PTHS)]
+     First sale 2026-10-30, filed 2026-11-16. Sold $57.5M of $57.5M offering to 7 investors. Securities: equity, option to acquire. Ownership: listed (NYSE: PTHS).
+     Dates: event 2026-10-30, filed 2026-11-16, detected 2026-11-17. Record Form D 0001919246-26-000142: https://www.sec.gov/Archives/edgar/data/1919246/000191924626000142/0001919246-26-000142-index.htm
+10. **Adze Biotechnology Inc amended its offering: $9.3M sold (equity round)** (money)
+   - Adze Biotechnology Inc amended its offering: $9.3M sold (equity round) [historical | official filing | equity round | no listing or SEC reporting found (not verified private) | filed 1330 days late]
+     First sale 2023-03-10, filed 2026-11-16, 1330 days after the 2023-03-27 deadline. Sold $9.3M of $11.8M offering to 28 investors. Securities: equity. Amendment to an earlier offering; the earlier amount is not in this pipeline's records. Ownership: no listing or SEC reporting found (not verified private).
+     Dates: event 2023-03-10, filed 2026-11-16, detected 2026-11-17. Record Form D 0001787508-26-000001: https://www.sec.gov/Archives/edgar/data/1787508/000178750826000001/0001787508-26-000001-index.htm
+11. **FDA clears MAGNETOM Free.XL (Siemens Healthineers AG)** (rules)
+   - FDA clears MAGNETOM Free.XL (Siemens Healthineers AG) [new | inferred]
+     Product code LNH. Not on FDA's AI list. Guess from product code LNH, where 34% of clearances since 2016 are AI.
+     Dates: event 2026-11-05, filed None, detected 2026-11-17. Record K262011: https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K262011
 
 ## Updated records (1; updates, not new events)
 
@@ -86,6 +129,6 @@ No new records today.
 
 ## Data quality
 
-1 of 1 checks passed.
+57 of 57 checks passed.
 
-Build: content id 4fe735194e, schema 2, generated 2026-11-16T21:03Z, workflow commit f25be99. Copies fetched through a cache can be minutes behind; compare the content id. Machine-readable version: briefing.json.
+Build: content id 9c1e4bb0f1, schema 2, generated 2026-11-17T19:53Z, workflow commit 0c45b30. Copies fetched through a cache can be minutes behind; compare the content id. Machine-readable version: briefing.json.

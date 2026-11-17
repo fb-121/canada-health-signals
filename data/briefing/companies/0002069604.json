@@ -1,0 +1,15 @@
+{
+ "cik": "0002069604",
+ "exchanges": [
+  "Nasdaq"
+ ],
+ "fetched": "2026-11-17",
+ "files_periodic_reports": true,
+ "name": "Park Dental Partners, Inc.",
+ "sic": "8090",
+ "sic_description": "Services-Misc Health & Allied Services, NEC",
+ "state_of_incorporation": "MN",
+ "tickers": [
+  "PARK"
+ ]
+}
