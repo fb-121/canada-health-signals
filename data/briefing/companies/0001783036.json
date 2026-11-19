@@ -1,0 +1,15 @@
+{
+ "cik": "0001783036",
+ "exchanges": [
+  "Nasdaq"
+ ],
+ "fetched": "2026-11-19",
+ "files_periodic_reports": true,
+ "name": "NewcelX Ltd.",
+ "sic": "2834",
+ "sic_description": "Pharmaceutical Preparations",
+ "state_of_incorporation": "V8",
+ "tickers": [
+  "NCEL"
+ ]
+}

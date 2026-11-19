@@ -1,4 +1,4 @@
-# HealthSignal, November 18, 2026
+# HealthSignal, November 19, 2026
 
 North American Healthcare Technology Intelligence. US-first, Canada-aware.
 
@@ -28,38 +28,42 @@ HealthSignal is a source-linked healthcare technology intelligence briefing for 
 
 Source data freshness (newest record) and pipeline freshness (last run) are separate. Live is whether the request worked.
 
-- SEC Form D daily index: newest source record 2026-11-17; pipeline last ran 2026-11-18T19:26Z; live request ok 238 filings read, 0 unreadable
-- openFDA 510(k) clearances: newest source record 2026-11-06; pipeline last ran 2026-11-18T19:25Z; live request ok 32 clearances returned by the API
-- FDA AI-enabled device list: newest source record 2026-06-29; pipeline last ran 2026-11-18T19:25Z; live request ok 1614 rows read from the FDA list
+- SEC Form D daily index: newest source record 2026-11-18; pipeline last ran 2026-11-19T19:31Z; live request ok 252 filings read, 0 unreadable
+- openFDA 510(k) clearances: newest source record 2026-11-06; pipeline last ran 2026-11-19T19:30Z; live request ok 30 clearances returned by the API
+- FDA AI-enabled device list: newest source record 2026-06-29; pipeline last ran 2026-11-19T19:30Z; live request ok 1614 rows read from the FDA list
 - FDA 510(k) summaries: newest source record n/a; pipeline last ran 2026-11-16T04:11Z; live request blocked FDA redirects scripts to an abuse-detection page; automated reading off, manual review in use
-- Fixture unit tests (no network): 70 of 70 passed at 2026-11-18T19:25Z. This does not show any source is reachable.
+- Fixture unit tests (no network): 70 of 70 passed at 2026-11-19T19:30Z. This does not show any source is reachable.
 
-## Today (3 records in 3 stories)
+## Today (7 records in 7 stories)
 
-1. **Human Biotech, Inc. reports $6.6M sold in a option-based (SAFE or warrant, not stated)** (money)
-   - Human Biotech, Inc. reports $6.6M sold in a option-based (SAFE or warrant, not stated) [recent | official filing | option-based (SAFE or warrant, not stated) | no listing or SEC reporting found (not verified private)]
-     First sale 2026-11-02, filed 2026-11-17. Sold $6.6M of $10.0M offering to 3 investors. Securities: option to acquire. Ownership: no listing or SEC reporting found (not verified private).
-     Dates: event 2026-11-02, filed 2026-11-17, detected 2026-11-18. Record Form D 0002126389-26-000004: https://www.sec.gov/Archives/edgar/data/2126389/000212638926000004/0002126389-26-000004-index.htm
-2. **Reach Neuro, Inc. reports $2.0M sold in a other securities** (money)
-   - Reach Neuro, Inc. reports $2.0M sold in a other securities [recent | official filing | other securities | no listing or SEC reporting found (not verified private) | filed 1 days late]
-     First sale 2026-10-30, filed 2026-11-17, 1 days after the 2026-11-16 deadline. Sold $2.0M of $2.0M offering to 12 investors. Securities: equity, other (Conversion of SAFE's). Ownership: no listing or SEC reporting found (not verified private).
-     Dates: event 2026-10-30, filed 2026-11-17, detected 2026-11-18. Record Form D 0001942277-26-000004: https://www.sec.gov/Archives/edgar/data/1942277/000194227726000004/0001942277-26-000004-index.htm
-3. **Navierre Holdings, LLC reports $3.8M sold in a other securities** (money)
-   - Navierre Holdings, LLC reports $3.8M sold in a other securities [historical | official filing | other securities | no listing or SEC reporting found (not verified private) | filed 1441 days late]
-     First sale 2022-11-22, filed 2026-11-17, 1441 days after the 2022-12-07 deadline. Sold $3.8M of $3.8M offering to 27 investors. Securities: other (Simple Agreement for Future Equity (SAFE)). Ownership: no listing or SEC reporting found (not verified private).
-     Dates: event 2022-11-22, filed 2026-11-17, detected 2026-11-18. Record Form D 0001909320-26-000008: https://www.sec.gov/Archives/edgar/data/1909320/000190932026000008/0001909320-26-000008-index.htm
-
-## Updated records (1; updates, not new events)
-
-- FDA clears BlineSlide (Deep Breathe, Inc.) (K261679), first reported 2026-11-15: 2026-11-16 manual_review: AI functionality: document supported (human check pending), reviewed by Claude, reading the FDA PDF through a text fetch tool
-  Manual review (document_supported; human check pending; Claude, reading the FDA PDF through a text fetch tool; independent=False; verbatim checked=False): FDA's 510(k) summary for BlineSlide (Deep Breathe, Inc.) describes the device as an AI-assisted tool.
-  - "an AI-assisted tool for detecting the absence of pleural line motion (lung sliding or lung pulse) in LUS cines" page 3 (510(k) Summary, device overview. Page number reported by a text fetch tool; not confirmed in a PDF viewer.)
-  - "Algorithm Methodology: Computer vision; Machine Learning-Based Algorithms" page 7 (Comparison table. The table is flattened in extracted text, so it is not known which column (subject, predicate or reference device) each method belongs to.)
-  - "BlineSlide is intended for use as a concurrent reading aid to assist interpreting physicians" page 4 (Indications for use. Continues onto page 5. Page reported by a text fetch tool.)
-  - Caveat: The first quote supports an AI label for the subject device. The method is not settled: the table lists both computer vision and machine learning and the column mapping is unclear.
-  - Caveat: Quotes and page numbers came from a text extraction, not from comparing with the PDF itself. A person should open the PDF and confirm pages 3, 4, 5 and 7.
-  - Caveat: An earlier analysis said the summary lists computer vision 'not machine learning'. That was too strong and was corrected on 2026-11-16.
-  Document: https://www.accessdata.fda.gov/cdrh_docs/pdf26/K261679.pdf
+1. **Galvanize Therapeutics, Inc. reports $136.2M sold in a equity round** (money)
+   - Galvanize Therapeutics, Inc. reports $136.2M sold in a equity round [new | official filing | equity round | no listing or SEC reporting found (not verified private)]
+     First sale 2026-11-06, filed 2026-11-18. Sold $136.2M of $136.2M offering to 26 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).
+     Dates: event 2026-11-06, filed 2026-11-18, detected 2026-11-19. Record Form D 0001659073-26-000004: https://www.sec.gov/Archives/edgar/data/1659073/000165907326000004/0001659073-26-000004-index.htm
+2. **Vesalius Longevity Labs Inc. reports $6.5M sold in a other securities** (money)
+   - Vesalius Longevity Labs Inc. reports $6.5M sold in a other securities [new | official filing | other securities | no listing or SEC reporting found (not verified private)]
+     First sale 2026-11-06, filed 2026-11-18. Sold $6.5M of $13.5M offering to 9 investors. Securities: equity, option to acquire. Ownership: no listing or SEC reporting found (not verified private).
+     Dates: event 2026-11-06, filed 2026-11-18, detected 2026-11-19. Record Form D 0001062993-26-006173: https://www.sec.gov/Archives/edgar/data/2131865/000106299326006173/0001062993-26-006173-index.htm
+3. **Linnaeus Therapeutics, Inc. reports $3.7M sold in a equity round** (money)
+   - Linnaeus Therapeutics, Inc. reports $3.7M sold in a equity round [new | official filing | equity round | no listing or SEC reporting found (not verified private)]
+     First sale 2026-11-16, filed 2026-11-18. Sold $3.7M of $10.0M offering to 4 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).
+     Dates: event 2026-11-16, filed 2026-11-18, detected 2026-11-19. Record Form D 0001752026-26-000008: https://www.sec.gov/Archives/edgar/data/1752026/000175202626000008/0001752026-26-000008-index.htm
+4. **Ansa Biotechnologies, Inc. reports $54.4M sold in a equity round** (money)
+   - Ansa Biotechnologies, Inc. reports $54.4M sold in a equity round [recent | official filing | equity round | no listing or SEC reporting found (not verified private) | filed 16 days late]
+     First sale 2026-10-16, filed 2026-11-18, 16 days after the 2026-11-02 deadline. Sold $54.4M of $71.9M offering to 18 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).
+     Dates: event 2026-10-16, filed 2026-11-18, detected 2026-11-19. Record Form D 0001231919-26-001596: https://www.sec.gov/Archives/edgar/data/1816722/000123191926001596/0001231919-26-001596-index.htm
+5. **Rising Tide Dental Holdings, LLC reports $61.7M sold in a equity round** (money)
+   - Rising Tide Dental Holdings, LLC reports $61.7M sold in a equity round [historical | official filing | equity round | no listing or SEC reporting found (not verified private) | filed 667 days late]
+     First sale 2025-01-03, filed 2026-11-18, 667 days after the 2025-01-20 deadline. Sold $61.7M of $61.7M offering to 22 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).
+     Dates: event 2025-01-03, filed 2026-11-18, detected 2026-11-19. Record Form D 0002159666-26-000001: https://www.sec.gov/Archives/edgar/data/2159666/000215966626000001/0002159666-26-000001-index.htm
+6. **Kura Oncology, Inc. reports $5.0M sold in a public-company private placement** (money)
+   - Kura Oncology, Inc. reports $5.0M sold in a public-company private placement [new | official filing | public-company private placement | listed (Nasdaq: KURA)]
+     First sale 2026-11-09, filed 2026-11-18. Sold $5.0M of $25.0M offering to 1 investors. Securities: equity. Ownership: listed (Nasdaq: KURA).
+     Dates: event 2026-11-09, filed 2026-11-18, detected 2026-11-19. Record Form D 0001231919-26-001602: https://www.sec.gov/Archives/edgar/data/1422143/000123191926001602/0001231919-26-001602-index.htm
+7. **NewcelX Ltd. reports $2.9M sold in a public-company private placement** (money)
+   - NewcelX Ltd. reports $2.9M sold in a public-company private placement [new | official filing | public-company private placement | listed (Nasdaq: NCEL)]
+     First sale 2026-11-09, filed 2026-11-18. Sold $2.9M of $2.9M offering to 5 investors. Securities: equity, option to acquire, other (Common shares and warrants to purchase common shares). Ownership: listed (Nasdaq: NCEL).
+     Dates: event 2026-11-09, filed 2026-11-18, detected 2026-11-19. Record Form D 0001213900-26-121840: https://www.sec.gov/Archives/edgar/data/1783036/000121390026121840/0001213900-26-121840-index.htm
 
 ## Open data-quality issues
 
@@ -76,6 +80,11 @@ Source data freshness (newest record) and pipeline freshness (last run) are sepa
 - [low] Public positioning (deferred to after the pilot (decision 2026-11-16)): The site root (index.html) is the earlier Canadian wastewater page, rebuilt daily by build_site.py, and does not link to HealthSignal, which lives at /briefing.html. Left unchanged for the pilot. After 2026-11-23 the direction is HealthSignal as the main offering, with the wastewater project kept as a separate archive. The GitHub repository description was set to the HealthSignal wording on 2026-11-16.
 
 ## Past week
+
+### 2026-11-18
+- Human Biotech, Inc. reports $6.6M sold in a option-based (SAFE or warrant, not stated) (money): https://www.sec.gov/Archives/edgar/data/2126389/000212638926000004/0002126389-26-000004-index.htm
+- Reach Neuro, Inc. reports $2.0M sold in a other securities (money): https://www.sec.gov/Archives/edgar/data/1942277/000194227726000004/0001942277-26-000004-index.htm
+- Navierre Holdings, LLC reports $3.8M sold in a other securities (money): https://www.sec.gov/Archives/edgar/data/1909320/000190932026000008/0001909320-26-000008-index.htm
 
 ### 2026-11-17
 - Cellphire, Inc. reports $6.5M sold in a equity round (money): https://www.sec.gov/Archives/edgar/data/1815181/000181518126000001/0001815181-26-000001-index.htm
@@ -110,6 +119,6 @@ Source data freshness (newest record) and pipeline freshness (last run) are sepa
 
 ## Data quality
 
-19 of 19 checks passed.
+43 of 43 checks passed.
 
-Build: content id 5a5c316b1e, schema 2, generated 2026-11-18T19:26Z, workflow commit e0794ac. Copies fetched through a cache can be minutes behind; compare the content id. Machine-readable version: briefing.json.
+Build: content id a441f3a001, schema 2, generated 2026-11-19T19:31Z, workflow commit b104b4b. Copies fetched through a cache can be minutes behind; compare the content id. Machine-readable version: briefing.json.

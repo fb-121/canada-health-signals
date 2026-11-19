@@ -1,0 +1,15 @@
+{
+ "cik": "0001422143",
+ "exchanges": [
+  "Nasdaq"
+ ],
+ "fetched": "2026-11-19",
+ "files_periodic_reports": true,
+ "name": "Kura Oncology, Inc.",
+ "sic": "2834",
+ "sic_description": "Pharmaceutical Preparations",
+ "state_of_incorporation": "DE",
+ "tickers": [
+  "KURA"
+ ]
+}
