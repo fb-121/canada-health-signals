@@ -1,4 +1,68 @@
 {
+ "0000728240-26-000005": {
+  "cik": "728240",
+  "filed": "2026-11-19",
+  "first_sale": "2018-09-19",
+  "name": "METROPOLITAN TOWER LIFE INSURANCE CO",
+  "offering": null,
+  "sold": 1770264598.0
+ },
+ "0000728240-26-000006": {
+  "cik": "728240",
+  "filed": "2026-11-19",
+  "first_sale": "2022-11-29",
+  "name": "METROPOLITAN TOWER LIFE INSURANCE CO",
+  "offering": null,
+  "sold": 230237270.0
+ },
+ "0000728240-26-000007": {
+  "cik": "728240",
+  "filed": "2026-11-19",
+  "first_sale": "2023-06-26",
+  "name": "METROPOLITAN TOWER LIFE INSURANCE CO",
+  "offering": null,
+  "sold": 24275000.0
+ },
+ "0000728240-26-000008": {
+  "cik": "728240",
+  "filed": "2026-11-19",
+  "first_sale": "2025-11-03",
+  "name": "METROPOLITAN TOWER LIFE INSURANCE CO",
+  "offering": null,
+  "sold": 287328638.0
+ },
+ "0000728240-26-000009": {
+  "cik": "728240",
+  "filed": "2026-11-19",
+  "first_sale": "2026-01-29",
+  "name": "METROPOLITAN TOWER LIFE INSURANCE CO",
+  "offering": null,
+  "sold": 33746178.0
+ },
+ "0000728240-26-000010": {
+  "cik": "728240",
+  "filed": "2026-11-19",
+  "first_sale": "2026-03-05",
+  "name": "METROPOLITAN TOWER LIFE INSURANCE CO",
+  "offering": null,
+  "sold": 151393379.0
+ },
+ "0000728240-26-000011": {
+  "cik": "728240",
+  "filed": "2026-11-19",
+  "first_sale": "2026-03-27",
+  "name": "METROPOLITAN TOWER LIFE INSURANCE CO",
+  "offering": null,
+  "sold": 21738368.0
+ },
+ "0000728240-26-000012": {
+  "cik": "728240",
+  "filed": "2026-11-19",
+  "first_sale": "2026-07-16",
+  "name": "METROPOLITAN TOWER LIFE INSURANCE CO",
+  "offering": null,
+  "sold": 1239490.0
+ },
  "0000891836-26-000069": {
   "cik": "1311370",
   "filed": "2026-11-16",
@@ -6,6 +70,14 @@
   "name": "Lazard, Inc.",
   "offering": 648807630.0,
   "sold": 648807630.0
+ },
+ "0000905148-26-005062": {
+  "cik": "2003996",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-04",
+  "name": "Laza Medical, Inc.",
+  "offering": 114959314.0,
+  "sold": 70459317.0
  },
  "0000908834-26-000556": {
   "cik": "2099149",
@@ -175,6 +247,30 @@
   "offering": 5150000.0,
   "sold": 1540000.0
  },
+ "0000937834-26-000018": {
+  "cik": "937834",
+  "filed": "2026-11-19",
+  "first_sale": "2020-10-01",
+  "name": "METROPOLITAN LIFE INSURANCE CO",
+  "offering": null,
+  "sold": 108781389.0
+ },
+ "0000937834-26-000019": {
+  "cik": "937834",
+  "filed": "2026-11-19",
+  "first_sale": "2020-08-17",
+  "name": "METROPOLITAN LIFE INSURANCE CO",
+  "offering": null,
+  "sold": 350000000.0
+ },
+ "0000937834-26-000020": {
+  "cik": "937834",
+  "filed": "2026-11-19",
+  "first_sale": "2023-08-03",
+  "name": "METROPOLITAN LIFE INSURANCE CO",
+  "offering": null,
+  "sold": 620494005.0
+ },
  "0000945621-26-001356": {
   "cik": "2136418",
   "filed": "2026-11-10",
@@ -190,6 +286,14 @@
   "name": "GS Finance Corp.",
   "offering": 3000.0,
   "sold": 3000.0
+ },
+ "0000950138-26-000035": {
+  "cik": "1289340",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-09",
+  "name": "Stereotaxis, Inc.",
+  "offering": 24000000.0,
+  "sold": 12000000.0
  },
  "0000950157-26-001237": {
   "cik": "1852165",
@@ -326,6 +430,22 @@
   "name": "Vesalius Longevity Labs Inc.",
   "offering": 13464278.0,
   "sold": 6499999.0
+ },
+ "0001062993-26-006186": {
+  "cik": "2164773",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-13",
+  "name": "AxSilver Corp.",
+  "offering": 7365.0,
+  "sold": 7365.0
+ },
+ "0001062993-26-006197": {
+  "cik": "1997773",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-13",
+  "name": "Battery Mineral Resources Corp.",
+  "offering": 9678508.0,
+  "sold": 9678508.0
  },
  "0001096296-26-000001": {
   "cik": "1096296",
@@ -495,6 +615,14 @@
   "offering": 2875023.0,
   "sold": 2875023.0
  },
+ "0001213900-26-122108": {
+  "cik": "2085068",
+  "filed": "2026-11-19",
+  "first_sale": "2026-09-08",
+  "name": "Hygia Technologies, Inc.",
+  "offering": 5000000.0,
+  "sold": 175000.0
+ },
  "0001214659-26-014176": {
   "cik": "2159998",
   "filed": "2026-11-16",
@@ -566,6 +694,22 @@
   "name": "Kura Oncology, Inc.",
   "offering": 25000000.0,
   "sold": 5000000.0
+ },
+ "0001231919-26-001615": {
+  "cik": "1721186",
+  "filed": "2026-11-19",
+  "first_sale": "2026-09-24",
+  "name": "Extend Enterprises, Inc.",
+  "offering": 3641075.0,
+  "sold": 3119231.0
+ },
+ "0001231919-26-001616": {
+  "cik": "1801477",
+  "filed": "2026-11-19",
+  "first_sale": "2024-04-05",
+  "name": "INFLAMMATIX, INC.",
+  "offering": 57272732.0,
+  "sold": 47421597.0
  },
  "0001238963-26-000001": {
   "cik": "1238963",
@@ -679,6 +823,22 @@
   "offering": null,
   "sold": 1000000.0
  },
+ "0001437749-26-037729": {
+  "cik": "2165486",
+  "filed": "2026-11-19",
+  "first_sale": "2026-10-23",
+  "name": "Pharmacists Algona, LLC",
+  "offering": 4800000.0,
+  "sold": 4800000.0
+ },
+ "0001462766-26-000001": {
+  "cik": "1462766",
+  "filed": "2026-11-19",
+  "first_sale": null,
+  "name": "Ophthalmology Surgery Center of Dallas, LLC",
+  "offering": 3507428.0,
+  "sold": 0.0
+ },
  "0001474506-26-000018": {
   "cik": "2038583",
   "filed": "2026-11-09",
@@ -751,6 +911,22 @@
   "offering": null,
   "sold": 1609400.0
  },
+ "0001520138-26-000499": {
+  "cik": "1580149",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-03",
+  "name": "BIOVIE INC.",
+  "offering": 0.0,
+  "sold": 0.0
+ },
+ "0001526054-26-000004": {
+  "cik": "1526054",
+  "filed": "2026-11-19",
+  "first_sale": "2026-10-14",
+  "name": "Mosaic Biosciences, Inc.",
+  "offering": 3000000.0,
+  "sold": 3000000.0
+ },
  "0001528255-26-000005": {
   "cik": "1528255",
   "filed": "2026-11-10",
@@ -766,6 +942,14 @@
   "name": "Delaware Life Variable Account M",
   "offering": null,
   "sold": 72805103.0
+ },
+ "0001579495-26-000003": {
+  "cik": "1579495",
+  "filed": "2026-11-19",
+  "first_sale": "2024-11-08",
+  "name": "BFKW, LLC",
+  "offering": 12000000.0,
+  "sold": 2595675.0
  },
  "0001580642-26-007685": {
   "cik": "2066313",
@@ -790,6 +974,14 @@
   "name": "DL Private Variable Account A",
   "offering": null,
   "sold": 255773057.0
+ },
+ "0001629933-26-000001": {
+  "cik": "1629933",
+  "filed": "2026-11-19",
+  "first_sale": null,
+  "name": "SALT LAKE CITY DISTILLERY, LLC",
+  "offering": 10860696.0,
+  "sold": 0.0
  },
  "0001644516-26-000014": {
   "cik": "1644516",
@@ -854,6 +1046,30 @@
   "name": "Koil Energy Solutions, Inc.",
   "offering": 5624080.0,
   "sold": 5624080.0
+ },
+ "0001683168-26-008944": {
+  "cik": "2037891",
+  "filed": "2026-11-19",
+  "first_sale": "2024-10-18",
+  "name": "Corporate Financial Asset Fund LLC",
+  "offering": null,
+  "sold": 2855000.0
+ },
+ "0001683168-26-008946": {
+  "cik": "1856533",
+  "filed": "2026-11-19",
+  "first_sale": "2021-04-14",
+  "name": "Corporate Financial Income Fund LLC",
+  "offering": null,
+  "sold": 5209935.0
+ },
+ "0001683168-26-008948": {
+  "cik": "1827438",
+  "filed": "2026-11-19",
+  "first_sale": "2020-10-08",
+  "name": "Corporate Financial Partners LLC",
+  "offering": null,
+  "sold": 16770906.0
  },
  "0001695295-26-000011": {
   "cik": "1695295",
@@ -935,6 +1151,14 @@
   "offering": 5000000.0,
   "sold": 100000.0
  },
+ "0001753926-26-002203": {
+  "cik": "2164208",
+  "filed": "2026-11-19",
+  "first_sale": "2026-10-29",
+  "name": "Chardan Healthcare Investments LLC",
+  "offering": 1250000.0,
+  "sold": 1250000.0
+ },
  "0001759866-26-000004": {
   "cik": "1759866",
   "filed": "2026-11-13",
@@ -955,6 +1179,14 @@
   "cik": "1760358",
   "filed": "2026-11-17",
   "first_sale": "2026-10-05",
+  "name": "ApolloMD Partners, Inc.",
+  "offering": 4999999.0,
+  "sold": 641781.0
+ },
+ "0001760358-26-000002": {
+  "cik": "1760358",
+  "filed": "2026-11-19",
+  "first_sale": "2026-09-16",
   "name": "ApolloMD Partners, Inc.",
   "offering": 4999999.0,
   "sold": 641781.0
@@ -1046,6 +1278,14 @@
   "name": "Adze Biotechnology Inc",
   "offering": 11753969.0,
   "sold": 9253969.0
+ },
+ "0001790134-26-000002": {
+  "cik": "1790134",
+  "filed": "2026-11-19",
+  "first_sale": "2025-08-01",
+  "name": "RxWare, Inc.",
+  "offering": 6744266.0,
+  "sold": 6334264.0
  },
  "0001791847-26-000003": {
   "cik": "1791847",
@@ -1159,6 +1399,14 @@
   "offering": 25000000.0,
   "sold": 3288150.0
  },
+ "0001825256-26-000001": {
+  "cik": "1825256",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-10",
+  "name": "International Environmental Standards, PBC",
+  "offering": 7000000.0,
+  "sold": 6997249.0
+ },
  "0001838811-26-000004": {
   "cik": "1838811",
   "filed": "2026-11-10",
@@ -1190,6 +1438,14 @@
   "name": "Graviton BioScience Corp",
   "offering": 75000000.0,
   "sold": 5000279.0
+ },
+ "0001848714-26-000004": {
+  "cik": "1848714",
+  "filed": "2026-11-19",
+  "first_sale": "2026-10-30",
+  "name": "THORO, INC.",
+  "offering": 15000000.0,
+  "sold": 4000000.0
  },
  "0001853758-26-000003": {
   "cik": "1853758",
@@ -1271,6 +1527,14 @@
   "offering": 3000000.0,
   "sold": 1000000.0
  },
+ "0001889938-26-000002": {
+  "cik": "1889938",
+  "filed": "2026-11-19",
+  "first_sale": "2024-08-30",
+  "name": "Anuncia Medical, Inc.",
+  "offering": 18372472.0,
+  "sold": 16213083.0
+ },
  "0001892352-26-000001": {
   "cik": "1892352",
   "filed": "2026-11-10",
@@ -1310,6 +1574,14 @@
   "name": "Public Policy Holding Company, Inc.",
   "offering": 1400000.0,
   "sold": 1400000.0
+ },
+ "0001905431-26-000001": {
+  "cik": "1905431",
+  "filed": "2026-11-19",
+  "first_sale": null,
+  "name": "Sunshine Upper Holdings LLC",
+  "offering": null,
+  "sold": 0.0
  },
  "0001909320-26-000005": {
   "cik": "1909320",
@@ -1367,6 +1639,14 @@
   "offering": 57500000.0,
   "sold": 57500000.0
  },
+ "0001925760-26-000001": {
+  "cik": "1925760",
+  "filed": "2026-11-19",
+  "first_sale": null,
+  "name": "Sunshine Management Holdings LLC",
+  "offering": null,
+  "sold": 0.0
+ },
  "0001927028-26-000003": {
   "cik": "1927028",
   "filed": "2026-11-12",
@@ -1382,6 +1662,14 @@
   "name": "Ora Biomedical, Inc.",
   "offering": 1000000.0,
   "sold": 205000.0
+ },
+ "0001930619-26-000003": {
+  "cik": "1930619",
+  "filed": "2026-11-19",
+  "first_sale": "2026-10-09",
+  "name": "Ashton Oak Homes (Black Locust) Investors, LLC",
+  "offering": 4000000.0,
+  "sold": 2450000.0
  },
  "0001933720-26-000001": {
   "cik": "1933720",
@@ -1519,6 +1807,14 @@
   "offering": 3500000.0,
   "sold": 3500000.0
  },
+ "0001967854-26-000002": {
+  "cik": "1967854",
+  "filed": "2026-11-19",
+  "first_sale": "2026-08-21",
+  "name": "Pathos AI, Inc.",
+  "offering": 299999913.0,
+  "sold": 237523833.0
+ },
  "0001977387-26-000003": {
   "cik": "1977387",
   "filed": "2026-11-13",
@@ -1526,6 +1822,14 @@
   "name": "FBRG Fund I, LLC",
   "offering": 71200000.0,
   "sold": 68800000.0
+ },
+ "0001977665-26-000004": {
+  "cik": "1977665",
+  "filed": "2026-11-19",
+  "first_sale": null,
+  "name": "Investcorp US Real Estate Employee Co-Investment Incentive, L.P.",
+  "offering": null,
+  "sold": 0.0
  },
  "0001977710-26-000004": {
   "cik": "1977710",
@@ -1631,6 +1935,22 @@
   "offering": 300000000.0,
   "sold": 300000000.0
  },
+ "0002014856-26-000002": {
+  "cik": "2014856",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-10",
+  "name": "American Bancorp, Inc.",
+  "offering": 20000000.0,
+  "sold": 750000.0
+ },
+ "0002020104-26-000001": {
+  "cik": "2020104",
+  "filed": "2026-11-19",
+  "first_sale": "2026-06-05",
+  "name": "BANIQL CORP.",
+  "offering": 866985.0,
+  "sold": 866985.0
+ },
  "0002023825-26-000004": {
   "cik": "2023825",
   "filed": "2026-11-17",
@@ -1654,6 +1974,14 @@
   "name": "MPT Investors LLC",
   "offering": 1600000.0,
   "sold": 1600000.0
+ },
+ "0002028672-26-000004": {
+  "cik": "2028672",
+  "filed": "2026-11-19",
+  "first_sale": "2024-06-11",
+  "name": "Holbrook Capital LLC / ID",
+  "offering": null,
+  "sold": 2262237.0
  },
  "0002030351-26-000003": {
   "cik": "2030351",
@@ -1695,6 +2023,14 @@
   "offering": 1500000.0,
   "sold": 467500.0
  },
+ "0002038199-26-000001": {
+  "cik": "2038199",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-11",
+  "name": "Airobes, LLC",
+  "offering": 250000.0,
+  "sold": 88000.0
+ },
  "0002038636-26-000009": {
   "cik": "2038636",
   "filed": "2026-11-10",
@@ -1702,6 +2038,14 @@
   "name": "Aprexis, Inc.",
   "offering": 2215504.0,
   "sold": 2215504.0
+ },
+ "0002039128-26-000024": {
+  "cik": "2039128",
+  "filed": "2026-11-19",
+  "first_sale": "2024-11-18",
+  "name": "Peachtree Credit Fund IV, LP",
+  "offering": 500000000.0,
+  "sold": 284160428.0
  },
  "0002040000-26-000003": {
   "cik": "2040000",
@@ -1751,6 +2095,14 @@
   "offering": 5000000.0,
   "sold": 3420152.0
  },
+ "0002042877-26-000002": {
+  "cik": "2042877",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-03",
+  "name": "EndoSure, Inc.",
+  "offering": 1655404.0,
+  "sold": 1310823.0
+ },
  "0002045956-26-000004": {
   "cik": "2045956",
   "filed": "2026-11-10",
@@ -1791,6 +2143,14 @@
   "offering": 1500000.0,
   "sold": 250000.0
  },
+ "0002051403-26-000001": {
+  "cik": "2051403",
+  "filed": "2026-11-19",
+  "first_sale": "2026-05-15",
+  "name": "Elligint Health, Inc.",
+  "offering": 7500000.0,
+  "sold": 6999992.0
+ },
  "0002051998-26-000008": {
   "cik": "2051998",
   "filed": "2026-11-10",
@@ -1823,6 +2183,38 @@
   "offering": null,
   "sold": 800000.0
  },
+ "0002055022-26-000004": {
+  "cik": "2055022",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-05",
+  "name": "KnowRisk, Inc.",
+  "offering": 2250000.0,
+  "sold": 573000.0
+ },
+ "0002055022-26-000005": {
+  "cik": "2055022",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-05",
+  "name": "KnowRisk, Inc.",
+  "offering": 1500000.0,
+  "sold": 573000.0
+ },
+ "0002055022-26-000006": {
+  "cik": "2055022",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-05",
+  "name": "KnowRisk, Inc.",
+  "offering": 1500000.0,
+  "sold": 573000.0
+ },
+ "0002055693-26-000008": {
+  "cik": "2055693",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-11",
+  "name": "U.S. Energy Private Capital III LP",
+  "offering": 100000000.0,
+  "sold": 50000.0
+ },
  "0002056285-26-000002": {
   "cik": "2056285",
   "filed": "2026-11-18",
@@ -1854,6 +2246,14 @@
   "name": "KEMLAB, Inc.",
   "offering": 300000.0,
   "sold": 150000.0
+ },
+ "0002059902-26-000001": {
+  "cik": "2059902",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-19",
+  "name": "LMR III REIT, LLC",
+  "offering": 62500.0,
+  "sold": 62500.0
  },
  "0002060755-26-000067": {
   "cik": "1028357",
@@ -1894,6 +2294,22 @@
   "name": "Palomar Labs Holdings LLC",
   "offering": 4400000.0,
   "sold": 4400000.0
+ },
+ "0002066228-26-000001": {
+  "cik": "2066228",
+  "filed": "2026-11-19",
+  "first_sale": "2024-01-24",
+  "name": "Linework USA INC.",
+  "offering": 1246089809.0,
+  "sold": 1246089809.0
+ },
+ "0002066228-26-000002": {
+  "cik": "2066228",
+  "filed": "2026-11-19",
+  "first_sale": "2026-08-21",
+  "name": "Linework USA INC.",
+  "offering": 325963084.0,
+  "sold": 325963084.0
  },
  "0002067405-26-000003": {
   "cik": "1960557",
@@ -2031,6 +2447,14 @@
   "offering": 16460718.0,
   "sold": 16460718.0
  },
+ "0002081111-26-000211": {
+  "cik": "2090160",
+  "filed": "2026-11-19",
+  "first_sale": "2025-11-10",
+  "name": "Nuveen Global, LLC",
+  "offering": null,
+  "sold": 0.0
+ },
  "0002081458-26-000003": {
   "cik": "2081458",
   "filed": "2026-11-09",
@@ -2054,6 +2478,14 @@
   "name": "Hondo Group, LLC",
   "offering": 15055100.0,
   "sold": 6780000.0
+ },
+ "0002082177-26-000001": {
+  "cik": "2082177",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-09",
+  "name": "Baryons Inc.",
+  "offering": 1999344.0,
+  "sold": 792193.0
  },
  "0002084385-26-000001": {
   "cik": "2084385",
@@ -2135,6 +2567,14 @@
   "offering": 20000000.0,
   "sold": 0.0
  },
+ "0002091915-26-000001": {
+  "cik": "2091915",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-09",
+  "name": "Cosmoserve Space Inc.",
+  "offering": 6000000.0,
+  "sold": 259972.0
+ },
  "0002093045-26-000002": {
   "cik": "2093045",
   "filed": "2026-11-12",
@@ -2158,6 +2598,22 @@
   "name": "Ride N Repair, Inc.",
   "offering": 5000000.0,
   "sold": 220000.0
+ },
+ "0002095809-26-000043": {
+  "cik": "2095809",
+  "filed": "2026-11-19",
+  "first_sale": "2026-01-07",
+  "name": "PG Austin Investors RC, LLC",
+  "offering": 80300000.0,
+  "sold": 35674099.0
+ },
+ "0002095809-26-000044": {
+  "cik": "2095809",
+  "filed": "2026-11-19",
+  "first_sale": "2026-01-07",
+  "name": "PG Austin Investors RC, LLC",
+  "offering": 80300000.0,
+  "sold": 35674099.0
  },
  "0002095944-26-000001": {
   "cik": "2095944",
@@ -2231,6 +2687,22 @@
   "offering": null,
   "sold": 34410869.0
  },
+ "0002106302-26-000002": {
+  "cik": "2106302",
+  "filed": "2026-11-19",
+  "first_sale": null,
+  "name": "EARTHX Ltd",
+  "offering": 2500000.0,
+  "sold": 0.0
+ },
+ "0002106726-26-000002": {
+  "cik": "2106726",
+  "filed": "2026-11-19",
+  "first_sale": "2026-01-20",
+  "name": "BR Parkview Multifamily, DST",
+  "offering": 39486498.0,
+  "sold": 39486498.0
+ },
  "0002107762-26-000003": {
   "cik": "2107762",
   "filed": "2026-11-13",
@@ -2262,6 +2734,38 @@
   "name": "USEDC 2026 Drilling Fund 2 LP",
   "offering": 250000000.0,
   "sold": 100000.0
+ },
+ "0002107833-26-000030": {
+  "cik": "2107833",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-12",
+  "name": "USEDC 2026 Drilling Fund 2 LP",
+  "offering": 250000000.0,
+  "sold": 100000.0
+ },
+ "0002107894-26-000026": {
+  "cik": "2107894",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-13",
+  "name": "Institutional Drilling Fund III LP",
+  "offering": 250000000.0,
+  "sold": 50000.0
+ },
+ "0002108212-26-000002": {
+  "cik": "2108212",
+  "filed": "2026-11-19",
+  "first_sale": "2025-03-21",
+  "name": "4491 STATE RD 7 HOLDINGS LLLP",
+  "offering": 17640000.0,
+  "sold": 17616518.0
+ },
+ "0002108379-26-000005": {
+  "cik": "2108379",
+  "filed": "2026-11-19",
+  "first_sale": null,
+  "name": "Eastport Dock Prospect Partners",
+  "offering": 1356000.0,
+  "sold": 1315320.0
  },
  "0002109713-26-000002": {
   "cik": "2109713",
@@ -2351,6 +2855,14 @@
   "offering": 432250000.0,
   "sold": 432250000.0
  },
+ "0002115927-26-000002": {
+  "cik": "2115927",
+  "filed": "2026-11-19",
+  "first_sale": "2026-02-24",
+  "name": "Griffin Capital Tulsa BTR DST",
+  "offering": 23343978.0,
+  "sold": 23343978.0
+ },
  "0002116264-26-000004": {
   "cik": "2116264",
   "filed": "2026-11-18",
@@ -2375,6 +2887,14 @@
   "offering": 10000000.0,
   "sold": 6600000.0
  },
+ "0002126810-26-000001": {
+  "cik": "2126810",
+  "filed": "2026-11-19",
+  "first_sale": "2025-07-23",
+  "name": "Ashland Pumphouse, LLC",
+  "offering": 9050000.0,
+  "sold": 9050000.0
+ },
  "0002128839-26-000002": {
   "cik": "2128839",
   "filed": "2026-11-09",
@@ -2382,6 +2902,14 @@
   "name": "RICH RISING GROUP, INC",
   "offering": 7500000.0,
   "sold": 7500000.0
+ },
+ "0002130330-26-000001": {
+  "cik": "2130330",
+  "filed": "2026-11-19",
+  "first_sale": "2025-10-31",
+  "name": "Union Township Apartments 2, LLC",
+  "offering": 8475000.0,
+  "sold": 8475000.0
  },
  "0002130427-26-000002": {
   "cik": "2130427",
@@ -2422,6 +2950,14 @@
   "name": "CoverX AI, Inc.",
   "offering": 2000000.0,
   "sold": 25000.0
+ },
+ "0002131889-26-000002": {
+  "cik": "2131889",
+  "filed": "2026-11-19",
+  "first_sale": "2026-04-20",
+  "name": "AurellaAI, Inc.",
+  "offering": null,
+  "sold": 250000.0
  },
  "0002134212-26-000001": {
   "cik": "2134212",
@@ -2471,6 +3007,30 @@
   "offering": null,
   "sold": 500.0
  },
+ "0002134718-26-000116": {
+  "cik": "2163081",
+  "filed": "2026-11-19",
+  "first_sale": "2026-10-05",
+  "name": "Exchange at Royse City LLC",
+  "offering": 4300000.0,
+  "sold": 1800000.0
+ },
+ "0002134718-26-000117": {
+  "cik": "2164772",
+  "filed": "2026-11-19",
+  "first_sale": "2026-10-15",
+  "name": "PI Rosemead Boulevard, LLC",
+  "offering": 7560000.0,
+  "sold": 7560000.0
+ },
+ "0002134718-26-000118": {
+  "cik": "2073311",
+  "filed": "2026-11-19",
+  "first_sale": "2026-10-14",
+  "name": "Molekule Group, Inc./DE",
+  "offering": 1350000.0,
+  "sold": 1350000.0
+ },
  "0002135365-26-000001": {
   "cik": "2135365",
   "filed": "2026-11-13",
@@ -2486,6 +3046,14 @@
   "name": "Blue Owl Real Estate Exchange VI DST",
   "offering": 342909896.0,
   "sold": 302753649.0
+ },
+ "0002136265-26-000003": {
+  "cik": "2136265",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-04",
+  "name": "Water Timer, Inc.",
+  "offering": 190000.0,
+  "sold": 190000.0
  },
  "0002136482-26-000003": {
   "cik": "2136482",
@@ -2614,6 +3182,14 @@
   "name": "BREX Net Lease Data Center I DST",
   "offering": 58979841.0,
   "sold": 18564848.0
+ },
+ "0002147270-26-000008": {
+  "cik": "2147270",
+  "filed": "2026-11-19",
+  "first_sale": "2026-08-03",
+  "name": "BREX Net Lease Data Center I DST",
+  "offering": 58979841.0,
+  "sold": 18871675.0
  },
  "0002147706-26-000001": {
   "cik": "2147706",
@@ -2759,6 +3335,14 @@
   "offering": null,
   "sold": 9472500.0
  },
+ "0002156374-26-000001": {
+  "cik": "2156374",
+  "filed": "2026-11-19",
+  "first_sale": "2026-09-01",
+  "name": "Talos Biotech",
+  "offering": 300000.0,
+  "sold": 185000.0
+ },
  "0002156604-26-000001": {
   "cik": "2156604",
   "filed": "2026-11-12",
@@ -2783,6 +3367,22 @@
   "offering": 3000000.0,
   "sold": 200000.0
  },
+ "0002157974-26-000003": {
+  "cik": "2157974",
+  "filed": "2026-11-19",
+  "first_sale": "2026-10-08",
+  "name": "Blue Owl Real Estate Exchange VII DST",
+  "offering": 310296508.0,
+  "sold": 61878584.0
+ },
+ "0002157976-26-000001": {
+  "cik": "2157976",
+  "filed": "2026-11-19",
+  "first_sale": "2026-06-11",
+  "name": "Jota Holdings Ltd.",
+  "offering": 38972995.0,
+  "sold": 25334277.0
+ },
  "0002157997-26-000002": {
   "cik": "2157997",
   "filed": "2026-11-18",
@@ -2798,6 +3398,14 @@
   "name": "ColoWatch, Inc. /MD/",
   "offering": 3000000.0,
   "sold": 1435000.0
+ },
+ "0002158400-26-000002": {
+  "cik": "2158400",
+  "filed": "2026-11-19",
+  "first_sale": "2026-09-18",
+  "name": "Photonic Muscle LLC",
+  "offering": null,
+  "sold": 750000.0
  },
  "0002158641-26-000001": {
   "cik": "2158641",
@@ -2958,6 +3566,14 @@
   "name": "Metabody Holdings Inc.",
   "offering": 8000000.0,
   "sold": 5000000.0
+ },
+ "0002159762-26-000001": {
+  "cik": "2159762",
+  "filed": "2026-11-19",
+  "first_sale": "2026-10-21",
+  "name": "Spencer Investco, Inc.",
+  "offering": 10970000.0,
+  "sold": 9969997.0
  },
  "0002159786-26-000004": {
   "cik": "2159786",
@@ -3127,6 +3743,14 @@
   "offering": 2500000.0,
   "sold": 1899998.0
  },
+ "0002160853-26-000001": {
+  "cik": "2160853",
+  "filed": "2026-11-19",
+  "first_sale": "2026-07-01",
+  "name": "Groundfloor Mooring SPV I LLC",
+  "offering": 1539000.0,
+  "sold": 1539000.0
+ },
  "0002160900-26-000003": {
   "cik": "2160900",
   "filed": "2026-11-16",
@@ -3167,6 +3791,14 @@
   "offering": 6861400.0,
   "sold": 0.0
  },
+ "0002161254-26-000001": {
+  "cik": "2161254",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-19",
+  "name": "MCP REIT V",
+  "offering": 125000.0,
+  "sold": 125000.0
+ },
  "0002161261-26-000001": {
   "cik": "2161261",
   "filed": "2026-11-10",
@@ -3190,6 +3822,14 @@
   "name": "AntiSignal Inc.",
   "offering": null,
   "sold": 0.0
+ },
+ "0002161477-26-000001": {
+  "cik": "2161477",
+  "filed": "2026-11-19",
+  "first_sale": "2026-10-18",
+  "name": "Coremarq Properties, LLC",
+  "offering": 2250000.0,
+  "sold": 1950000.0
  },
  "0002161497-26-000001": {
   "cik": "2161497",
@@ -3279,6 +3919,14 @@
   "offering": null,
   "sold": 10000.0
  },
+ "0002162164-26-000001": {
+  "cik": "2162164",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-04",
+  "name": "510N Development, LLC",
+  "offering": null,
+  "sold": 4844839.0
+ },
  "0002162171-26-000001": {
   "cik": "2162171",
   "filed": "2026-11-12",
@@ -3335,6 +3983,14 @@
   "offering": null,
   "sold": 0.0
  },
+ "0002162302-26-000001": {
+  "cik": "2162302",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-19",
+  "name": "NBofI REIT, Inc.",
+  "offering": 125000.0,
+  "sold": 125000.0
+ },
  "0002162310-26-000004": {
   "cik": "2162310",
   "filed": "2026-11-09",
@@ -3375,6 +4031,30 @@
   "offering": 2000000.0,
   "sold": 0.0
  },
+ "0002162430-26-000001": {
+  "cik": "2162430",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-03",
+  "name": "AZJAH43 LLC",
+  "offering": 459007.0,
+  "sold": 409007.0
+ },
+ "0002162522-26-000001": {
+  "cik": "2162522",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-19",
+  "name": "GCDP III REIT Holdco, LLC",
+  "offering": 125000.0,
+  "sold": 125000.0
+ },
+ "0002162541-26-000001": {
+  "cik": "2162541",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-19",
+  "name": "GCRP Lakeside REIT Holdco, LLC",
+  "offering": 125000.0,
+  "sold": 125000.0
+ },
  "0002162552-26-000001": {
   "cik": "2162552",
   "filed": "2026-11-16",
@@ -3383,6 +4063,22 @@
   "offering": 2500000.0,
   "sold": 0.0
  },
+ "0002162666-26-000001": {
+  "cik": "2162666",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-13",
+  "name": "Summit-Wold Investment, LLC",
+  "offering": 5240000.0,
+  "sold": 5240000.0
+ },
+ "0002162668-26-000001": {
+  "cik": "2162668",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-19",
+  "name": "BREDIF CRE CLO LLC",
+  "offering": 125000.0,
+  "sold": 125000.0
+ },
  "0002162678-26-000001": {
   "cik": "2162678",
   "filed": "2026-11-13",
@@ -3390,6 +4086,14 @@
   "name": "BHM Infill Partners, LLC",
   "offering": 16000000.0,
   "sold": 16000000.0
+ },
+ "0002162679-26-000001": {
+  "cik": "2162679",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-19",
+  "name": "ARS X PLC REIT",
+  "offering": 125000.0,
+  "sold": 125000.0
  },
  "0002162797-26-000001": {
   "cik": "2162797",
@@ -3463,6 +4167,14 @@
   "offering": 50000000.0,
   "sold": 0.0
  },
+ "0002162998-26-000001": {
+  "cik": "2162998",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-19",
+  "name": "StepStar Parent REIT LLC",
+  "offering": 62500.0,
+  "sold": 62500.0
+ },
  "0002163008-26-000001": {
   "cik": "2163008",
   "filed": "2026-11-10",
@@ -3526,6 +4238,14 @@
   "name": "Clearwood, PBC",
   "offering": 1500000.0,
   "sold": 110000.0
+ },
+ "0002163171-26-000001": {
+  "cik": "2163171",
+  "filed": "2026-11-19",
+  "first_sale": null,
+  "name": "North Central Florida Surgicenter, LLC",
+  "offering": 3612558.0,
+  "sold": 0.0
  },
  "0002163196-26-000002": {
   "cik": "2163196",
@@ -3614,6 +4334,14 @@
   "name": "M&O/Lowcountry Nexton Mob, LLC",
   "offering": 10952550.0,
   "sold": 5500000.0
+ },
+ "0002163366-26-000001": {
+  "cik": "2163366",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-19",
+  "name": "HBC REOF II REIT A LLC",
+  "offering": 125000.0,
+  "sold": 125000.0
  },
  "0002163371-26-000001": {
   "cik": "2163371",
@@ -3863,6 +4591,14 @@
   "offering": 6000000.0,
   "sold": 87500.0
  },
+ "0002163724-26-000002": {
+  "cik": "2163724",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-18",
+  "name": "PulsePoint Lake Norman ASC, LLC",
+  "offering": 1760000.0,
+  "sold": 88000.0
+ },
  "0002163740-26-000001": {
   "cik": "2163740",
   "filed": "2026-11-09",
@@ -3967,6 +4703,14 @@
   "offering": 1500000.0,
   "sold": 10000.0
  },
+ "0002164017-26-000003": {
+  "cik": "2164017",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-09",
+  "name": "FGP Baldwin LLC",
+  "offering": 1325000.0,
+  "sold": 375000.0
+ },
  "0002164052-26-000001": {
   "cik": "2164052",
   "filed": "2026-11-13",
@@ -4015,6 +4759,14 @@
   "offering": 200000.0,
   "sold": 71000.0
  },
+ "0002164102-26-000001": {
+  "cik": "2164102",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-19",
+  "name": "BPRE REIT, Inc.",
+  "offering": 125000.0,
+  "sold": 125000.0
+ },
  "0002164162-26-000001": {
   "cik": "2164162",
   "filed": "2026-11-12",
@@ -4038,6 +4790,14 @@
   "name": "Glide Holdings, LLC",
   "offering": 1500000.0,
   "sold": 1050000.0
+ },
+ "0002164191-26-000001": {
+  "cik": "2164191",
+  "filed": "2026-11-19",
+  "first_sale": "2026-10-12",
+  "name": "LANGHAM PROJECT LLC",
+  "offering": 40.0,
+  "sold": 40.0
  },
  "0002164197-26-000001": {
   "cik": "2164197",
@@ -4302,6 +5062,14 @@
   "name": "FB Technologies Inc.",
   "offering": 1000000.0,
   "sold": 500000.0
+ },
+ "0002164503-26-000002": {
+  "cik": "2164503",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-05",
+  "name": "KHK Games Holdings, Inc.",
+  "offering": 138621.0,
+  "sold": 138621.0
  },
  "0002164512-26-000001": {
   "cik": "2164512",
@@ -4599,6 +5367,14 @@
   "offering": 1500000.0,
   "sold": 275000.0
  },
+ "0002164770-26-000002": {
+  "cik": "2164770",
+  "filed": "2026-11-19",
+  "first_sale": "2026-10-02",
+  "name": "Crypto Insights Group Corp.",
+  "offering": 2000000.0,
+  "sold": 750000.0
+ },
  "0002164789-26-000001": {
   "cik": "2164789",
   "filed": "2026-11-16",
@@ -4703,6 +5479,14 @@
   "offering": 2000000.0,
   "sold": 0.0
  },
+ "0002164920-26-000001": {
+  "cik": "2164920",
+  "filed": "2026-11-19",
+  "first_sale": "2025-10-31",
+  "name": "Praxos Capital Management LLC",
+  "offering": null,
+  "sold": 3006405.0
+ },
  "0002164940-26-000001": {
   "cik": "2164940",
   "filed": "2026-11-13",
@@ -4727,6 +5511,14 @@
   "offering": 662000.0,
   "sold": 662000.0
  },
+ "0002165043-26-000001": {
+  "cik": "2165043",
+  "filed": "2026-11-19",
+  "first_sale": "2025-10-31",
+  "name": "Praxos Fund II GP LLC",
+  "offering": null,
+  "sold": 739881.0
+ },
  "0002165055-26-000001": {
   "cik": "2165055",
   "filed": "2026-11-13",
@@ -4734,6 +5526,14 @@
   "name": "WHE Inc.",
   "offering": 500000.0,
   "sold": 300000.0
+ },
+ "0002165078-26-000003": {
+  "cik": "2165078",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-17",
+  "name": "Little Tomato Tech Corp.",
+  "offering": 200000.0,
+  "sold": 15000.0
  },
  "0002165090-26-000001": {
   "cik": "2165090",
@@ -4758,6 +5558,14 @@
   "name": "Novo Navis, Inc.",
   "offering": 25000000.0,
   "sold": 0.0
+ },
+ "0002165138-26-000001": {
+  "cik": "2165138",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-06",
+  "name": "Univital Inc",
+  "offering": 2000000.0,
+  "sold": 50000.0
  },
  "0002165152-26-000001": {
   "cik": "2165152",
@@ -4863,6 +5671,14 @@
   "offering": 5000000.0,
   "sold": 0.0
  },
+ "0002165248-26-000001": {
+  "cik": "2165248",
+  "filed": "2026-11-19",
+  "first_sale": "2026-10-14",
+  "name": "Soundside Q Holding Co LLC",
+  "offering": 2420000.0,
+  "sold": 2420000.0
+ },
  "0002165267-26-000001": {
   "cik": "2165267",
   "filed": "2026-11-16",
@@ -4870,6 +5686,22 @@
   "name": "Keyholdr, Inc.",
   "offering": 557500.0,
   "sold": 557500.0
+ },
+ "0002165279-26-000001": {
+  "cik": "2165279",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-10",
+  "name": "Six Mile Storage LLC",
+  "offering": 1500000.0,
+  "sold": 380000.0
+ },
+ "0002165297-26-000001": {
+  "cik": "2165297",
+  "filed": "2026-11-19",
+  "first_sale": "2026-10-27",
+  "name": "Fort Wayne ALF Property LLC",
+  "offering": 1315000.0,
+  "sold": 0.0
  },
  "0002165311-26-000001": {
   "cik": "2165311",
@@ -4910,6 +5742,14 @@
   "name": "Living at 850, LLC",
   "offering": 6700000.0,
   "sold": 6700000.0
+ },
+ "0002165387-26-000001": {
+  "cik": "2165387",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-06",
+  "name": "Retreat BD Holdings LLC",
+  "offering": 30000000.0,
+  "sold": 5000000.0
  },
  "0002165391-26-000001": {
   "cik": "2165391",
@@ -4958,6 +5798,14 @@
   "name": "OnRails Technologies Inc.",
   "offering": 7000000.0,
   "sold": 6000000.0
+ },
+ "0002165467-26-000001": {
+  "cik": "2165467",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-06",
+  "name": "Claimtrax Inc.",
+  "offering": 400000.0,
+  "sold": 400000.0
  },
  "0002165474-26-000001": {
   "cik": "2165474",
@@ -5055,6 +5903,38 @@
   "offering": 5000000.0,
   "sold": 0.0
  },
+ "0002165525-26-000001": {
+  "cik": "2165525",
+  "filed": "2026-11-19",
+  "first_sale": null,
+  "name": "Life Impact Partners 25 LLC",
+  "offering": 5000000.0,
+  "sold": 0.0
+ },
+ "0002165526-26-000001": {
+  "cik": "2165526",
+  "filed": "2026-11-19",
+  "first_sale": null,
+  "name": "Life Impact Partners 24 LLC",
+  "offering": 5000000.0,
+  "sold": 0.0
+ },
+ "0002165527-26-000001": {
+  "cik": "2165527",
+  "filed": "2026-11-19",
+  "first_sale": null,
+  "name": "Life Impact Partners 23 LLC",
+  "offering": 5000000.0,
+  "sold": 0.0
+ },
+ "0002165528-26-000001": {
+  "cik": "2165528",
+  "filed": "2026-11-19",
+  "first_sale": null,
+  "name": "Life Impact Partners 22 LLC",
+  "offering": 5000000.0,
+  "sold": 0.0
+ },
  "0002165530-26-000001": {
   "cik": "2165530",
   "filed": "2026-11-18",
@@ -5135,6 +6015,30 @@
   "offering": 10000000.0,
   "sold": 0.0
  },
+ "0002165657-26-000001": {
+  "cik": "2165657",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-09",
+  "name": "Nodes Bio, Inc.",
+  "offering": null,
+  "sold": 11500.0
+ },
+ "0002165659-26-000001": {
+  "cik": "2165659",
+  "filed": "2026-11-19",
+  "first_sale": null,
+  "name": "LaNova AI Solutions, LLC",
+  "offering": 500000.0,
+  "sold": 0.0
+ },
+ "0002165662-26-000001": {
+  "cik": "2165662",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-13",
+  "name": "SEG Wheel Holdings, LLC",
+  "offering": 7625000.0,
+  "sold": 7625000.0
+ },
  "0002165663-26-000001": {
   "cik": "2165663",
   "filed": "2026-11-18",
@@ -5142,6 +6046,38 @@
   "name": "GlassHat AI, Inc.",
   "offering": null,
   "sold": 4000000.0
+ },
+ "0002165676-26-000001": {
+  "cik": "2165676",
+  "filed": "2026-11-19",
+  "first_sale": "2026-10-30",
+  "name": "KURD, Inc.",
+  "offering": 1000000.0,
+  "sold": 25000.0
+ },
+ "0002165690-26-000001": {
+  "cik": "2165690",
+  "filed": "2026-11-19",
+  "first_sale": null,
+  "name": "Swan Lake Mining Co LLC",
+  "offering": 7150000.0,
+  "sold": 0.0
+ },
+ "0002165704-26-000001": {
+  "cik": "2165704",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-04",
+  "name": "AEP LP 2",
+  "offering": 25000000.0,
+  "sold": 600000.0
+ },
+ "0002165732-26-000001": {
+  "cik": "2165732",
+  "filed": "2026-11-19",
+  "first_sale": "2026-10-12",
+  "name": "Transit Fortress, Inc.",
+  "offering": 500000.0,
+  "sold": 55000.0
  },
  "0002165737-26-000001": {
   "cik": "2165737",
@@ -5151,6 +6087,14 @@
   "offering": 9740000.0,
   "sold": 303000.0
  },
+ "0002165741-26-000001": {
+  "cik": "2165741",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-04",
+  "name": "Takara Ventures Ltd.",
+  "offering": 27146658.0,
+  "sold": 22391675.0
+ },
  "0002165752-26-000001": {
   "cik": "2165752",
   "filed": "2026-11-18",
@@ -5158,6 +6102,14 @@
   "name": "Drink Spiritual, Inc.",
   "offering": null,
   "sold": 1000.0
+ },
+ "0002165759-26-000001": {
+  "cik": "2165759",
+  "filed": "2026-11-19",
+  "first_sale": "2026-10-30",
+  "name": "AAI Group Holdings, LLC",
+  "offering": null,
+  "sold": 565307.0
  },
  "0002165764-26-000001": {
   "cik": "2165764",
@@ -5175,12 +6127,28 @@
   "offering": 7500000.0,
   "sold": 7500000.0
  },
+ "0002165841-26-000001": {
+  "cik": "2165841",
+  "filed": "2026-11-19",
+  "first_sale": "2025-03-17",
+  "name": "Tall Pines MHC LLC",
+  "offering": 690000.0,
+  "sold": 690000.0
+ },
  "0002165860-26-000001": {
   "cik": "2165860",
   "filed": "2026-11-18",
   "first_sale": "2026-08-20",
   "name": "aVillage Group, Inc.",
   "offering": 100000.0,
+  "sold": 100000.0
+ },
+ "0002165861-26-000001": {
+  "cik": "2165861",
+  "filed": "2026-11-19",
+  "first_sale": "2026-08-07",
+  "name": "Ayatris, Inc.",
+  "offering": 800000.0,
   "sold": 100000.0
  },
  "0002165874-26-000001": {
@@ -5191,6 +6159,14 @@
   "offering": 1600000.0,
   "sold": 0.0
  },
+ "0002165875-26-000001": {
+  "cik": "2165875",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-09",
+  "name": "ClubHaz LLC",
+  "offering": 500000.0,
+  "sold": 500000.0
+ },
  "0002165901-26-000001": {
   "cik": "2165901",
   "filed": "2026-11-18",
@@ -5198,5 +6174,53 @@
   "name": "zzTakeoff Ventures, Inc.",
   "offering": 5000.0,
   "sold": 0.0
+ },
+ "0002165962-26-000001": {
+  "cik": "2165962",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-03",
+  "name": "Elements of the Sea HI LLC",
+  "offering": 700000.0,
+  "sold": 500000.0
+ },
+ "0002165963-26-000001": {
+  "cik": "2165963",
+  "filed": "2026-11-19",
+  "first_sale": "2026-09-21",
+  "name": "Brokermatic AI Corp",
+  "offering": 100000.0,
+  "sold": 100000.0
+ },
+ "0002165965-26-000001": {
+  "cik": "2165965",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-06",
+  "name": "Alkify Inc.",
+  "offering": 300000.0,
+  "sold": 300000.0
+ },
+ "0002165982-26-000001": {
+  "cik": "2165982",
+  "filed": "2026-11-19",
+  "first_sale": null,
+  "name": "ExchangeRight Net-Leased All-Cash 23 DST",
+  "offering": 49730000.0,
+  "sold": 0.0
+ },
+ "0002166013-26-000001": {
+  "cik": "2166013",
+  "filed": "2026-11-19",
+  "first_sale": "2026-11-11",
+  "name": "TIS Invesco, LP",
+  "offering": 11400000.0,
+  "sold": 11400000.0
+ },
+ "0002166123-26-000001": {
+  "cik": "2166123",
+  "filed": "2026-11-19",
+  "first_sale": "2026-10-11",
+  "name": "Altum Autonomy Inc.",
+  "offering": 500000.0,
+  "sold": 50000.0
  }
 }

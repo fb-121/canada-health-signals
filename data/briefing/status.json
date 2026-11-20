@@ -14,27 +14,27 @@
   "verdict": "access_restriction"
  },
  "fda_ai_device_list": {
-  "checked_at": "2026-11-19T19:30Z",
+  "checked_at": "2026-11-20T19:07Z",
   "devices": 1614,
   "latest_decision_date": "2026-06-29",
   "live": "ok",
   "live_detail": "1614 rows read from the FDA list"
  },
  "openfda_510k": {
-  "checked_at": "2026-11-19T19:30Z",
+  "checked_at": "2026-11-20T19:07Z",
   "errors": 0,
-  "fetched": 30,
+  "fetched": 27,
   "latest_decision_date": "2026-11-06",
   "live": "ok",
-  "live_detail": "30 clearances returned by the API"
+  "live_detail": "27 clearances returned by the API"
  },
  "sec_form_d": {
-  "checked_at": "2026-11-19T19:31Z",
-  "filings_read": 252,
-  "items": 7,
-  "latest_index_date": "2026-11-18",
+  "checked_at": "2026-11-20T19:08Z",
+  "filings_read": 322,
+  "items": 9,
+  "latest_index_date": "2026-11-19",
   "live": "ok",
-  "live_detail": "252 filings read, 0 unreadable",
+  "live_detail": "322 filings read, 0 unreadable",
   "unreadable": 0
  }
 }

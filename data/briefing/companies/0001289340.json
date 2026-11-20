@@ -1,0 +1,15 @@
+{
+ "cik": "0001289340",
+ "exchanges": [
+  "NYSE"
+ ],
+ "fetched": "2026-11-20",
+ "files_periodic_reports": true,
+ "name": "Stereotaxis, Inc.",
+ "sic": "3845",
+ "sic_description": "Electromedical & Electrotherapeutic Apparatus",
+ "state_of_incorporation": "DE",
+ "tickers": [
+  "STXS"
+ ]
+}

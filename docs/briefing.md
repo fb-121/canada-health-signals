@@ -1,4 +1,4 @@
-# HealthSignal, November 19, 2026
+# HealthSignal, November 20, 2026
 
 North American Healthcare Technology Intelligence. US-first, Canada-aware.
 
@@ -28,42 +28,50 @@ HealthSignal is a source-linked healthcare technology intelligence briefing for 
 
 Source data freshness (newest record) and pipeline freshness (last run) are separate. Live is whether the request worked.
 
-- SEC Form D daily index: newest source record 2026-11-18; pipeline last ran 2026-11-19T19:31Z; live request ok 252 filings read, 0 unreadable
-- openFDA 510(k) clearances: newest source record 2026-11-06; pipeline last ran 2026-11-19T19:30Z; live request ok 30 clearances returned by the API
-- FDA AI-enabled device list: newest source record 2026-06-29; pipeline last ran 2026-11-19T19:30Z; live request ok 1614 rows read from the FDA list
+- SEC Form D daily index: newest source record 2026-11-19; pipeline last ran 2026-11-20T19:08Z; live request ok 322 filings read, 0 unreadable
+- openFDA 510(k) clearances: newest source record 2026-11-06; pipeline last ran 2026-11-20T19:07Z; live request ok 27 clearances returned by the API
+- FDA AI-enabled device list: newest source record 2026-06-29; pipeline last ran 2026-11-20T19:07Z; live request ok 1614 rows read from the FDA list
 - FDA 510(k) summaries: newest source record n/a; pipeline last ran 2026-11-16T04:11Z; live request blocked FDA redirects scripts to an abuse-detection page; automated reading off, manual review in use
-- Fixture unit tests (no network): 70 of 70 passed at 2026-11-19T19:30Z. This does not show any source is reachable.
+- Fixture unit tests (no network): 70 of 70 passed at 2026-11-20T19:07Z. This does not show any source is reachable.
 
-## Today (7 records in 7 stories)
+## Today (9 records in 9 stories)
 
-1. **Galvanize Therapeutics, Inc. reports $136.2M sold in a equity round** (money)
-   - Galvanize Therapeutics, Inc. reports $136.2M sold in a equity round [new | official filing | equity round | no listing or SEC reporting found (not verified private)]
-     First sale 2026-11-06, filed 2026-11-18. Sold $136.2M of $136.2M offering to 26 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).
-     Dates: event 2026-11-06, filed 2026-11-18, detected 2026-11-19. Record Form D 0001659073-26-000004: https://www.sec.gov/Archives/edgar/data/1659073/000165907326000004/0001659073-26-000004-index.htm
-2. **Vesalius Longevity Labs Inc. reports $6.5M sold in a other securities** (money)
-   - Vesalius Longevity Labs Inc. reports $6.5M sold in a other securities [new | official filing | other securities | no listing or SEC reporting found (not verified private)]
-     First sale 2026-11-06, filed 2026-11-18. Sold $6.5M of $13.5M offering to 9 investors. Securities: equity, option to acquire. Ownership: no listing or SEC reporting found (not verified private).
-     Dates: event 2026-11-06, filed 2026-11-18, detected 2026-11-19. Record Form D 0001062993-26-006173: https://www.sec.gov/Archives/edgar/data/2131865/000106299326006173/0001062993-26-006173-index.htm
-3. **Linnaeus Therapeutics, Inc. reports $3.7M sold in a equity round** (money)
-   - Linnaeus Therapeutics, Inc. reports $3.7M sold in a equity round [new | official filing | equity round | no listing or SEC reporting found (not verified private)]
-     First sale 2026-11-16, filed 2026-11-18. Sold $3.7M of $10.0M offering to 4 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).
-     Dates: event 2026-11-16, filed 2026-11-18, detected 2026-11-19. Record Form D 0001752026-26-000008: https://www.sec.gov/Archives/edgar/data/1752026/000175202626000008/0001752026-26-000008-index.htm
-4. **Ansa Biotechnologies, Inc. reports $54.4M sold in a equity round** (money)
-   - Ansa Biotechnologies, Inc. reports $54.4M sold in a equity round [recent | official filing | equity round | no listing or SEC reporting found (not verified private) | filed 16 days late]
-     First sale 2026-10-16, filed 2026-11-18, 16 days after the 2026-11-02 deadline. Sold $54.4M of $71.9M offering to 18 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).
-     Dates: event 2026-10-16, filed 2026-11-18, detected 2026-11-19. Record Form D 0001231919-26-001596: https://www.sec.gov/Archives/edgar/data/1816722/000123191926001596/0001231919-26-001596-index.htm
-5. **Rising Tide Dental Holdings, LLC reports $61.7M sold in a equity round** (money)
-   - Rising Tide Dental Holdings, LLC reports $61.7M sold in a equity round [historical | official filing | equity round | no listing or SEC reporting found (not verified private) | filed 667 days late]
-     First sale 2025-01-03, filed 2026-11-18, 667 days after the 2025-01-20 deadline. Sold $61.7M of $61.7M offering to 22 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).
-     Dates: event 2025-01-03, filed 2026-11-18, detected 2026-11-19. Record Form D 0002159666-26-000001: https://www.sec.gov/Archives/edgar/data/2159666/000215966626000001/0002159666-26-000001-index.htm
-6. **Kura Oncology, Inc. reports $5.0M sold in a public-company private placement** (money)
-   - Kura Oncology, Inc. reports $5.0M sold in a public-company private placement [new | official filing | public-company private placement | listed (Nasdaq: KURA)]
-     First sale 2026-11-09, filed 2026-11-18. Sold $5.0M of $25.0M offering to 1 investors. Securities: equity. Ownership: listed (Nasdaq: KURA).
-     Dates: event 2026-11-09, filed 2026-11-18, detected 2026-11-19. Record Form D 0001231919-26-001602: https://www.sec.gov/Archives/edgar/data/1422143/000123191926001602/0001231919-26-001602-index.htm
-7. **NewcelX Ltd. reports $2.9M sold in a public-company private placement** (money)
-   - NewcelX Ltd. reports $2.9M sold in a public-company private placement [new | official filing | public-company private placement | listed (Nasdaq: NCEL)]
-     First sale 2026-11-09, filed 2026-11-18. Sold $2.9M of $2.9M offering to 5 investors. Securities: equity, option to acquire, other (Common shares and warrants to purchase common shares). Ownership: listed (Nasdaq: NCEL).
-     Dates: event 2026-11-09, filed 2026-11-18, detected 2026-11-19. Record Form D 0001213900-26-121840: https://www.sec.gov/Archives/edgar/data/1783036/000121390026121840/0001213900-26-121840-index.htm
+1. **Laza Medical, Inc. reports $70.5M sold in a mixed equity and debt** (money)
+   - Laza Medical, Inc. reports $70.5M sold in a mixed equity and debt [recent | official filing | mixed equity and debt | no listing or SEC reporting found (not verified private)]
+     First sale 2026-11-04, filed 2026-11-19. Sold $70.5M of $115.0M offering to 28 investors. Securities: equity, debt. Ownership: no listing or SEC reporting found (not verified private).
+     Dates: event 2026-11-04, filed 2026-11-19, detected 2026-11-20. Record Form D 0000905148-26-005062: https://www.sec.gov/Archives/edgar/data/2003996/000090514826005062/0000905148-26-005062-index.htm
+2. **Spencer Investco, Inc. reports $10.0M sold in a equity round** (money)
+   - Spencer Investco, Inc. reports $10.0M sold in a equity round [recent | official filing | equity round | no listing or SEC reporting found (not verified private) | filed 14 days late]
+     First sale 2026-10-21, filed 2026-11-19, 14 days after the 2026-11-05 deadline. Sold $10.0M of $11.0M offering to 11 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).
+     Dates: event 2026-10-21, filed 2026-11-19, detected 2026-11-20. Record Form D 0002159762-26-000001: https://www.sec.gov/Archives/edgar/data/2159762/000215976226000001/0002159762-26-000001-index.htm
+3. **Mosaic Biosciences, Inc. reports $3.0M sold in a equity round** (money)
+   - Mosaic Biosciences, Inc. reports $3.0M sold in a equity round [recent | official filing | equity round | no listing or SEC reporting found (not verified private) | filed 21 days late]
+     First sale 2026-10-14, filed 2026-11-19, 21 days after the 2026-10-29 deadline. Sold $3.0M of $3.0M offering to 3 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).
+     Dates: event 2026-10-14, filed 2026-11-19, detected 2026-11-20. Record Form D 0001526054-26-000004: https://www.sec.gov/Archives/edgar/data/1526054/000152605426000004/0001526054-26-000004-index.htm
+4. **Pathos AI, Inc. reports $237.5M sold in a equity round** (money)
+   - Pathos AI, Inc. reports $237.5M sold in a equity round [historical | official filing | equity round | no listing or SEC reporting found (not verified private) | filed 73 days late]
+     First sale 2026-08-21, filed 2026-11-19, 73 days after the 2026-09-07 deadline. Sold $237.5M of $300.0M offering to 13 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).
+     Dates: event 2026-08-21, filed 2026-11-19, detected 2026-11-20. Record Form D 0001967854-26-000002: https://www.sec.gov/Archives/edgar/data/1967854/000196785426000002/0001967854-26-000002-index.htm
+5. **INFLAMMATIX, INC. reports $47.4M sold in a other securities** (money)
+   - INFLAMMATIX, INC. reports $47.4M sold in a other securities [historical | official filing | other securities | no listing or SEC reporting found (not verified private) | filed 941 days late]
+     First sale 2024-04-05, filed 2026-11-19, 941 days after the 2024-04-22 deadline. Sold $47.4M of $57.3M offering to 14 investors. Securities: equity, option to acquire, other (Offer and sale of Series E and E-1 Preferred Stock and Common Stock issuable upon conversion thereof. Certain exchanged Common Stock were issued for shares of a specific series of Preferred Stock. Warrants to purchase Series E-2 Preferred Stock.). Ownership: no listing or SEC reporting found (not verified private).
+     Dates: event 2024-04-05, filed 2026-11-19, detected 2026-11-20. Record Form D 0001231919-26-001616: https://www.sec.gov/Archives/edgar/data/1801477/000123191926001616/0001231919-26-001616-index.htm
+6. **Stereotaxis, Inc. reports $12.0M sold in a public-company private placement** (money)
+   - Stereotaxis, Inc. reports $12.0M sold in a public-company private placement [new | official filing | public-company private placement | listed (NYSE: STXS)]
+     First sale 2026-11-09, filed 2026-11-19. Sold $12.0M of $24.0M offering to 10 investors. Securities: debt. Ownership: listed (NYSE: STXS).
+     Dates: event 2026-11-09, filed 2026-11-19, detected 2026-11-20. Record Form D 0000950138-26-000035: https://www.sec.gov/Archives/edgar/data/1289340/000095013826000035/0000950138-26-000035-index.htm
+7. **Anuncia Medical, Inc. amended its offering: $16.2M sold (other securities)** (money)
+   - Anuncia Medical, Inc. amended its offering: $16.2M sold (other securities) [historical | official filing | other securities | no listing or SEC reporting found (not verified private) | filed 794 days late]
+     First sale 2024-08-30, filed 2026-11-19, 794 days after the 2024-09-16 deadline. Sold $16.2M of $18.4M offering to 102 investors. Securities: equity, option to acquire. Amendment to an earlier offering; the earlier amount is not in this pipeline's records. Ownership: no listing or SEC reporting found (not verified private).
+     Dates: event 2024-08-30, filed 2026-11-19, detected 2026-11-20. Record Form D 0001889938-26-000002: https://www.sec.gov/Archives/edgar/data/1889938/000188993826000002/0001889938-26-000002-index.htm
+8. **RxWare, Inc. amended its offering: $6.3M sold (other securities)** (money)
+   - RxWare, Inc. amended its offering: $6.3M sold (other securities) [historical | official filing | other securities | no listing or SEC reporting found (not verified private) | filed 458 days late]
+     First sale 2025-08-01, filed 2026-11-19, 458 days after the 2025-08-18 deadline. Sold $6.3M of $6.7M offering to 14 investors. Securities: equity, option to acquire. Amendment to an earlier offering; the earlier amount is not in this pipeline's records. Ownership: no listing or SEC reporting found (not verified private).
+     Dates: event 2025-08-01, filed 2026-11-19, detected 2026-11-20. Record Form D 0001790134-26-000002: https://www.sec.gov/Archives/edgar/data/1790134/000179013426000002/0001790134-26-000002-index.htm
+9. **BFKW, LLC amended its offering: $2.6M sold (equity round)** (money)
+   - BFKW, LLC amended its offering: $2.6M sold (equity round) [historical | official filing | equity round | no listing or SEC reporting found (not verified private) | filed 724 days late]
+     First sale 2024-11-08, filed 2026-11-19, 724 days after the 2024-11-25 deadline. Sold $2.6M of $12.0M offering to 10 investors. Securities: equity. Amendment to an earlier offering; the earlier amount is not in this pipeline's records. Ownership: no listing or SEC reporting found (not verified private).
+     Dates: event 2024-11-08, filed 2026-11-19, detected 2026-11-20. Record Form D 0001579495-26-000003: https://www.sec.gov/Archives/edgar/data/1579495/000157949526000003/0001579495-26-000003-index.htm
 
 ## Open data-quality issues
 
@@ -80,6 +88,15 @@ Source data freshness (newest record) and pipeline freshness (last run) are sepa
 - [low] Public positioning (deferred to after the pilot (decision 2026-11-16)): The site root (index.html) is the earlier Canadian wastewater page, rebuilt daily by build_site.py, and does not link to HealthSignal, which lives at /briefing.html. Left unchanged for the pilot. After 2026-11-23 the direction is HealthSignal as the main offering, with the wastewater project kept as a separate archive. The GitHub repository description was set to the HealthSignal wording on 2026-11-16.
 
 ## Past week
+
+### 2026-11-19
+- Galvanize Therapeutics, Inc. reports $136.2M sold in a equity round (money): https://www.sec.gov/Archives/edgar/data/1659073/000165907326000004/0001659073-26-000004-index.htm
+- Vesalius Longevity Labs Inc. reports $6.5M sold in a other securities (money): https://www.sec.gov/Archives/edgar/data/2131865/000106299326006173/0001062993-26-006173-index.htm
+- Linnaeus Therapeutics, Inc. reports $3.7M sold in a equity round (money): https://www.sec.gov/Archives/edgar/data/1752026/000175202626000008/0001752026-26-000008-index.htm
+- Ansa Biotechnologies, Inc. reports $54.4M sold in a equity round (money): https://www.sec.gov/Archives/edgar/data/1816722/000123191926001596/0001231919-26-001596-index.htm
+- Rising Tide Dental Holdings, LLC reports $61.7M sold in a equity round (money): https://www.sec.gov/Archives/edgar/data/2159666/000215966626000001/0002159666-26-000001-index.htm
+- Kura Oncology, Inc. reports $5.0M sold in a public-company private placement (money): https://www.sec.gov/Archives/edgar/data/1422143/000123191926001602/0001231919-26-001602-index.htm
+- NewcelX Ltd. reports $2.9M sold in a public-company private placement (money): https://www.sec.gov/Archives/edgar/data/1783036/000121390026121840/0001213900-26-121840-index.htm
 
 ### 2026-11-18
 - Human Biotech, Inc. reports $6.6M sold in a option-based (SAFE or warrant, not stated) (money): https://www.sec.gov/Archives/edgar/data/2126389/000212638926000004/0002126389-26-000004-index.htm
@@ -119,6 +136,6 @@ Source data freshness (newest record) and pipeline freshness (last run) are sepa
 
 ## Data quality
 
-43 of 43 checks passed.
+55 of 55 checks passed.
 
-Build: content id a441f3a001, schema 2, generated 2026-11-19T19:31Z, workflow commit b104b4b. Copies fetched through a cache can be minutes behind; compare the content id. Machine-readable version: briefing.json.
+Build: content id de45f0d019, schema 2, generated 2026-11-20T19:08Z, workflow commit 8d720db. Copies fetched through a cache can be minutes behind; compare the content id. Machine-readable version: briefing.json.
