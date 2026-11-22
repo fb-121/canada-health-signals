@@ -1,8 +1,8 @@
 {
  "title": "HealthSignal",
  "schema_version": 2,
- "generated_utc": "2026-11-21T18:00Z",
- "date": "2026-11-21",
+ "generated_utc": "2026-11-22T18:31Z",
+ "date": "2026-11-22",
  "method": {
   "what_this_is": "HealthSignal is a source-linked healthcare technology intelligence briefing for founders, operators and people interested in the future of medicine. It is designed from a Canadian perspective and is US-first: current coverage is FDA clearances of AI-enabled medical devices and private financings by healthcare companies from SEC Form D filings, both US sources. It does not yet cover Canadian regulatory or financing data. Every record links to an official source. Facts come from those records. Analysis is written by a reviewer and labelled as interpretation. Nothing here is investment or legal advice.",
   "evidence_classes": {
@@ -39,11 +39,11 @@
   ]
  },
  "build": {
-  "generated_utc": "2026-11-21T18:00Z",
+  "generated_utc": "2026-11-22T18:31Z",
   "schema_version": 2,
-  "records_today": 2,
+  "records_today": 0,
   "content_id": "a6e4a0a40b",
-  "workflow_commit": "f658104"
+  "workflow_commit": "7cb6bb6"
  },
  "source_freshness": {
   "fda_510k_summaries": {
@@ -61,14 +61,14 @@
    "verdict": "access_restriction"
   },
   "fda_ai_device_list": {
-   "checked_at": "2026-11-21T17:58Z",
+   "checked_at": "2026-11-22T18:31Z",
    "devices": 1614,
    "latest_decision_date": "2026-06-29",
    "live": "ok",
    "live_detail": "1614 rows read from the FDA list"
   },
   "openfda_510k": {
-   "checked_at": "2026-11-21T17:58Z",
+   "checked_at": "2026-11-22T18:31Z",
    "errors": 0,
    "fetched": 24,
    "latest_decision_date": "2026-11-06",
@@ -76,12 +76,12 @@
    "live_detail": "24 clearances returned by the API"
   },
   "sec_form_d": {
-   "checked_at": "2026-11-21T18:00Z",
-   "filings_read": 244,
-   "items": 2,
-   "latest_index_date": "2026-11-20",
-   "live": "ok",
-   "live_detail": "244 filings read, 0 unreadable",
+   "checked_at": "2026-11-22T18:31Z",
+   "filings_read": 0,
+   "items": 0,
+   "latest_index_date": null,
+   "live": "unproven",
+   "live_detail": "0 filings read, 0 unreadable; no new index to read this run, so no filing was retrieved",
    "unreadable": 0
   }
  },
@@ -92,12 +92,12 @@
    "failures": 0,
    "errors": 0,
    "passed": 70,
-   "ran_at": "2026-11-21T17:58Z"
+   "ran_at": "2026-11-22T18:31Z"
   },
   "note": "Fixture tests use reconstructed records and no network. They do not show a source is reachable. See live in source_freshness."
  },
  "data_quality": {
-  "checks_run": 13,
+  "checks_run": 1,
   "issues": [],
   "open_issues": [
    {
@@ -191,193 +191,95 @@
   ]
  },
  "today": {
-  "count": 2,
-  "story_count": 2,
-  "stories": [
-   {
-    "rank": 1,
-    "shown_on_page": true,
-    "company_id": "cik:0001950915",
-    "section": "money",
-    "headline": "Matchpoint Therapeutics Inc. reports $68.4M sold in a equity round",
-    "analysis": null,
-    "records": [
-     {
-      "section": "money",
-      "headline": "Matchpoint Therapeutics Inc. reports $68.4M sold in a equity round",
-      "detail": "First sale 2026-10-01, filed 2026-11-20, 35 days after the 2026-10-16 deadline. Sold $68.4M of $150.0M offering to 22 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1950915/000195091526000002/0001950915-26-000002-index.htm",
-      "event_date": "2026-10-01",
-      "key": "formd:0001950915-26-000002",
-      "filing_date": "2026-11-20",
-      "signed_date": null,
-      "published_date": "2026-11-20",
-      "first_detected": "2026-11-21",
-      "why": null,
-      "watch": null,
-      "company_id": "cik:0001950915",
-      "company": "Matchpoint Therapeutics Inc.",
-      "category": "equity round",
-      "ownership": "no listing or SEC reporting found (not verified private)",
-      "kind": "new offering",
-      "amount": 68399743.0,
-      "offering": 150000000.0,
-      "remaining": 81600257.0,
-      "investors": 22.0,
-      "industry": "Pharmaceuticals",
-      "security_types": [
-       "equity"
-      ],
-      "late_days": 35,
-      "deadline": "2026-10-16",
-      "entity_type": "Corporation",
-      "jurisdiction": "DELAWARE",
-      "state": "MASSACHUSETTS",
-      "previous_accession": null,
-      "source": "SEC Form D",
-      "form": "D",
-      "accession": "0001950915-26-000002",
-      "evidence": "official filing",
-      "recency": "historical"
-     }
-    ]
-   },
-   {
-    "rank": 2,
-    "shown_on_page": true,
-    "company_id": "cik:0002042705",
-    "section": "money",
-    "headline": "Klothea Bio, Inc. amended its offering: $8.6M sold (other securities)",
-    "analysis": null,
-    "records": [
-     {
-      "section": "money",
-      "headline": "Klothea Bio, Inc. amended its offering: $8.6M sold (other securities)",
-      "detail": "First sale 2024-10-11, filed 2026-11-20, 753 days after the 2024-10-28 deadline. Sold $8.6M of $10.4M offering to 26 investors. Securities: debt, option to acquire. Sales commissions $101,250 to Finalis Securities, LLC. Amendment to an earlier offering; the earlier amount is not in this pipeline's records. Ownership: no listing or SEC reporting found (not verified private).",
-      "source_url": "https://www.sec.gov/Archives/edgar/data/2042705/000204270526000007/0002042705-26-000007-index.htm",
-      "event_date": "2024-10-11",
-      "key": "formd:0002042705-26-000007",
-      "filing_date": "2026-11-20",
-      "signed_date": null,
-      "published_date": "2026-11-20",
-      "first_detected": "2026-11-21",
-      "why": null,
-      "watch": null,
-      "company_id": "cik:0002042705",
-      "company": "Klothea Bio, Inc.",
-      "category": "other securities",
-      "ownership": "no listing or SEC reporting found (not verified private)",
-      "kind": "update",
-      "amount": 8635000.0,
-      "offering": 10385000.0,
-      "remaining": 1750000.0,
-      "investors": 26.0,
-      "industry": "Other Health Care",
-      "security_types": [
-       "debt",
-       "option to acquire"
-      ],
-      "late_days": 753,
-      "deadline": "2024-10-28",
-      "entity_type": "Corporation",
-      "jurisdiction": "DELAWARE",
-      "state": "FLORIDA",
-      "previous_accession": "0002042705-26-000005",
-      "source": "SEC Form D",
-      "form": "D/A",
-      "accession": "0002042705-26-000007",
-      "evidence": "official filing",
-      "recency": "historical"
-     }
-    ]
-   }
-  ],
-  "items": [
-   {
-    "section": "money",
-    "headline": "Matchpoint Therapeutics Inc. reports $68.4M sold in a equity round",
-    "detail": "First sale 2026-10-01, filed 2026-11-20, 35 days after the 2026-10-16 deadline. Sold $68.4M of $150.0M offering to 22 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).",
-    "source_url": "https://www.sec.gov/Archives/edgar/data/1950915/000195091526000002/0001950915-26-000002-index.htm",
-    "event_date": "2026-10-01",
-    "key": "formd:0001950915-26-000002",
-    "filing_date": "2026-11-20",
-    "signed_date": null,
-    "published_date": "2026-11-20",
-    "first_detected": "2026-11-21",
-    "why": null,
-    "watch": null,
-    "company_id": "cik:0001950915",
-    "company": "Matchpoint Therapeutics Inc.",
-    "category": "equity round",
-    "ownership": "no listing or SEC reporting found (not verified private)",
-    "kind": "new offering",
-    "amount": 68399743.0,
-    "offering": 150000000.0,
-    "remaining": 81600257.0,
-    "investors": 22.0,
-    "industry": "Pharmaceuticals",
-    "security_types": [
-     "equity"
-    ],
-    "late_days": 35,
-    "deadline": "2026-10-16",
-    "entity_type": "Corporation",
-    "jurisdiction": "DELAWARE",
-    "state": "MASSACHUSETTS",
-    "previous_accession": null,
-    "source": "SEC Form D",
-    "form": "D",
-    "accession": "0001950915-26-000002",
-    "evidence": "official filing",
-    "recency": "historical",
-    "rank": 1,
-    "shown_on_page": true
-   },
-   {
-    "section": "money",
-    "headline": "Klothea Bio, Inc. amended its offering: $8.6M sold (other securities)",
-    "detail": "First sale 2024-10-11, filed 2026-11-20, 753 days after the 2024-10-28 deadline. Sold $8.6M of $10.4M offering to 26 investors. Securities: debt, option to acquire. Sales commissions $101,250 to Finalis Securities, LLC. Amendment to an earlier offering; the earlier amount is not in this pipeline's records. Ownership: no listing or SEC reporting found (not verified private).",
-    "source_url": "https://www.sec.gov/Archives/edgar/data/2042705/000204270526000007/0002042705-26-000007-index.htm",
-    "event_date": "2024-10-11",
-    "key": "formd:0002042705-26-000007",
-    "filing_date": "2026-11-20",
-    "signed_date": null,
-    "published_date": "2026-11-20",
-    "first_detected": "2026-11-21",
-    "why": null,
-    "watch": null,
-    "company_id": "cik:0002042705",
-    "company": "Klothea Bio, Inc.",
-    "category": "other securities",
-    "ownership": "no listing or SEC reporting found (not verified private)",
-    "kind": "update",
-    "amount": 8635000.0,
-    "offering": 10385000.0,
-    "remaining": 1750000.0,
-    "investors": 26.0,
-    "industry": "Other Health Care",
-    "security_types": [
-     "debt",
-     "option to acquire"
-    ],
-    "late_days": 753,
-    "deadline": "2024-10-28",
-    "entity_type": "Corporation",
-    "jurisdiction": "DELAWARE",
-    "state": "FLORIDA",
-    "previous_accession": "0002042705-26-000005",
-    "source": "SEC Form D",
-    "form": "D/A",
-    "accession": "0002042705-26-000007",
-    "evidence": "official filing",
-    "recency": "historical",
-    "rank": 2,
-    "shown_on_page": true
-   }
-  ],
+  "count": 0,
+  "story_count": 0,
+  "stories": [],
+  "items": [],
   "updated_records": []
  },
  "past_week": [
+  {
+   "date": "2026-11-21",
+   "items": [
+    {
+     "section": "money",
+     "headline": "Matchpoint Therapeutics Inc. reports $68.4M sold in a equity round",
+     "detail": "First sale 2026-10-01, filed 2026-11-20, 35 days after the 2026-10-16 deadline. Sold $68.4M of $150.0M offering to 22 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).",
+     "source_url": "https://www.sec.gov/Archives/edgar/data/1950915/000195091526000002/0001950915-26-000002-index.htm",
+     "event_date": "2026-10-01",
+     "key": "formd:0001950915-26-000002",
+     "filing_date": "2026-11-20",
+     "signed_date": null,
+     "published_date": "2026-11-20",
+     "first_detected": "2026-11-21",
+     "why": null,
+     "watch": null,
+     "company_id": "cik:0001950915",
+     "company": "Matchpoint Therapeutics Inc.",
+     "category": "equity round",
+     "ownership": "no listing or SEC reporting found (not verified private)",
+     "kind": "new offering",
+     "amount": 68399743.0,
+     "offering": 150000000.0,
+     "remaining": 81600257.0,
+     "investors": 22.0,
+     "industry": "Pharmaceuticals",
+     "security_types": [
+      "equity"
+     ],
+     "late_days": 35,
+     "deadline": "2026-10-16",
+     "entity_type": "Corporation",
+     "jurisdiction": "DELAWARE",
+     "state": "MASSACHUSETTS",
+     "previous_accession": null,
+     "source": "SEC Form D",
+     "form": "D",
+     "accession": "0001950915-26-000002",
+     "evidence": "official filing",
+     "recency": "historical"
+    },
+    {
+     "section": "money",
+     "headline": "Klothea Bio, Inc. amended its offering: $8.6M sold (other securities)",
+     "detail": "First sale 2024-10-11, filed 2026-11-20, 753 days after the 2024-10-28 deadline. Sold $8.6M of $10.4M offering to 26 investors. Securities: debt, option to acquire. Sales commissions $101,250 to Finalis Securities, LLC. Amendment to an earlier offering; the earlier amount is not in this pipeline's records. Ownership: no listing or SEC reporting found (not verified private).",
+     "source_url": "https://www.sec.gov/Archives/edgar/data/2042705/000204270526000007/0002042705-26-000007-index.htm",
+     "event_date": "2024-10-11",
+     "key": "formd:0002042705-26-000007",
+     "filing_date": "2026-11-20",
+     "signed_date": null,
+     "published_date": "2026-11-20",
+     "first_detected": "2026-11-21",
+     "why": null,
+     "watch": null,
+     "company_id": "cik:0002042705",
+     "company": "Klothea Bio, Inc.",
+     "category": "other securities",
+     "ownership": "no listing or SEC reporting found (not verified private)",
+     "kind": "update",
+     "amount": 8635000.0,
+     "offering": 10385000.0,
+     "remaining": 1750000.0,
+     "investors": 26.0,
+     "industry": "Other Health Care",
+     "security_types": [
+      "debt",
+      "option to acquire"
+     ],
+     "late_days": 753,
+     "deadline": "2024-10-28",
+     "entity_type": "Corporation",
+     "jurisdiction": "DELAWARE",
+     "state": "FLORIDA",
+     "previous_accession": "0002042705-26-000005",
+     "source": "SEC Form D",
+     "form": "D/A",
+     "accession": "0002042705-26-000007",
+     "evidence": "official filing",
+     "recency": "historical"
+    }
+   ]
+  },
   {
    "date": "2026-11-20",
    "items": [

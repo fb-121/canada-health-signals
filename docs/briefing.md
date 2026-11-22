@@ -1,4 +1,4 @@
-# HealthSignal, November 21, 2026
+# HealthSignal, November 22, 2026
 
 North American Healthcare Technology Intelligence. US-first, Canada-aware.
 
@@ -28,22 +28,15 @@ HealthSignal is a source-linked healthcare technology intelligence briefing for 
 
 Source data freshness (newest record) and pipeline freshness (last run) are separate. Live is whether the request worked.
 
-- SEC Form D daily index: newest source record 2026-11-20; pipeline last ran 2026-11-21T18:00Z; live request ok 244 filings read, 0 unreadable
-- openFDA 510(k) clearances: newest source record 2026-11-06; pipeline last ran 2026-11-21T17:58Z; live request ok 24 clearances returned by the API
-- FDA AI-enabled device list: newest source record 2026-06-29; pipeline last ran 2026-11-21T17:58Z; live request ok 1614 rows read from the FDA list
+- SEC Form D daily index: newest source record n/a; pipeline last ran 2026-11-22T18:31Z; live request unproven 0 filings read, 0 unreadable; no new index to read this run, so no filing was retrieved
+- openFDA 510(k) clearances: newest source record 2026-11-06; pipeline last ran 2026-11-22T18:31Z; live request ok 24 clearances returned by the API
+- FDA AI-enabled device list: newest source record 2026-06-29; pipeline last ran 2026-11-22T18:31Z; live request ok 1614 rows read from the FDA list
 - FDA 510(k) summaries: newest source record n/a; pipeline last ran 2026-11-16T04:11Z; live request blocked FDA redirects scripts to an abuse-detection page; automated reading off, manual review in use
-- Fixture unit tests (no network): 70 of 70 passed at 2026-11-21T17:58Z. This does not show any source is reachable.
+- Fixture unit tests (no network): 70 of 70 passed at 2026-11-22T18:31Z. This does not show any source is reachable.
 
-## Today (2 records in 2 stories)
+## Today (0 records in 0 stories)
 
-1. **Matchpoint Therapeutics Inc. reports $68.4M sold in a equity round** (money)
-   - Matchpoint Therapeutics Inc. reports $68.4M sold in a equity round [historical | official filing | equity round | no listing or SEC reporting found (not verified private) | filed 35 days late]
-     First sale 2026-10-01, filed 2026-11-20, 35 days after the 2026-10-16 deadline. Sold $68.4M of $150.0M offering to 22 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).
-     Dates: event 2026-10-01, filed 2026-11-20, detected 2026-11-21. Record Form D 0001950915-26-000002: https://www.sec.gov/Archives/edgar/data/1950915/000195091526000002/0001950915-26-000002-index.htm
-2. **Klothea Bio, Inc. amended its offering: $8.6M sold (other securities)** (money)
-   - Klothea Bio, Inc. amended its offering: $8.6M sold (other securities) [historical | official filing | other securities | no listing or SEC reporting found (not verified private) | filed 753 days late]
-     First sale 2024-10-11, filed 2026-11-20, 753 days after the 2024-10-28 deadline. Sold $8.6M of $10.4M offering to 26 investors. Securities: debt, option to acquire. Sales commissions $101,250 to Finalis Securities, LLC. Amendment to an earlier offering; the earlier amount is not in this pipeline's records. Ownership: no listing or SEC reporting found (not verified private).
-     Dates: event 2024-10-11, filed 2026-11-20, detected 2026-11-21. Record Form D 0002042705-26-000007: https://www.sec.gov/Archives/edgar/data/2042705/000204270526000007/0002042705-26-000007-index.htm
+No new records today.
 
 ## Open data-quality issues
 
@@ -60,6 +53,10 @@ Source data freshness (newest record) and pipeline freshness (last run) are sepa
 - [low] Public positioning (deferred to after the pilot (decision 2026-11-16)): The site root (index.html) is the earlier Canadian wastewater page, rebuilt daily by build_site.py, and does not link to HealthSignal, which lives at /briefing.html. Left unchanged for the pilot. After 2026-11-23 the direction is HealthSignal as the main offering, with the wastewater project kept as a separate archive. The GitHub repository description was set to the HealthSignal wording on 2026-11-16.
 
 ## Past week
+
+### 2026-11-21
+- Matchpoint Therapeutics Inc. reports $68.4M sold in a equity round (money): https://www.sec.gov/Archives/edgar/data/1950915/000195091526000002/0001950915-26-000002-index.htm
+- Klothea Bio, Inc. amended its offering: $8.6M sold (other securities) (money): https://www.sec.gov/Archives/edgar/data/2042705/000204270526000007/0002042705-26-000007-index.htm
 
 ### 2026-11-20
 - Laza Medical, Inc. reports $70.5M sold in a mixed equity and debt (money): https://www.sec.gov/Archives/edgar/data/2003996/000090514826005062/0000905148-26-005062-index.htm
@@ -119,6 +116,6 @@ Source data freshness (newest record) and pipeline freshness (last run) are sepa
 
 ## Data quality
 
-13 of 13 checks passed.
+1 of 1 checks passed.
 
-Build: content id a6e4a0a40b, schema 2, generated 2026-11-21T18:00Z, workflow commit f658104. Copies fetched through a cache can be minutes behind; compare the content id. Machine-readable version: briefing.json.
+Build: content id a6e4a0a40b, schema 2, generated 2026-11-22T18:31Z, workflow commit 7cb6bb6. Copies fetched through a cache can be minutes behind; compare the content id. Machine-readable version: briefing.json.
