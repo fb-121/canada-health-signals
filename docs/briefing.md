@@ -1,4 +1,4 @@
-# HealthSignal, November 22, 2026
+# HealthSignal, November 23, 2026
 
 North American Healthcare Technology Intelligence. US-first, Canada-aware.
 
@@ -28,11 +28,11 @@ HealthSignal is a source-linked healthcare technology intelligence briefing for 
 
 Source data freshness (newest record) and pipeline freshness (last run) are separate. Live is whether the request worked.
 
-- SEC Form D daily index: newest source record n/a; pipeline last ran 2026-11-22T18:31Z; live request unproven 0 filings read, 0 unreadable; no new index to read this run, so no filing was retrieved
-- openFDA 510(k) clearances: newest source record 2026-11-06; pipeline last ran 2026-11-22T18:31Z; live request ok 24 clearances returned by the API
-- FDA AI-enabled device list: newest source record 2026-06-29; pipeline last ran 2026-11-22T18:31Z; live request ok 1614 rows read from the FDA list
+- SEC Form D daily index: newest source record n/a; pipeline last ran 2026-11-23T22:39Z; live request unproven 0 filings read, 0 unreadable; no new index to read this run, so no filing was retrieved
+- openFDA 510(k) clearances: newest source record 2026-11-06; pipeline last ran 2026-11-23T22:39Z; live request ok 21 clearances returned by the API
+- FDA AI-enabled device list: newest source record 2026-06-29; pipeline last ran 2026-11-23T22:39Z; live request ok 1614 rows read from the FDA list
 - FDA 510(k) summaries: newest source record n/a; pipeline last ran 2026-11-16T04:11Z; live request blocked FDA redirects scripts to an abuse-detection page; automated reading off, manual review in use
-- Fixture unit tests (no network): 70 of 70 passed at 2026-11-22T18:31Z. This does not show any source is reachable.
+- Fixture unit tests (no network): 70 of 70 passed at 2026-11-23T22:39Z. This does not show any source is reachable.
 
 ## Today (0 records in 0 stories)
 
@@ -96,26 +96,9 @@ No new records today.
 - FDA clears ECG Buddy-LVD (EB-LVD-01) (ARPI, Inc.) (rules): https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K260436
 - FDA clears MAGNETOM Free.XL (Siemens Healthineers AG) (rules): https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K262011
 
-### 2026-11-15
-- Transformer TX Holdings, LLC reports $4.1M sold in a equity round (money): https://www.sec.gov/Archives/edgar/data/1926580/000112329226001498/0001123292-26-001498-index.htm
-- Nanopath Inc reports $29.9M sold in a mixed equity and debt (money): https://www.sec.gov/Archives/edgar/data/1940981/000194098126000003/0001940981-26-000003-index.htm
-- AngioInsight, Inc. reports $16.3M sold in a SAFE (per filer note) (money): https://www.sec.gov/Archives/edgar/data/2164579/000216457926000001/0002164579-26-000001-index.htm
-- Orcosa Inc. reports $6.0M sold in a equity round (money): https://www.sec.gov/Archives/edgar/data/1852165/000095015726001237/0000950157-26-001237-index.htm
-- Zai Lab Ltd reports $249.9M sold in a public-company private placement (money): https://www.sec.gov/Archives/edgar/data/1704292/000170429226000038/0001704292-26-000038-index.htm
-- ABVC BIOPHARMA, INC. reports $3.4M sold in a public-company private placement (money): https://www.sec.gov/Archives/edgar/data/1173313/000121390026118072/0001213900-26-118072-index.htm
-- InSitu Biologics, Inc. amended its offering: $15.0M sold (other securities) (money): https://www.sec.gov/Archives/edgar/data/1723443/000172344326000008/0001723443-26-000008-index.htm
-- Palomar Labs Holdings LLC amended its offering: $4.4M sold (equity round) (money): https://www.sec.gov/Archives/edgar/data/2061065/000206106526000006/0002061065-26-000006-index.htm
-- FDA clears BlineSlide (Deep Breathe, Inc.) (rules): https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K261679
-- FDA clears EFAI NEUROSUITE CTA LVO ASSESSMENT SYSTEM (LVO-CTA-100) (Ever Fortune.Ai, Co., Ltd.) (rules): https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K263109
-- FDA clears CINA-Aneurysm+ (Avicenna.Ai) (rules): https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K262147
-- FDA clears CINA-Aneurysm (Avicenna.Ai) (rules): https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K262062
-- FDA clears STAR Apollo Mapping System (Rhythm AI, Ltd.) (rules): https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K263380
-- FDA clears DS Core Detect (Dentsply Sirona, Inc.) (rules): https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K261072
-- FDA clears AVIEW Aorta Metrics (Coreline Soft Co., Ltd.) (rules): https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K260391
-
 
 ## Data quality
 
 1 of 1 checks passed.
 
-Build: content id a6e4a0a40b, schema 2, generated 2026-11-22T18:31Z, workflow commit 7cb6bb6. Copies fetched through a cache can be minutes behind; compare the content id. Machine-readable version: briefing.json.
+Build: content id a6e4a0a40b, schema 2, generated 2026-11-23T22:39Z, workflow commit 31f7fde. Copies fetched through a cache can be minutes behind; compare the content id. Machine-readable version: briefing.json.
