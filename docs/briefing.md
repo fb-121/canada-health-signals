@@ -1,4 +1,4 @@
-# HealthSignal, November 23, 2026
+# HealthSignal, November 24, 2026
 
 North American Healthcare Technology Intelligence. US-first, Canada-aware.
 
@@ -28,15 +28,38 @@ HealthSignal is a source-linked healthcare technology intelligence briefing for 
 
 Source data freshness (newest record) and pipeline freshness (last run) are separate. Live is whether the request worked.
 
-- SEC Form D daily index: newest source record n/a; pipeline last ran 2026-11-23T22:39Z; live request unproven 0 filings read, 0 unreadable; no new index to read this run, so no filing was retrieved
-- openFDA 510(k) clearances: newest source record 2026-11-06; pipeline last ran 2026-11-23T22:39Z; live request ok 21 clearances returned by the API
-- FDA AI-enabled device list: newest source record 2026-06-29; pipeline last ran 2026-11-23T22:39Z; live request ok 1614 rows read from the FDA list
+- SEC Form D daily index: newest source record 2026-11-23; pipeline last ran 2026-11-24T21:12Z; live request ok 226 filings read, 0 unreadable
+- openFDA 510(k) clearances: newest source record 2026-11-06; pipeline last ran 2026-11-24T21:11Z; live request ok 21 clearances returned by the API
+- FDA AI-enabled device list: newest source record 2026-06-29; pipeline last ran 2026-11-24T21:11Z; live request ok 1614 rows read from the FDA list
 - FDA 510(k) summaries: newest source record n/a; pipeline last ran 2026-11-16T04:11Z; live request blocked FDA redirects scripts to an abuse-detection page; automated reading off, manual review in use
-- Fixture unit tests (no network): 70 of 70 passed at 2026-11-23T22:39Z. This does not show any source is reachable.
+- Fixture unit tests (no network): 70 of 70 passed at 2026-11-24T21:11Z. This does not show any source is reachable.
 
-## Today (0 records in 0 stories)
+## Today (7 records in 3 stories)
 
-No new records today.
+1. **Dandelion Health Inc. reports $18.4M sold in a equity round** (money)
+   - Dandelion Health Inc. reports $18.4M sold in a equity round [historical | official filing | equity round | no listing or SEC reporting found (not verified private) | filed 272 days late]
+     First sale 2026-02-09, filed 2026-11-23, 272 days after the 2026-02-24 deadline. Sold $18.4M of $18.4M offering to 9 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).
+     Dates: event 2026-02-09, filed 2026-11-23, detected 2026-11-24. Record Form D 0002015969-26-000004: https://www.sec.gov/Archives/edgar/data/2015969/000201596926000004/0002015969-26-000004-index.htm
+2. **Kaliber Labs Inc.: 5 filings for the same company** (money)
+   - Kaliber Labs Inc. reports $5.1M sold in a equity round [historical | official filing | equity round | no listing or SEC reporting found (not verified private) | filed 529 days late]
+     First sale 2025-05-28, filed 2026-11-23, 529 days after the 2025-06-12 deadline. Sold $5.1M of $5.1M offering to 27 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).
+     Dates: event 2025-05-28, filed 2026-11-23, detected 2026-11-24. Record Form D 0002120054-26-000007: https://www.sec.gov/Archives/edgar/data/2120054/000212005426000007/0002120054-26-000007-index.htm
+   - Kaliber Labs Inc. reports $4.3M sold in a equity round [historical | official filing | equity round | no listing or SEC reporting found (not verified private) | filed 301 days late]
+     First sale 2026-01-09, filed 2026-11-23, 301 days after the 2026-01-26 deadline. Sold $4.3M of $4.3M offering to 25 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).
+     Dates: event 2026-01-09, filed 2026-11-23, detected 2026-11-24. Record Form D 0002120054-26-000008: https://www.sec.gov/Archives/edgar/data/2120054/000212005426000008/0002120054-26-000008-index.htm
+   - Kaliber Labs Inc. reports $4.1M sold in a equity round [historical | official filing | equity round | no listing or SEC reporting found (not verified private) | filed 1764 days late]
+     First sale 2022-01-07, filed 2026-11-23, 1764 days after the 2022-01-24 deadline. Sold $4.1M of $4.1M offering to 22 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).
+     Dates: event 2022-01-07, filed 2026-11-23, detected 2026-11-24. Record Form D 0002120054-26-000006: https://www.sec.gov/Archives/edgar/data/2120054/000212005426000006/0002120054-26-000006-index.htm
+   - Kaliber Labs Inc. reports $3.6M sold in a equity round [historical | official filing | equity round | no listing or SEC reporting found (not verified private) | filed 2128 days late]
+     First sale 2021-01-08, filed 2026-11-23, 2128 days after the 2021-01-25 deadline. Sold $3.6M of $3.6M offering to 17 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).
+     Dates: event 2021-01-08, filed 2026-11-23, detected 2026-11-24. Record Form D 0002120054-26-000004: https://www.sec.gov/Archives/edgar/data/2120054/000212005426000004/0002120054-26-000004-index.htm
+   - Kaliber Labs Inc. reports $2.7M sold in a equity round [historical | official filing | equity round | no listing or SEC reporting found (not verified private) | filed 2869 days late]
+     First sale 2018-12-31, filed 2026-11-23, 2869 days after the 2019-01-15 deadline. Sold $2.7M of $2.7M offering to 19 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).
+     Dates: event 2018-12-31, filed 2026-11-23, detected 2026-11-24. Record Form D 0002120054-26-000002: https://www.sec.gov/Archives/edgar/data/2120054/000212005426000002/0002120054-26-000002-index.htm
+3. **XaTek, Inc. reports $3.5M sold in a other securities** (money)
+   - XaTek, Inc. reports $3.5M sold in a other securities [historical | official filing | other securities | no listing or SEC reporting found (not verified private) | filed 143 days late]
+     First sale 2026-06-18, filed 2026-11-23, 143 days after the 2026-07-03 deadline. Sold $3.5M of $6.0M offering to 53 investors. Securities: equity, option to acquire. Ownership: no listing or SEC reporting found (not verified private).
+     Dates: event 2026-06-18, filed 2026-11-23, detected 2026-11-24. Record Form D 0002166010-26-000001: https://www.sec.gov/Archives/edgar/data/2166010/000216601026000001/0002166010-26-000001-index.htm
 
 ## Open data-quality issues
 
@@ -99,6 +122,6 @@ No new records today.
 
 ## Data quality
 
-1 of 1 checks passed.
+43 of 43 checks passed.
 
-Build: content id a6e4a0a40b, schema 2, generated 2026-11-23T22:39Z, workflow commit 31f7fde. Copies fetched through a cache can be minutes behind; compare the content id. Machine-readable version: briefing.json.
+Build: content id 236eef4c70, schema 2, generated 2026-11-24T21:12Z, workflow commit 7c5fceb. Copies fetched through a cache can be minutes behind; compare the content id. Machine-readable version: briefing.json.
