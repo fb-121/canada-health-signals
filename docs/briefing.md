@@ -1,4 +1,4 @@
-# HealthSignal, November 24, 2026
+# HealthSignal, November 25, 2026
 
 North American Healthcare Technology Intelligence. US-first, Canada-aware.
 
@@ -28,38 +28,34 @@ HealthSignal is a source-linked healthcare technology intelligence briefing for 
 
 Source data freshness (newest record) and pipeline freshness (last run) are separate. Live is whether the request worked.
 
-- SEC Form D daily index: newest source record 2026-11-23; pipeline last ran 2026-11-24T21:12Z; live request ok 226 filings read, 0 unreadable
-- openFDA 510(k) clearances: newest source record 2026-11-06; pipeline last ran 2026-11-24T21:11Z; live request ok 21 clearances returned by the API
-- FDA AI-enabled device list: newest source record 2026-06-29; pipeline last ran 2026-11-24T21:11Z; live request ok 1614 rows read from the FDA list
+- SEC Form D daily index: newest source record 2026-11-24; pipeline last ran 2026-11-25T20:31Z; live request ok 302 filings read, 0 unreadable
+- openFDA 510(k) clearances: newest source record 2026-11-13; pipeline last ran 2026-11-25T20:29Z; live request ok 27 clearances returned by the API
+- FDA AI-enabled device list: newest source record 2026-06-29; pipeline last ran 2026-11-25T20:29Z; live request ok 1614 rows read from the FDA list
 - FDA 510(k) summaries: newest source record n/a; pipeline last ran 2026-11-16T04:11Z; live request blocked FDA redirects scripts to an abuse-detection page; automated reading off, manual review in use
-- Fixture unit tests (no network): 70 of 70 passed at 2026-11-24T21:11Z. This does not show any source is reachable.
+- Fixture unit tests (no network): 70 of 70 passed at 2026-11-25T20:29Z. This does not show any source is reachable.
 
-## Today (7 records in 3 stories)
+## Today (5 records in 5 stories)
 
-1. **Dandelion Health Inc. reports $18.4M sold in a equity round** (money)
-   - Dandelion Health Inc. reports $18.4M sold in a equity round [historical | official filing | equity round | no listing or SEC reporting found (not verified private) | filed 272 days late]
-     First sale 2026-02-09, filed 2026-11-23, 272 days after the 2026-02-24 deadline. Sold $18.4M of $18.4M offering to 9 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).
-     Dates: event 2026-02-09, filed 2026-11-23, detected 2026-11-24. Record Form D 0002015969-26-000004: https://www.sec.gov/Archives/edgar/data/2015969/000201596926000004/0002015969-26-000004-index.htm
-2. **Kaliber Labs Inc.: 5 filings for the same company** (money)
-   - Kaliber Labs Inc. reports $5.1M sold in a equity round [historical | official filing | equity round | no listing or SEC reporting found (not verified private) | filed 529 days late]
-     First sale 2025-05-28, filed 2026-11-23, 529 days after the 2025-06-12 deadline. Sold $5.1M of $5.1M offering to 27 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).
-     Dates: event 2025-05-28, filed 2026-11-23, detected 2026-11-24. Record Form D 0002120054-26-000007: https://www.sec.gov/Archives/edgar/data/2120054/000212005426000007/0002120054-26-000007-index.htm
-   - Kaliber Labs Inc. reports $4.3M sold in a equity round [historical | official filing | equity round | no listing or SEC reporting found (not verified private) | filed 301 days late]
-     First sale 2026-01-09, filed 2026-11-23, 301 days after the 2026-01-26 deadline. Sold $4.3M of $4.3M offering to 25 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).
-     Dates: event 2026-01-09, filed 2026-11-23, detected 2026-11-24. Record Form D 0002120054-26-000008: https://www.sec.gov/Archives/edgar/data/2120054/000212005426000008/0002120054-26-000008-index.htm
-   - Kaliber Labs Inc. reports $4.1M sold in a equity round [historical | official filing | equity round | no listing or SEC reporting found (not verified private) | filed 1764 days late]
-     First sale 2022-01-07, filed 2026-11-23, 1764 days after the 2022-01-24 deadline. Sold $4.1M of $4.1M offering to 22 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).
-     Dates: event 2022-01-07, filed 2026-11-23, detected 2026-11-24. Record Form D 0002120054-26-000006: https://www.sec.gov/Archives/edgar/data/2120054/000212005426000006/0002120054-26-000006-index.htm
-   - Kaliber Labs Inc. reports $3.6M sold in a equity round [historical | official filing | equity round | no listing or SEC reporting found (not verified private) | filed 2128 days late]
-     First sale 2021-01-08, filed 2026-11-23, 2128 days after the 2021-01-25 deadline. Sold $3.6M of $3.6M offering to 17 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).
-     Dates: event 2021-01-08, filed 2026-11-23, detected 2026-11-24. Record Form D 0002120054-26-000004: https://www.sec.gov/Archives/edgar/data/2120054/000212005426000004/0002120054-26-000004-index.htm
-   - Kaliber Labs Inc. reports $2.7M sold in a equity round [historical | official filing | equity round | no listing or SEC reporting found (not verified private) | filed 2869 days late]
-     First sale 2018-12-31, filed 2026-11-23, 2869 days after the 2019-01-15 deadline. Sold $2.7M of $2.7M offering to 19 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).
-     Dates: event 2018-12-31, filed 2026-11-23, detected 2026-11-24. Record Form D 0002120054-26-000002: https://www.sec.gov/Archives/edgar/data/2120054/000212005426000002/0002120054-26-000002-index.htm
-3. **XaTek, Inc. reports $3.5M sold in a other securities** (money)
-   - XaTek, Inc. reports $3.5M sold in a other securities [historical | official filing | other securities | no listing or SEC reporting found (not verified private) | filed 143 days late]
-     First sale 2026-06-18, filed 2026-11-23, 143 days after the 2026-07-03 deadline. Sold $3.5M of $6.0M offering to 53 investors. Securities: equity, option to acquire. Ownership: no listing or SEC reporting found (not verified private).
-     Dates: event 2026-06-18, filed 2026-11-23, detected 2026-11-24. Record Form D 0002166010-26-000001: https://www.sec.gov/Archives/edgar/data/2166010/000216601026000001/0002166010-26-000001-index.htm
+1. **FDA clears a2z-Omni-Triage (A2z Radiology Ai, Inc.)** (rules)
+   - FDA clears a2z-Omni-Triage (A2z Radiology Ai, Inc.) [new | manufacturer_reported]
+     Product code QAS. The device or company name says AI. Not yet checked against FDA documents.
+     Dates: event 2026-11-12, filed None, detected 2026-11-25. Record K262765: https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K262765
+2. **FDA clears Bunkerhill NCCT Carotid (BunkerHill Health)** (rules)
+   - FDA clears Bunkerhill NCCT Carotid (BunkerHill Health) [new | inferred]
+     Product code JAK. Not on FDA's AI list. Guess from product code JAK, where 35% of clearances since 2016 are AI.
+     Dates: event 2026-11-12, filed None, detected 2026-11-25. Record K261206: https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K261206
+3. **Brij Medical, Inc. amended its offering: $6.8M sold (other securities)** (money)
+   - Brij Medical, Inc. amended its offering: $6.8M sold (other securities) [historical | official filing | other securities | no listing or SEC reporting found (not verified private) | filed 617 days late]
+     First sale 2025-02-28, filed 2026-11-24, 617 days after the 2025-03-17 deadline. Sold $6.8M of $6.8M offering to 17 investors. Securities: option to acquire, other (SAFE). Amendment to an earlier offering; the earlier amount is not in this pipeline's records. Ownership: no listing or SEC reporting found (not verified private).
+     Dates: event 2025-02-28, filed 2026-11-24, detected 2026-11-25. Record Form D 0001140361-26-045404: https://www.sec.gov/Archives/edgar/data/1872429/000114036126045404/0001140361-26-045404-index.htm
+4. **CLEARFLOW, Inc amended its offering: $4.6M sold (other securities)** (money)
+   - CLEARFLOW, Inc amended its offering: $4.6M sold (other securities) [historical | official filing | other securities | no listing or SEC reporting found (not verified private) | filed 473 days late]
+     First sale 2025-07-24, filed 2026-11-24, 473 days after the 2025-08-08 deadline. Sold $4.6M of $4.6M offering to 2 investors. Securities: debt, option to acquire, other (Convertible Promissory Note and Preferred Stock Warrants and the underlying preferred stock issuable upon conversion and exercise thereof.). Amendment to an earlier offering; the earlier amount is not in this pipeline's records. Ownership: no listing or SEC reporting found (not verified private).
+     Dates: event 2025-07-24, filed 2026-11-24, detected 2026-11-25. Record Form D 0001441046-26-000003: https://www.sec.gov/Archives/edgar/data/1441046/000144104626000003/0001441046-26-000003-index.htm
+5. **AKADEUM LIFE SCIENCES, INC. amended its offering: $3.9M sold (equity round)** (money)
+   - AKADEUM LIFE SCIENCES, INC. amended its offering: $3.9M sold (equity round) [historical | official filing | equity round | no listing or SEC reporting found (not verified private) | filed 137 days late]
+     First sale 2026-06-25, filed 2026-11-24, 137 days after the 2026-07-10 deadline. Sold $3.9M of $5.0M offering to 18 investors. Securities: equity. Amendment to an earlier offering; the earlier amount is not in this pipeline's records. Ownership: no listing or SEC reporting found (not verified private).
+     Dates: event 2026-06-25, filed 2026-11-24, detected 2026-11-25. Record Form D 0001622872-26-000002: https://www.sec.gov/Archives/edgar/data/1622872/000162287226000002/0001622872-26-000002-index.htm
 
 ## Open data-quality issues
 
@@ -76,6 +72,15 @@ Source data freshness (newest record) and pipeline freshness (last run) are sepa
 - [low] Public positioning (deferred to after the pilot (decision 2026-11-16)): The site root (index.html) is the earlier Canadian wastewater page, rebuilt daily by build_site.py, and does not link to HealthSignal, which lives at /briefing.html. Left unchanged for the pilot. After 2026-11-23 the direction is HealthSignal as the main offering, with the wastewater project kept as a separate archive. The GitHub repository description was set to the HealthSignal wording on 2026-11-16.
 
 ## Past week
+
+### 2026-11-24
+- Dandelion Health Inc. reports $18.4M sold in a equity round (money): https://www.sec.gov/Archives/edgar/data/2015969/000201596926000004/0002015969-26-000004-index.htm
+- Kaliber Labs Inc. reports $5.1M sold in a equity round (money): https://www.sec.gov/Archives/edgar/data/2120054/000212005426000007/0002120054-26-000007-index.htm
+- Kaliber Labs Inc. reports $4.3M sold in a equity round (money): https://www.sec.gov/Archives/edgar/data/2120054/000212005426000008/0002120054-26-000008-index.htm
+- Kaliber Labs Inc. reports $4.1M sold in a equity round (money): https://www.sec.gov/Archives/edgar/data/2120054/000212005426000006/0002120054-26-000006-index.htm
+- Kaliber Labs Inc. reports $3.6M sold in a equity round (money): https://www.sec.gov/Archives/edgar/data/2120054/000212005426000004/0002120054-26-000004-index.htm
+- XaTek, Inc. reports $3.5M sold in a other securities (money): https://www.sec.gov/Archives/edgar/data/2166010/000216601026000001/0002166010-26-000001-index.htm
+- Kaliber Labs Inc. reports $2.7M sold in a equity round (money): https://www.sec.gov/Archives/edgar/data/2120054/000212005426000002/0002120054-26-000002-index.htm
 
 ### 2026-11-21
 - Matchpoint Therapeutics Inc. reports $68.4M sold in a equity round (money): https://www.sec.gov/Archives/edgar/data/1950915/000195091526000002/0001950915-26-000002-index.htm
@@ -106,22 +111,9 @@ Source data freshness (newest record) and pipeline freshness (last run) are sepa
 - Reach Neuro, Inc. reports $2.0M sold in a other securities (money): https://www.sec.gov/Archives/edgar/data/1942277/000194227726000004/0001942277-26-000004-index.htm
 - Navierre Holdings, LLC reports $3.8M sold in a other securities (money): https://www.sec.gov/Archives/edgar/data/1909320/000190932026000008/0001909320-26-000008-index.htm
 
-### 2026-11-17
-- Cellphire, Inc. reports $6.5M sold in a equity round (money): https://www.sec.gov/Archives/edgar/data/1815181/000181518126000001/0001815181-26-000001-index.htm
-- Graviton BioScience Corp reports $5.0M sold in a equity round (money): https://www.sec.gov/Archives/edgar/data/1847048/000184704826000004/0001847048-26-000004-index.htm
-- Navierre Holdings, LLC reports $2.9M sold in a debt financing (money): https://www.sec.gov/Archives/edgar/data/1909320/000190932026000006/0001909320-26-000006-index.htm
-- Park Dental Partners, Inc. reports $9.2M sold in a public-company private placement (money): https://www.sec.gov/Archives/edgar/data/2069604/000110465926128149/0001104659-26-128149-index.htm
-- Pelthos Therapeutics Inc. reports $57.5M sold in a public-company private placement (money): https://www.sec.gov/Archives/edgar/data/1919246/000191924626000142/0001919246-26-000142-index.htm
-- Adze Biotechnology Inc amended its offering: $9.3M sold (equity round) (money): https://www.sec.gov/Archives/edgar/data/1787508/000178750826000001/0001787508-26-000001-index.htm
-- FDA clears PeekMed® web (Peek Health, S.A.) (rules): https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K262667
-- FDA clears Clever One (Ewoosoft Co., Ltd.) (rules): https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K260372
-- FDA clears CadAI-B Dx (BeamWorks, Inc.) (rules): https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K263749
-- FDA clears ECG Buddy-LVD (EB-LVD-01) (ARPI, Inc.) (rules): https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K260436
-- FDA clears MAGNETOM Free.XL (Siemens Healthineers AG) (rules): https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K262011
-
 
 ## Data quality
 
-43 of 43 checks passed.
+27 of 27 checks passed.
 
-Build: content id 236eef4c70, schema 2, generated 2026-11-24T21:12Z, workflow commit 7c5fceb. Copies fetched through a cache can be minutes behind; compare the content id. Machine-readable version: briefing.json.
+Build: content id f852d12a5d, schema 2, generated 2026-11-25T20:31Z, workflow commit 3f58659. Copies fetched through a cache can be minutes behind; compare the content id. Machine-readable version: briefing.json.
