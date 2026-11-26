@@ -1,0 +1,15 @@
+{
+ "cik": "0001671584",
+ "exchanges": [
+  "Nasdaq"
+ ],
+ "fetched": "2026-11-26",
+ "files_periodic_reports": true,
+ "name": "Aptevo Therapeutics Inc.",
+ "sic": "2834",
+ "sic_description": "Pharmaceutical Preparations",
+ "state_of_incorporation": "DE",
+ "tickers": [
+  "APVO"
+ ]
+}

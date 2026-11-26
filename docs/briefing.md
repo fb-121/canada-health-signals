@@ -1,4 +1,4 @@
-# HealthSignal, November 25, 2026
+# HealthSignal, November 26, 2026
 
 North American Healthcare Technology Intelligence. US-first, Canada-aware.
 
@@ -28,34 +28,22 @@ HealthSignal is a source-linked healthcare technology intelligence briefing for 
 
 Source data freshness (newest record) and pipeline freshness (last run) are separate. Live is whether the request worked.
 
-- SEC Form D daily index: newest source record 2026-11-24; pipeline last ran 2026-11-25T20:31Z; live request ok 302 filings read, 0 unreadable
-- openFDA 510(k) clearances: newest source record 2026-11-13; pipeline last ran 2026-11-25T20:29Z; live request ok 27 clearances returned by the API
-- FDA AI-enabled device list: newest source record 2026-06-29; pipeline last ran 2026-11-25T20:29Z; live request ok 1614 rows read from the FDA list
+- SEC Form D daily index: newest source record 2026-11-25; pipeline last ran 2026-11-26T20:13Z; live request ok 304 filings read, 0 unreadable
+- openFDA 510(k) clearances: newest source record 2026-11-13; pipeline last ran 2026-11-26T20:12Z; live request ok 24 clearances returned by the API
+- FDA AI-enabled device list: newest source record 2026-06-29; pipeline last ran 2026-11-26T20:11Z; live request ok 1614 rows read from the FDA list
 - FDA 510(k) summaries: newest source record n/a; pipeline last ran 2026-11-16T04:11Z; live request blocked FDA redirects scripts to an abuse-detection page; automated reading off, manual review in use
-- Fixture unit tests (no network): 70 of 70 passed at 2026-11-25T20:29Z. This does not show any source is reachable.
+- Fixture unit tests (no network): 70 of 70 passed at 2026-11-26T20:11Z. This does not show any source is reachable.
 
-## Today (5 records in 5 stories)
+## Today (2 records in 2 stories)
 
-1. **FDA clears a2z-Omni-Triage (A2z Radiology Ai, Inc.)** (rules)
-   - FDA clears a2z-Omni-Triage (A2z Radiology Ai, Inc.) [new | manufacturer_reported]
-     Product code QAS. The device or company name says AI. Not yet checked against FDA documents.
-     Dates: event 2026-11-12, filed None, detected 2026-11-25. Record K262765: https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K262765
-2. **FDA clears Bunkerhill NCCT Carotid (BunkerHill Health)** (rules)
-   - FDA clears Bunkerhill NCCT Carotid (BunkerHill Health) [new | inferred]
-     Product code JAK. Not on FDA's AI list. Guess from product code JAK, where 35% of clearances since 2016 are AI.
-     Dates: event 2026-11-12, filed None, detected 2026-11-25. Record K261206: https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K261206
-3. **Brij Medical, Inc. amended its offering: $6.8M sold (other securities)** (money)
-   - Brij Medical, Inc. amended its offering: $6.8M sold (other securities) [historical | official filing | other securities | no listing or SEC reporting found (not verified private) | filed 617 days late]
-     First sale 2025-02-28, filed 2026-11-24, 617 days after the 2025-03-17 deadline. Sold $6.8M of $6.8M offering to 17 investors. Securities: option to acquire, other (SAFE). Amendment to an earlier offering; the earlier amount is not in this pipeline's records. Ownership: no listing or SEC reporting found (not verified private).
-     Dates: event 2025-02-28, filed 2026-11-24, detected 2026-11-25. Record Form D 0001140361-26-045404: https://www.sec.gov/Archives/edgar/data/1872429/000114036126045404/0001140361-26-045404-index.htm
-4. **CLEARFLOW, Inc amended its offering: $4.6M sold (other securities)** (money)
-   - CLEARFLOW, Inc amended its offering: $4.6M sold (other securities) [historical | official filing | other securities | no listing or SEC reporting found (not verified private) | filed 473 days late]
-     First sale 2025-07-24, filed 2026-11-24, 473 days after the 2025-08-08 deadline. Sold $4.6M of $4.6M offering to 2 investors. Securities: debt, option to acquire, other (Convertible Promissory Note and Preferred Stock Warrants and the underlying preferred stock issuable upon conversion and exercise thereof.). Amendment to an earlier offering; the earlier amount is not in this pipeline's records. Ownership: no listing or SEC reporting found (not verified private).
-     Dates: event 2025-07-24, filed 2026-11-24, detected 2026-11-25. Record Form D 0001441046-26-000003: https://www.sec.gov/Archives/edgar/data/1441046/000144104626000003/0001441046-26-000003-index.htm
-5. **AKADEUM LIFE SCIENCES, INC. amended its offering: $3.9M sold (equity round)** (money)
-   - AKADEUM LIFE SCIENCES, INC. amended its offering: $3.9M sold (equity round) [historical | official filing | equity round | no listing or SEC reporting found (not verified private) | filed 137 days late]
-     First sale 2026-06-25, filed 2026-11-24, 137 days after the 2026-07-10 deadline. Sold $3.9M of $5.0M offering to 18 investors. Securities: equity. Amendment to an earlier offering; the earlier amount is not in this pipeline's records. Ownership: no listing or SEC reporting found (not verified private).
-     Dates: event 2026-06-25, filed 2026-11-24, detected 2026-11-25. Record Form D 0001622872-26-000002: https://www.sec.gov/Archives/edgar/data/1622872/000162287226000002/0001622872-26-000002-index.htm
+1. **Bloom Surgical, Inc. reports $3.0M sold in a equity round** (money)
+   - Bloom Surgical, Inc. reports $3.0M sold in a equity round [historical | official filing | equity round | no listing or SEC reporting found (not verified private) | filed 105 days late]
+     First sale 2026-07-28, filed 2026-11-25, 105 days after the 2026-08-12 deadline. Sold $3.0M of $3.0M offering to 67 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).
+     Dates: event 2026-07-28, filed 2026-11-25, detected 2026-11-26. Record Form D 0002166666-26-000001: https://www.sec.gov/Archives/edgar/data/2166666/000216666626000001/0002166666-26-000001-index.htm
+2. **Aptevo Therapeutics Inc. reports $3.0M sold in a public-company private placement** (money)
+   - Aptevo Therapeutics Inc. reports $3.0M sold in a public-company private placement [recent | official filing | public-company private placement | listed (Nasdaq: APVO)]
+     First sale 2026-11-11, filed 2026-11-25. Sold $3.0M of $3.0M offering to 3 investors. Securities: option to acquire. Sales commissions $285,000 to Roth Capital Partners, LLC. Ownership: listed (Nasdaq: APVO).
+     Dates: event 2026-11-11, filed 2026-11-25, detected 2026-11-26. Record Form D 0001193125-26-478470: https://www.sec.gov/Archives/edgar/data/1671584/000119312526478470/0001193125-26-478470-index.htm
 
 ## Open data-quality issues
 
@@ -72,6 +60,13 @@ Source data freshness (newest record) and pipeline freshness (last run) are sepa
 - [low] Public positioning (deferred to after the pilot (decision 2026-11-16)): The site root (index.html) is the earlier Canadian wastewater page, rebuilt daily by build_site.py, and does not link to HealthSignal, which lives at /briefing.html. Left unchanged for the pilot. After 2026-11-23 the direction is HealthSignal as the main offering, with the wastewater project kept as a separate archive. The GitHub repository description was set to the HealthSignal wording on 2026-11-16.
 
 ## Past week
+
+### 2026-11-25
+- Brij Medical, Inc. amended its offering: $6.8M sold (other securities) (money): https://www.sec.gov/Archives/edgar/data/1872429/000114036126045404/0001140361-26-045404-index.htm
+- CLEARFLOW, Inc amended its offering: $4.6M sold (other securities) (money): https://www.sec.gov/Archives/edgar/data/1441046/000144104626000003/0001441046-26-000003-index.htm
+- AKADEUM LIFE SCIENCES, INC. amended its offering: $3.9M sold (equity round) (money): https://www.sec.gov/Archives/edgar/data/1622872/000162287226000002/0001622872-26-000002-index.htm
+- FDA clears a2z-Omni-Triage (A2z Radiology Ai, Inc.) (rules): https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K262765
+- FDA clears Bunkerhill NCCT Carotid (BunkerHill Health) (rules): https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K261206
 
 ### 2026-11-24
 - Dandelion Health Inc. reports $18.4M sold in a equity round (money): https://www.sec.gov/Archives/edgar/data/2015969/000201596926000004/0002015969-26-000004-index.htm
@@ -106,14 +101,9 @@ Source data freshness (newest record) and pipeline freshness (last run) are sepa
 - Kura Oncology, Inc. reports $5.0M sold in a public-company private placement (money): https://www.sec.gov/Archives/edgar/data/1422143/000123191926001602/0001231919-26-001602-index.htm
 - NewcelX Ltd. reports $2.9M sold in a public-company private placement (money): https://www.sec.gov/Archives/edgar/data/1783036/000121390026121840/0001213900-26-121840-index.htm
 
-### 2026-11-18
-- Human Biotech, Inc. reports $6.6M sold in a option-based (SAFE or warrant, not stated) (money): https://www.sec.gov/Archives/edgar/data/2126389/000212638926000004/0002126389-26-000004-index.htm
-- Reach Neuro, Inc. reports $2.0M sold in a other securities (money): https://www.sec.gov/Archives/edgar/data/1942277/000194227726000004/0001942277-26-000004-index.htm
-- Navierre Holdings, LLC reports $3.8M sold in a other securities (money): https://www.sec.gov/Archives/edgar/data/1909320/000190932026000008/0001909320-26-000008-index.htm
-
 
 ## Data quality
 
-27 of 27 checks passed.
+13 of 13 checks passed.
 
-Build: content id f852d12a5d, schema 2, generated 2026-11-25T20:31Z, workflow commit 3f58659. Copies fetched through a cache can be minutes behind; compare the content id. Machine-readable version: briefing.json.
+Build: content id 402e6800b4, schema 2, generated 2026-11-26T20:13Z, workflow commit 267dc3e. Copies fetched through a cache can be minutes behind; compare the content id. Machine-readable version: briefing.json.
