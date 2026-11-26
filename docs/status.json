@@ -1,16 +1,16 @@
 {
- "checked_utc": "2026-11-25T20:32Z",
+ "checked_utc": "2026-11-26T20:14Z",
  "build_checked": {
   "schema_version": 2,
-  "content_id": "f852d12a5d",
-  "generated_utc": "2026-11-25T20:31Z",
+  "content_id": "402e6800b4",
+  "generated_utc": "2026-11-26T20:13Z",
   "age_hours": 0.0,
   "is_current": true
  },
  "build": {
   "status": "ok",
-  "run_utc": "2026-11-25T20:31Z",
-  "run_url": "https://github.com/fb-121/canada-health-signals/actions/runs/45695193830",
+  "run_utc": "2026-11-26T20:13Z",
+  "run_url": "https://github.com/fb-121/canada-health-signals/actions/runs/45889003975",
   "critical": {
    "tests": "success",
    "build": "success"
@@ -26,8 +26,8 @@
   "optional_failed": [],
   "published": {
    "is_current": true,
-   "generated_utc": "2026-11-25T20:31Z",
-   "content_id": "f852d12a5d"
+   "generated_utc": "2026-11-26T20:13Z",
+   "content_id": "402e6800b4"
   }
  },
  "fixture_unit_tests": {
@@ -36,7 +36,7 @@
   "failures": 0,
   "errors": 0,
   "passed": 70,
-  "ran_at": "2026-11-25T20:29Z",
+  "ran_at": "2026-11-26T20:11Z",
   "meaning": "Logic checked on reconstructed records with no network. Says nothing about live sources."
  },
  "live_sources": {
@@ -53,17 +53,17 @@
   "fda_ai_device_list": {
    "live": "ok",
    "live_detail": "1614 rows read from the FDA list",
-   "checked_at": "2026-11-25T20:29Z"
+   "checked_at": "2026-11-26T20:11Z"
   },
   "openfda_510k": {
    "live": "ok",
-   "live_detail": "27 clearances returned by the API",
-   "checked_at": "2026-11-25T20:29Z"
+   "live_detail": "24 clearances returned by the API",
+   "checked_at": "2026-11-26T20:12Z"
   },
   "sec_form_d": {
    "live": "ok",
-   "live_detail": "302 filings read, 0 unreadable",
-   "checked_at": "2026-11-25T20:31Z"
+   "live_detail": "304 filings read, 0 unreadable",
+   "checked_at": "2026-11-26T20:13Z"
   }
  },
  "public_copies": {
@@ -72,22 +72,22 @@
    "canonical": {
     "url": "https://fb-121.github.io/canada-health-signals/briefing.json",
     "http": 200,
-    "content_id": "f852d12a5d",
-    "generated_utc": "2026-11-25T20:31Z",
+    "content_id": "402e6800b4",
+    "generated_utc": "2026-11-26T20:13Z",
     "headers": {
      "cache-control": "max-age=600",
      "age": "0",
      "x-cache": "MISS",
-     "last-modified": "Wed, 25 Nov 2026 20:32:18 GMT",
-     "etag": "\"6b0745d2-10e5a\"",
-     "expires": "Wed, 25 Nov 2026 20:42:37 GMT",
-     "x-served-by": "cache-bur-kbur8200078-BUR"
+     "last-modified": "Thu, 26 Nov 2026 20:14:01 GMT",
+     "etag": "\"6b089309-f408\"",
+     "expires": "Thu, 26 Nov 2026 20:24:14 GMT",
+     "x-served-by": "cache-bfi-krnt7300027-BFI"
     }
    },
    "origin": {
     "http": 200,
-    "content_id": "f852d12a5d",
-    "generated_utc": "2026-11-25T20:31Z"
+    "content_id": "402e6800b4",
+    "generated_utc": "2026-11-26T20:13Z"
    }
   },
   "pages md": {
@@ -95,22 +95,22 @@
    "canonical": {
     "url": "https://fb-121.github.io/canada-health-signals/briefing.md",
     "http": 200,
-    "content_id": "f852d12a5d",
-    "generated_utc": "2026-11-25T20:31Z",
+    "content_id": "402e6800b4",
+    "generated_utc": "2026-11-26T20:13Z",
     "headers": {
      "cache-control": "max-age=600",
      "age": "0",
      "x-cache": "MISS",
-     "last-modified": "Wed, 25 Nov 2026 20:32:18 GMT",
-     "etag": "\"6b0745d2-42e6\"",
-     "expires": "Wed, 25 Nov 2026 20:42:37 GMT",
-     "x-served-by": "cache-bur-kbur8200085-BUR"
+     "last-modified": "Thu, 26 Nov 2026 20:14:01 GMT",
+     "etag": "\"6b089309-3bfd\"",
+     "expires": "Thu, 26 Nov 2026 20:24:14 GMT",
+     "x-served-by": "cache-bfi-krnt7300110-BFI"
     }
    },
    "origin": {
     "http": 200,
-    "content_id": "f852d12a5d",
-    "generated_utc": "2026-11-25T20:31Z"
+    "content_id": "402e6800b4",
+    "generated_utc": "2026-11-26T20:13Z"
    }
   },
   "pages html": {
@@ -118,22 +118,22 @@
    "canonical": {
     "url": "https://fb-121.github.io/canada-health-signals/briefing.html",
     "http": 200,
-    "content_id": "f852d12a5d",
-    "generated_utc": "2026-11-25T20:31Z",
+    "content_id": "402e6800b4",
+    "generated_utc": "2026-11-26T20:13Z",
     "headers": {
      "cache-control": "max-age=600",
      "age": "0",
      "x-cache": "MISS",
-     "last-modified": "Wed, 25 Nov 2026 20:32:18 GMT",
-     "etag": "\"6b0745d2-7c32\"",
-     "expires": "Wed, 25 Nov 2026 20:42:37 GMT",
-     "x-served-by": "cache-hhr-khhr2060026-HHR"
+     "last-modified": "Thu, 26 Nov 2026 20:14:01 GMT",
+     "etag": "\"6b089309-715f\"",
+     "expires": "Thu, 26 Nov 2026 20:24:14 GMT",
+     "x-served-by": "cache-bfi-krnt7300108-BFI"
     }
    },
    "origin": {
     "http": 200,
-    "content_id": "f852d12a5d",
-    "generated_utc": "2026-11-25T20:31Z"
+    "content_id": "402e6800b4",
+    "generated_utc": "2026-11-26T20:13Z"
    }
   },
   "raw json": {
@@ -141,20 +141,20 @@
    "canonical": {
     "url": "https://raw.githubusercontent.com/fb-121/canada-health-signals/main/docs/briefing.json",
     "http": 200,
-    "content_id": "f852d12a5d",
-    "generated_utc": "2026-11-25T20:31Z",
+    "content_id": "402e6800b4",
+    "generated_utc": "2026-11-26T20:13Z",
     "headers": {
      "cache-control": "max-age=300",
      "x-cache": "MISS",
-     "etag": "\"e6574c0be933c628a466b0a077ba66e9f2cb1c3c719ac9a6c41d0f05849b6c29\"",
-     "expires": "Wed, 25 Nov 2026 20:36:51 GMT",
-     "x-served-by": "cache-bur-kbur8200022-BUR"
+     "etag": "\"c7065d8912e7751abe4a47ad988254b632540ef5052f2bace653de2e9316db6c\"",
+     "expires": "Thu, 26 Nov 2026 20:18:28 GMT",
+     "x-served-by": "cache-bfi-krnt7300049-BFI"
     }
    },
    "origin": {
     "http": 200,
-    "content_id": "f852d12a5d",
-    "generated_utc": "2026-11-25T20:31Z"
+    "content_id": "402e6800b4",
+    "generated_utc": "2026-11-26T20:13Z"
    }
   },
   "raw md": {
@@ -162,20 +162,20 @@
    "canonical": {
     "url": "https://raw.githubusercontent.com/fb-121/canada-health-signals/main/docs/briefing.md",
     "http": 200,
-    "content_id": "f852d12a5d",
-    "generated_utc": "2026-11-25T20:31Z",
+    "content_id": "402e6800b4",
+    "generated_utc": "2026-11-26T20:13Z",
     "headers": {
      "cache-control": "max-age=300",
      "x-cache": "MISS",
-     "etag": "\"904f8cf61601be3c3a777d26a2ec761234f5f6389846c1074b46faf36c554022\"",
-     "expires": "Wed, 25 Nov 2026 20:36:51 GMT",
-     "x-served-by": "cache-bur-kbur8200113-BUR"
+     "etag": "\"c60822acf7fc159fc95aba4fc32821d69a2199c69cabe483e4724b64ea525aaf\"",
+     "expires": "Thu, 26 Nov 2026 20:18:28 GMT",
+     "x-served-by": "cache-bfi-krnt7300096-BFI"
     }
    },
    "origin": {
     "http": 200,
-    "content_id": "f852d12a5d",
-    "generated_utc": "2026-11-25T20:31Z"
+    "content_id": "402e6800b4",
+    "generated_utc": "2026-11-26T20:13Z"
    }
   }
  },
