@@ -1,4 +1,4 @@
-# HealthSignal, November 26, 2026
+# HealthSignal, November 27, 2026
 
 North American Healthcare Technology Intelligence. US-first, Canada-aware.
 
@@ -28,22 +28,15 @@ HealthSignal is a source-linked healthcare technology intelligence briefing for 
 
 Source data freshness (newest record) and pipeline freshness (last run) are separate. Live is whether the request worked.
 
-- SEC Form D daily index: newest source record 2026-11-25; pipeline last ran 2026-11-26T20:13Z; live request ok 304 filings read, 0 unreadable
-- openFDA 510(k) clearances: newest source record 2026-11-13; pipeline last ran 2026-11-26T20:12Z; live request ok 24 clearances returned by the API
-- FDA AI-enabled device list: newest source record 2026-06-29; pipeline last ran 2026-11-26T20:11Z; live request ok 1614 rows read from the FDA list
+- SEC Form D daily index: newest source record n/a; pipeline last ran 2026-11-27T19:58Z; live request unproven 0 filings read, 0 unreadable; no new index to read this run, so no filing was retrieved
+- openFDA 510(k) clearances: newest source record 2026-11-13; pipeline last ran 2026-11-27T19:58Z; live request ok 23 clearances returned by the API
+- FDA AI-enabled device list: newest source record 2026-06-29; pipeline last ran 2026-11-27T19:58Z; live request ok 1614 rows read from the FDA list
 - FDA 510(k) summaries: newest source record n/a; pipeline last ran 2026-11-16T04:11Z; live request blocked FDA redirects scripts to an abuse-detection page; automated reading off, manual review in use
-- Fixture unit tests (no network): 70 of 70 passed at 2026-11-26T20:11Z. This does not show any source is reachable.
+- Fixture unit tests (no network): 70 of 70 passed at 2026-11-27T19:58Z. This does not show any source is reachable.
 
-## Today (2 records in 2 stories)
+## Today (0 records in 0 stories)
 
-1. **Bloom Surgical, Inc. reports $3.0M sold in a equity round** (money)
-   - Bloom Surgical, Inc. reports $3.0M sold in a equity round [historical | official filing | equity round | no listing or SEC reporting found (not verified private) | filed 105 days late]
-     First sale 2026-07-28, filed 2026-11-25, 105 days after the 2026-08-12 deadline. Sold $3.0M of $3.0M offering to 67 investors. Securities: equity. Ownership: no listing or SEC reporting found (not verified private).
-     Dates: event 2026-07-28, filed 2026-11-25, detected 2026-11-26. Record Form D 0002166666-26-000001: https://www.sec.gov/Archives/edgar/data/2166666/000216666626000001/0002166666-26-000001-index.htm
-2. **Aptevo Therapeutics Inc. reports $3.0M sold in a public-company private placement** (money)
-   - Aptevo Therapeutics Inc. reports $3.0M sold in a public-company private placement [recent | official filing | public-company private placement | listed (Nasdaq: APVO)]
-     First sale 2026-11-11, filed 2026-11-25. Sold $3.0M of $3.0M offering to 3 investors. Securities: option to acquire. Sales commissions $285,000 to Roth Capital Partners, LLC. Ownership: listed (Nasdaq: APVO).
-     Dates: event 2026-11-11, filed 2026-11-25, detected 2026-11-26. Record Form D 0001193125-26-478470: https://www.sec.gov/Archives/edgar/data/1671584/000119312526478470/0001193125-26-478470-index.htm
+No new records today.
 
 ## Open data-quality issues
 
@@ -60,6 +53,10 @@ Source data freshness (newest record) and pipeline freshness (last run) are sepa
 - [low] Public positioning (deferred to after the pilot (decision 2026-11-16)): The site root (index.html) is the earlier Canadian wastewater page, rebuilt daily by build_site.py, and does not link to HealthSignal, which lives at /briefing.html. Left unchanged for the pilot. After 2026-11-23 the direction is HealthSignal as the main offering, with the wastewater project kept as a separate archive. The GitHub repository description was set to the HealthSignal wording on 2026-11-16.
 
 ## Past week
+
+### 2026-11-26
+- Bloom Surgical, Inc. reports $3.0M sold in a equity round (money): https://www.sec.gov/Archives/edgar/data/2166666/000216666626000001/0002166666-26-000001-index.htm
+- Aptevo Therapeutics Inc. reports $3.0M sold in a public-company private placement (money): https://www.sec.gov/Archives/edgar/data/1671584/000119312526478470/0001193125-26-478470-index.htm
 
 ### 2026-11-25
 - Brij Medical, Inc. amended its offering: $6.8M sold (other securities) (money): https://www.sec.gov/Archives/edgar/data/1872429/000114036126045404/0001140361-26-045404-index.htm
@@ -92,18 +89,9 @@ Source data freshness (newest record) and pipeline freshness (last run) are sepa
 - RxWare, Inc. amended its offering: $6.3M sold (other securities) (money): https://www.sec.gov/Archives/edgar/data/1790134/000179013426000002/0001790134-26-000002-index.htm
 - BFKW, LLC amended its offering: $2.6M sold (equity round) (money): https://www.sec.gov/Archives/edgar/data/1579495/000157949526000003/0001579495-26-000003-index.htm
 
-### 2026-11-19
-- Galvanize Therapeutics, Inc. reports $136.2M sold in a equity round (money): https://www.sec.gov/Archives/edgar/data/1659073/000165907326000004/0001659073-26-000004-index.htm
-- Vesalius Longevity Labs Inc. reports $6.5M sold in a other securities (money): https://www.sec.gov/Archives/edgar/data/2131865/000106299326006173/0001062993-26-006173-index.htm
-- Linnaeus Therapeutics, Inc. reports $3.7M sold in a equity round (money): https://www.sec.gov/Archives/edgar/data/1752026/000175202626000008/0001752026-26-000008-index.htm
-- Ansa Biotechnologies, Inc. reports $54.4M sold in a equity round (money): https://www.sec.gov/Archives/edgar/data/1816722/000123191926001596/0001231919-26-001596-index.htm
-- Rising Tide Dental Holdings, LLC reports $61.7M sold in a equity round (money): https://www.sec.gov/Archives/edgar/data/2159666/000215966626000001/0002159666-26-000001-index.htm
-- Kura Oncology, Inc. reports $5.0M sold in a public-company private placement (money): https://www.sec.gov/Archives/edgar/data/1422143/000123191926001602/0001231919-26-001602-index.htm
-- NewcelX Ltd. reports $2.9M sold in a public-company private placement (money): https://www.sec.gov/Archives/edgar/data/1783036/000121390026121840/0001213900-26-121840-index.htm
-
 
 ## Data quality
 
-13 of 13 checks passed.
+1 of 1 checks passed.
 
-Build: content id 402e6800b4, schema 2, generated 2026-11-26T20:13Z, workflow commit 267dc3e. Copies fetched through a cache can be minutes behind; compare the content id. Machine-readable version: briefing.json.
+Build: content id 402e6800b4, schema 2, generated 2026-11-27T19:58Z, workflow commit 2e24ec6. Copies fetched through a cache can be minutes behind; compare the content id. Machine-readable version: briefing.json.
